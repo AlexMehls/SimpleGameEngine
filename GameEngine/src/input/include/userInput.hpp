@@ -15,7 +15,6 @@ public:
     double mouseY = 0;
     double mouseDeltaY = 0;
 
-    static UserInput &
-    getInstance();
+    static UserInput &getInstance();
     void step();
 };
