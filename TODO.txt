@@ -1,0 +1,9 @@
+git
+Textures
+Model Loading
+camera vec2 for rotation
+cap for deltaTime
+
+libs path (gameEngine)
+callbacks (gameEngine)
+switch to GameEngine
