@@ -11,7 +11,8 @@
 
 int main(int argc, char *argv[])
 {
-    GameEngine engine = GameEngine::getInstance();
+    GameEngine &engine = GameEngine::getInstance();
+    engine.gameEngineInit();
 
     Triangle triangle;
     triangle.setPos(glm::vec3(2, 0, 0));
@@ -81,5 +82,6 @@ int main(int argc, char *argv[])
         glfwPollEvents();
     }
 
+    engine.gameEngineTerminate();
     return 0;
 }

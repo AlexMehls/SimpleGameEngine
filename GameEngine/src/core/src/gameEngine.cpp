@@ -6,10 +6,7 @@
 #include <iostream>
 #include <filesystem>
 
-GameEngine::GameEngine()
-{
-    gameEngineInit();
-}
+GameEngine::GameEngine() {}
 GameEngine::~GameEngine()
 {
     gameEngineTerminate();
@@ -23,6 +20,11 @@ GameEngine &GameEngine::getInstance()
 
 int GameEngine::gameEngineInit()
 {
+    if (isInitialized)
+    {
+        return 1;
+    }
+
     if (!glfwInit())
     {
         std::cerr << "Init Failed!" << std::endl;
@@ -104,11 +106,17 @@ int GameEngine::gameEngineInit()
 
     glUseProgram(programId);
 
+    isInitialized = true;
     return 0;
 }
 
 void GameEngine::gameEngineTerminate()
 {
+    if (!isInitialized)
+    {
+        return;
+    }
+
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 
@@ -120,4 +128,6 @@ void GameEngine::gameEngineTerminate()
     glfwDestroyWindow(window);
 
     glfwTerminate();
+
+    isInitialized = false;
 }

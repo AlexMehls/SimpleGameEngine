@@ -1,5 +1,6 @@
 #pragma once
 
+// This class is a singleton
 class UserInput
 {
 public:
@@ -17,4 +18,10 @@ public:
 
     static UserInput &getInstance();
     void step();
+
+    UserInput(UserInput const &) = delete;
+    void operator=(UserInput const &) = delete;
+
+private:
+    UserInput() = default;
 };

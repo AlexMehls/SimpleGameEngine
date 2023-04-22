@@ -4,13 +4,14 @@
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
 
+// This class is a singleton
 class GameEngine
 {
 public:
-    GameEngine();
-    ~GameEngine();
-
     static GameEngine &getInstance();
+
+    int gameEngineInit();
+    void gameEngineTerminate();
 
     GLFWwindow *window;
 
@@ -20,7 +21,12 @@ public:
     GLuint programId;
     GLuint mvpMatrixId;
 
+    GameEngine(GameEngine const &) = delete;
+    void operator=(GameEngine const &) = delete;
+
 private:
-    int gameEngineInit();
-    void gameEngineTerminate();
+    GameEngine();
+    ~GameEngine();
+
+    bool isInitialized;
 };
