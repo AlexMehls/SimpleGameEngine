@@ -26,20 +26,20 @@ public:
     void draw(const RenderObject &toDraw) const;
 
 private:
-    glm::vec3 m_pos;
-    float m_horizontalAngle;
-    float m_verticalAngle;
-    glm::vec3 m_direction;
-    glm::vec3 m_up;
-    float m_fov;
-    float m_ratio;
+    glm::vec3 pos;
+    float horizontalAngle;
+    float verticalAngle;
+    glm::vec3 direction;
+    glm::vec3 up;
+    float fov;
+    float ratio;
 
-    GLuint m_vertexBufferId;
-    GLuint m_colorBufferId;
-    GLuint m_mvpMatId;
+    GLuint vertexBufferId;
+    GLuint colorBufferId;
+    GLuint mvpMatId;
 
-    glm::mat4 m_viewMat;
-    glm::mat4 m_projectionMat;
+    glm::mat4 viewMat;
+    glm::mat4 projectionMat;
 
     void updateViewMat();
     void updateProjectionMat();

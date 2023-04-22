@@ -6,37 +6,37 @@
 #include <iostream>
 
 Camera::Camera(GLuint vertexBufferId, GLuint colorBufferId, GLuint mvpMatId)
-    : m_vertexBufferId(vertexBufferId), m_colorBufferId(colorBufferId), m_mvpMatId(mvpMatId)
+    : vertexBufferId(vertexBufferId), colorBufferId(colorBufferId), mvpMatId(mvpMatId)
 {
-    m_pos = glm::vec3(0, 0, 1);
-    m_horizontalAngle = 0;
-    m_verticalAngle = 0;
-    m_fov = 45;
-    m_ratio = 4 / (float)3;
+    pos = glm::vec3(0, 0, 1);
+    horizontalAngle = 0;
+    verticalAngle = 0;
+    fov = 45;
+    ratio = 4 / (float)3;
 
     updateViewMat();
     updateProjectionMat();
 }
 
-void Camera::setPos(const glm::vec3 &pos)
+void Camera::setPos(const glm::vec3 &newPos)
 {
-    m_pos = pos;
+    pos = newPos;
     updateViewMat();
 }
 
 glm::vec3 Camera::getPos() const
 {
-    return m_pos;
+    return pos;
 }
 
-void Camera::setRot(float horizontal, float vertical)
+void Camera::setRot(float newHorizontal, float newVertical)
 {
-    m_horizontalAngle = horizontal;
-    m_verticalAngle = vertical;
+    horizontalAngle = newHorizontal;
+    verticalAngle = newVertical;
 
-    float hAngle = -m_horizontalAngle + glm::pi<float>();
-    float vAngle = -m_verticalAngle;
-    m_direction = glm::vec3(
+    float hAngle = -horizontalAngle + glm::pi<float>();
+    float vAngle = -verticalAngle;
+    direction = glm::vec3(
         cos(vAngle) * sin(hAngle),
         sin(vAngle),
         cos(vAngle) * cos(hAngle));
@@ -46,13 +46,13 @@ void Camera::setRot(float horizontal, float vertical)
         0,
         cos(hAngle - glm::pi<float>() / 2.0f));
 
-    m_up = glm::cross(right, m_direction);
+    up = glm::cross(right, direction);
 
     updateViewMat();
 }
 void Camera::lookAt(const glm::vec3 &targetPos)
 {
-    glm::vec3 direction = targetPos - m_pos;
+    glm::vec3 direction = targetPos - pos;
     if (direction == glm::vec3(0))
     {
         return;
@@ -62,34 +62,34 @@ void Camera::lookAt(const glm::vec3 &targetPos)
 
     setRot(horizontal, vertical);
 }
-void Camera::setFov(float fov)
+void Camera::setFov(float newFov)
 {
-    m_fov = fov;
+    fov = newFov;
     updateProjectionMat();
 }
-void Camera::setRatio(float ratio)
+void Camera::setRatio(float newRatio)
 {
-    m_ratio = ratio;
+    ratio = newRatio;
     updateProjectionMat();
 }
 
 void Camera::move(const glm::vec3 &deltaPos)
 {
-    setPos(deltaPos + m_pos);
+    setPos(deltaPos + pos);
 }
-void Camera::rotate(float horizontal, float vertical)
+void Camera::rotate(float deltaHorizontal, float deltaVertical)
 {
-    setRot(horizontal + m_horizontalAngle, vertical + m_verticalAngle);
+    setRot(deltaHorizontal + horizontalAngle, deltaVertical + verticalAngle);
 }
 
 void Camera::draw(const RenderObject &toDraw) const
 {
-    glm::mat4 mvp = m_projectionMat * m_viewMat * toDraw.getModelMat();
+    glm::mat4 mvp = projectionMat * viewMat * toDraw.getModelMat();
 
-    glUniformMatrix4fv(m_mvpMatId, 1, GL_FALSE, &mvp[0][0]);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+    glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
     glBufferData(GL_ARRAY_BUFFER, toDraw.getVertexBufferSize(), toDraw.getVertexBufferData(), GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, m_colorBufferId);
+    glBindBuffer(GL_ARRAY_BUFFER, colorBufferId);
     glBufferData(GL_ARRAY_BUFFER, toDraw.getColorBufferSize(), toDraw.getColorBufferData(), GL_STATIC_DRAW);
 
     int vertices = toDraw.getVertexBufferSize() / sizeof(GLfloat);
@@ -98,13 +98,13 @@ void Camera::draw(const RenderObject &toDraw) const
 
 void Camera::updateViewMat()
 {
-    m_viewMat = glm::lookAt(
-        m_pos,
-        m_pos + m_direction,
-        m_up);
+    viewMat = glm::lookAt(
+        pos,
+        pos + direction,
+        up);
 }
 
 void Camera::updateProjectionMat()
 {
-    m_projectionMat = glm::perspective(glm::radians(m_fov), m_ratio, 0.1f, 100.0f);
+    projectionMat = glm::perspective(glm::radians(fov), ratio, 0.1f, 100.0f);
 }

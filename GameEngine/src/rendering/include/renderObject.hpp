@@ -17,14 +17,14 @@ public:
     int getColorBufferSize() const;
 
 private:
-    glm::vec3 m_pos;
+    glm::vec3 pos;
 
-    GLfloat *m_vertexBufferData;
-    int m_vertexBufferSize;
-    GLfloat *m_colorBufferData;
-    int m_colorBufferSize;
+    GLfloat *vertexBufferData;
+    int vertexBufferSize;
+    GLfloat *colorBufferData;
+    int colorBufferSize;
 
-    glm::mat4 m_modelMat;
+    glm::mat4 modelMat;
 
     void updateModelMat();
 };

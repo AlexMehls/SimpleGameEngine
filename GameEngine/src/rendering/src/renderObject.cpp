@@ -5,53 +5,53 @@
 
 RenderObject::RenderObject(const GLfloat vertexBufferData[], int vertexBufferSize, const GLfloat colorBufferData[], int colorBufferSize)
 {
-    m_vertexBufferData = new GLfloat[vertexBufferSize];
-    m_vertexBufferSize = vertexBufferSize;
-    std::copy(vertexBufferData, vertexBufferData + vertexBufferSize, m_vertexBufferData);
+    RenderObject::vertexBufferData = new GLfloat[vertexBufferSize];
+    RenderObject::vertexBufferSize = vertexBufferSize;
+    std::copy(vertexBufferData, vertexBufferData + vertexBufferSize, RenderObject::vertexBufferData);
 
-    m_colorBufferData = new GLfloat[colorBufferSize];
-    m_colorBufferSize = colorBufferSize;
-    std::copy(colorBufferData, colorBufferData + colorBufferSize, m_colorBufferData);
+    RenderObject::colorBufferData = new GLfloat[colorBufferSize];
+    RenderObject::colorBufferSize = colorBufferSize;
+    std::copy(colorBufferData, colorBufferData + colorBufferSize, RenderObject::colorBufferData);
 
-    m_pos = glm::vec3(0);
+    pos = glm::vec3(0);
     updateModelMat();
 }
 
 RenderObject::~RenderObject()
 {
-    delete m_vertexBufferData;
-    delete m_colorBufferData;
+    delete vertexBufferData;
+    delete colorBufferData;
 }
 
-void RenderObject::setPos(const glm::vec3 &pos)
+void RenderObject::setPos(const glm::vec3 &newPos)
 {
-    m_pos = pos;
+    pos = newPos;
     updateModelMat();
 }
 
 const glm::mat4 &RenderObject::getModelMat() const
 {
-    return m_modelMat;
+    return modelMat;
 }
 
 const GLfloat *RenderObject::getVertexBufferData() const
 {
-    return m_vertexBufferData;
+    return vertexBufferData;
 }
 int RenderObject::getVertexBufferSize() const
 {
-    return m_vertexBufferSize;
+    return vertexBufferSize;
 }
 const GLfloat *RenderObject::getColorBufferData() const
 {
-    return m_colorBufferData;
+    return colorBufferData;
 }
 int RenderObject::getColorBufferSize() const
 {
-    return m_colorBufferSize;
+    return colorBufferSize;
 }
 
 void RenderObject::updateModelMat()
 {
-    m_modelMat = glm::translate(glm::mat4(1.0f), m_pos);
+    modelMat = glm::translate(glm::mat4(1.0f), pos);
 }
