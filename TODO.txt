@@ -1,9 +1,10 @@
 Textures
 Model Loading
-camera vec2 for rotation
-cap for deltaTime
+camera vec2 for rotation?
 
 libs path (gameEngine)
-callbacks (gameEngine)
 switch to GameEngine (more)
-explicit initialization
+
+performance issues with v-sync (? could just be setting the aspect ratio every frame)
+proper game loop (fixed/variable)
+timings not with doubles (int64 instead)
