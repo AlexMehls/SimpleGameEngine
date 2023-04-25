@@ -1,6 +1,10 @@
 #include "gameObject.hpp"
 
-GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent) {}
+GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
+{
+    // TODO: Change if Transform getts a setter method
+    transform.parent = &(parent->transform);
+}
 
 GameObject &GameObject::getParent()
 {
@@ -17,6 +21,9 @@ void GameObject::setParent(GameObject &newParent)
                                { return child->id == this->id; });
     parent = &newParent;
     newParent.children.push_back(this);
+
+    // TODO: Change if Transform getts a setter method
+    transform.parent = &(newParent.transform);
 
     return;
 }

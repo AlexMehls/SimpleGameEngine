@@ -165,6 +165,10 @@ void GameEngine::fixedUpdate(double deltaTime)
 {
     for (auto &gameObject : gameObjects)
     {
+        gameObject.second->transform.savePreviousState();
+    }
+    for (auto &gameObject : gameObjects)
+    {
         gameObject.second->fixedUpdate(deltaTime);
     }
     destroyQueuedObjects();

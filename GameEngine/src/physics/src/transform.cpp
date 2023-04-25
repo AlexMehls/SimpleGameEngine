@@ -6,7 +6,7 @@ Transform::Transform()
     rotation = glm::quat(1, 0, 0, 0);
     scale = glm::vec3(0);
 
-    update();
+    savePreviousState();
 
     return;
 }
@@ -49,7 +49,7 @@ void Transform::setLocalScale(const glm::vec3 &scale)
     Transform::scale = scale;
 }
 
-void Transform::update()
+void Transform::savePreviousState()
 {
     prev_position = position;
     prev_rotation = rotation;

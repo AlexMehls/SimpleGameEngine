@@ -29,7 +29,7 @@ public:
     void setLocalScale(const glm::vec3 &scale);
 
     // Set prev variables to current values
-    void update(); // name change?
+    void savePreviousState();
 
     // Model matrix with interpolation for rendering
     const glm::mat4 &getModelMat(double interpolation) const;
@@ -44,4 +44,6 @@ private:
     glm::vec3 prev_scale; // best type?
 
     Transform *parent; // couple to gameObject / component parent?
+
+    friend class GameObject;
 };
