@@ -90,6 +90,9 @@ int main(int argc, char *argv[])
         cameraMouseControl(camera, input);
         // cameraMoveDemo(camera, deltaTime);
 
+        engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
+        engine.update(deltaTime);
+
         camera.draw(cube);
         camera.draw(triangle);
         camera.draw(plane);

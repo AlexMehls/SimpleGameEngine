@@ -6,7 +6,9 @@
 #include <iostream>
 #include <filesystem>
 
-GameEngine::GameEngine() {}
+GameEngine::GameEngine() : world(IdGenerator::getObjectId(), nullptr)
+{
+}
 GameEngine::~GameEngine()
 {
     gameEngineTerminate();
@@ -130,4 +132,51 @@ void GameEngine::gameEngineTerminate()
     glfwTerminate();
 
     isInitialized = false;
+}
+
+GameObject &GameEngine::createGameObject()
+{
+    uint64_t id = IdGenerator::getObjectId();
+    std::unique_ptr<GameObject> objectPrt = std::make_unique<GameObject>(id, &world);
+    GameObject *rawPtr = objectPrt.get();
+
+    gameObjects.insert(std::make_pair(id, std::move(objectPrt)));
+
+    return *rawPtr;
+}
+void GameEngine::destroyGameObject(GameObject &toDestroy)
+{
+    // Adds Object to be destroyed to the destruction queue
+    // All queued objects are deleted at the end of the next update / fixedUpdate
+    destructionQueue.push(toDestroy.id);
+    return;
+}
+
+void GameEngine::update(double deltaTime)
+{
+    for (auto &gameObject : gameObjects)
+    {
+        gameObject.second->update(deltaTime);
+    }
+    destroyQueuedObjects();
+    return;
+}
+void GameEngine::fixedUpdate(double deltaTime)
+{
+    for (auto &gameObject : gameObjects)
+    {
+        gameObject.second->fixedUpdate(deltaTime);
+    }
+    destroyQueuedObjects();
+    return;
+}
+
+void GameEngine::destroyQueuedObjects()
+{
+    while (!destructionQueue.empty())
+    {
+        gameObjects.erase(destructionQueue.front());
+        destructionQueue.pop();
+    }
+    return;
 }

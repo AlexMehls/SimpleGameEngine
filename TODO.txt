@@ -1,10 +1,11 @@
 Textures
 Model Loading
-camera vec2 for rotation?
 
-libs path (gameEngine)
 switch to GameEngine (more)
 
 performance issues with v-sync (? could just be setting the aspect ratio every frame)
 proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
+more complex Transform variable access
+
+integrate RenderObject and Camera into new GameObject system
