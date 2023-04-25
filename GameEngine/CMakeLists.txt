@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 project(GameEngine)
 
-set(LIBS_PATH C:/Libs)
+set(LIBS_PATH Libs)
 
 find_library(glfwlib glfw NAME GLFW glfw3 PATHS ${LIBS_PATH}/lib)
 message(STATUS "GLFW found as ${glfwlib}")
