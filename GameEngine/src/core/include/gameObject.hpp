@@ -14,6 +14,7 @@ public:
     Transform transform;
 
     GameObject(uint64_t id, GameObject *parent);
+    ~GameObject();
 
     GameObject &getParent();
     std::list<GameObject *> &getChildren();

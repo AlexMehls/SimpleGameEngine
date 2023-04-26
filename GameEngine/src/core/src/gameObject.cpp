@@ -4,6 +4,18 @@ GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
 {
     // TODO: Change if Transform getts a setter method
     transform.parent = &(parent->transform);
+
+    return;
+}
+
+GameObject::~GameObject()
+{
+    for (auto &child : children)
+    {
+        child->setParent(*parent);
+    }
+
+    return;
 }
 
 GameObject &GameObject::getParent()
@@ -34,6 +46,7 @@ void GameObject::update(double deltaTime)
     {
         component->update(deltaTime);
     }
+    return;
 }
 void GameObject::fixedUpdate(double deltaTime)
 {
@@ -41,4 +54,5 @@ void GameObject::fixedUpdate(double deltaTime)
     {
         component->fixedUpdate(deltaTime);
     }
+    return;
 }

@@ -11,3 +11,4 @@ more complex Transform variable access
 integrate RenderObject and Camera into new GameObject system
 global coordinates for Transform
 Transform.parent setter method?
+recursive object destruction?
