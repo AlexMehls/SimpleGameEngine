@@ -10,6 +10,10 @@ GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
 
 GameObject::~GameObject()
 {
+    if (parent == nullptr)
+    {
+        return;
+    }
     for (auto &child : children)
     {
         child->setParent(*parent);
@@ -29,8 +33,12 @@ std::list<GameObject *> &GameObject::getChildren()
 
 void GameObject::setParent(GameObject &newParent)
 {
-    parent->children.remove_if([this](auto child)
-                               { return child->id == this->id; });
+    if (parent != nullptr)
+    {
+        parent->children.remove_if([this](auto child)
+                                   { return child->id == this->id; });
+    }
+
     parent = &newParent;
     newParent.children.push_back(this);
 
