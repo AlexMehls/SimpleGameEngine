@@ -5,17 +5,17 @@
 class Triangle : public RenderObject
 {
 public:
-    Triangle();
+    Triangle(GameObject *parent);
 };
 
 class Plane : public RenderObject
 {
 public:
-    Plane();
+    Plane(GameObject *parent);
 };
 
 class Cube : public RenderObject
 {
 public:
-    Cube();
+    Cube(GameObject *parent);
 };

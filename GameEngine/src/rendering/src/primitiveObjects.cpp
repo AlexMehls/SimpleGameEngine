@@ -102,14 +102,14 @@ static const GLfloat cube_color_buffer_data[] = {
     0.820f, 0.883f, 0.371f,
     0.982f, 0.099f, 0.879f};
 
-Triangle::Triangle() : RenderObject(tri_vertex_buffer_data, sizeof(tri_vertex_buffer_data), tri_color_buffer_data, sizeof(tri_color_buffer_data))
+Triangle::Triangle(GameObject *parent) : RenderObject(parent, tri_vertex_buffer_data, sizeof(tri_vertex_buffer_data), tri_color_buffer_data, sizeof(tri_color_buffer_data))
 {
 }
 
-Plane::Plane() : RenderObject(plane_vertex_buffer_data, sizeof(plane_vertex_buffer_data), plane_color_buffer_data, sizeof(plane_color_buffer_data))
+Plane::Plane(GameObject *parent) : RenderObject(parent, plane_vertex_buffer_data, sizeof(plane_vertex_buffer_data), plane_color_buffer_data, sizeof(plane_color_buffer_data))
 {
 }
 
-Cube::Cube() : RenderObject(cube_vertex_buffer_data, sizeof(cube_vertex_buffer_data), cube_color_buffer_data, sizeof(cube_color_buffer_data))
+Cube::Cube(GameObject *parent) : RenderObject(parent, cube_vertex_buffer_data, sizeof(cube_vertex_buffer_data), cube_color_buffer_data, sizeof(cube_color_buffer_data))
 {
 }

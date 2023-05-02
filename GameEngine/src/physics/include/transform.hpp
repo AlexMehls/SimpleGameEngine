@@ -44,16 +44,29 @@ public:
     // Sets scale in local space in x, y, z
     void setLocalScale(const glm::vec3 &scale);
 
+    // Moves by deltaPos in x, y, z
+    void move(const glm::vec3 &deltaPos);
+    // Rotates by deltaAngles in pitch, yaw, roll
+    void rotate(const glm::vec3 &deltaAngles);
+    // Scales by deltaScale in x, y, z
+    void scale(const glm::vec3 &deltaScale);
+    // Sets forward direction towards target
+    void lookAt(const glm::vec3 &targetPos);
+
     // Updates the previous values with the current values
     void savePreviousState();
 
-    // Model matrix with interpolation for rendering
-    const glm::mat4 &getModelMat(double interpolation) const;
+    // Model matrix with interpolation for rendering (1 = only current values)
+    glm::mat4 getModelMat(float interpolation) const;
 
 private:
+    // Current values (locals)
+
     glm::vec3 position;
     glm::quat rotation;
-    glm::vec3 scale;
+    glm::vec3 m_scale; // different name, to avoid name conflict with method
+
+    // Previous values (globals)
 
     glm::vec3 prev_position;
     glm::quat prev_rotation;
@@ -62,4 +75,5 @@ private:
     Transform *parent; // couple to gameObject / component parent?
 
     friend class GameObject;
+    friend class RenderObject;
 };

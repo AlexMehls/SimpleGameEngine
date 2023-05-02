@@ -1,34 +1,29 @@
 #include "camera.hpp"
 
+#include "gameEngine.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
-#include <cmath>
 
 #include <iostream>
 
-Camera::Camera(GLuint vertexBufferId, GLuint colorBufferId, GLuint mvpMatId)
-    : vertexBufferId(vertexBufferId), colorBufferId(colorBufferId), mvpMatId(mvpMatId)
+Camera::Camera(uint64_t id, GameObject *parent, GLuint vertexBufferId, GLuint colorBufferId, GLuint mvpMatId)
+    : vertexBufferId(vertexBufferId), colorBufferId(colorBufferId), mvpMatId(mvpMatId), GameObject(id, parent)
 {
-    pos = glm::vec3(0, 0, 1);
-    horizontalAngle = 0;
-    verticalAngle = 0;
     fov = 45;
     ratio = 4 / (float)3;
-
-    updateViewMat();
-    updateProjectionMat();
+    projectionMatChanged = true;
 }
-
-void Camera::setPos(const glm::vec3 &newPos)
+Camera::~Camera()
 {
-    pos = newPos;
-    updateViewMat();
+    GameEngine &engine = GameEngine::getInstance();
+    if (engine.activeCamera == this)
+    {
+        engine.activeCamera = nullptr;
+    }
+    GameObject::~GameObject();
 }
 
-glm::vec3 Camera::getPos() const
-{
-    return pos;
-}
-
+/*
 void Camera::setRot(float newHorizontal, float newVertical)
 {
     horizontalAngle = newHorizontal;
@@ -50,41 +45,26 @@ void Camera::setRot(float newHorizontal, float newVertical)
 
     updateViewMat();
 }
-void Camera::lookAt(const glm::vec3 &targetPos)
-{
-    glm::vec3 direction = targetPos - pos;
-    if (direction == glm::vec3(0))
-    {
-        return;
-    }
-    float horizontal = std::atan2(direction.x, -direction.z);
-    float vertical = -std::atan2(direction.y, -direction.z);
+*/
 
-    setRot(horizontal, vertical);
-}
 void Camera::setFov(float newFov)
 {
     fov = newFov;
-    updateProjectionMat();
+    projectionMatChanged = true;
 }
 void Camera::setRatio(float newRatio)
 {
     ratio = newRatio;
-    updateProjectionMat();
+    projectionMatChanged = true;
 }
 
-void Camera::move(const glm::vec3 &deltaPos)
+void Camera::draw(const RenderObject &toDraw)
 {
-    setPos(deltaPos + pos);
-}
-void Camera::rotate(float deltaHorizontal, float deltaVertical)
-{
-    setRot(deltaHorizontal + horizontalAngle, deltaVertical + verticalAngle);
-}
-
-void Camera::draw(const RenderObject &toDraw) const
-{
-    glm::mat4 mvp = projectionMat * viewMat * toDraw.getModelMat();
+    if (projectionMatChanged)
+    {
+        updateProjectionMat();
+    }
+    glm::mat4 mvp = projectionMat * viewMat * toDraw.transform.getModelMat(1);
 
     glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
@@ -96,15 +76,34 @@ void Camera::draw(const RenderObject &toDraw) const
     glDrawArrays(GL_TRIANGLES, 0, vertices);
 }
 
+void Camera::update(double deltaTime)
+{
+    GameObject::update(deltaTime);
+}
+void Camera::fixedUpdate(double deltaTime)
+{
+    GameObject::fixedUpdate(deltaTime);
+    updateViewMat();
+}
+
 void Camera::updateViewMat()
 {
-    viewMat = glm::lookAt(
-        pos,
-        pos + direction,
-        up);
+    // not ideal:
+    // glm::vec3 adjustedAngles = transform.getEulerAngles();
+    // adjustedAngles.x += glm::pi<double>();
+    // adjustedAngles.z -= glm::pi<double>();
+    // glm::quat adjustedRot = glm::quat(adjustedAngles);
+    viewMat = glm::lookAt(transform.getPos(), transform.getPos() + transform.getRot() * glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+
+    // glm::vec3 angles = glm::eulerAngles(glm::quat_cast(viewMat));
+    // std::cout << "Correct: Pitch: " << angles.x << ", Yaw: " << angles.y << ", Roll: " << angles.z << std::endl;
+    // viewMat = transform.getModelMat(1);
+    // angles = glm::eulerAngles(glm::quat_cast(viewMat));
+    // std::cout << "Incorrect: Pitch: " << angles.x << ", Yaw: " << angles.y << ", Roll: " << angles.z << std::endl;
 }
 
 void Camera::updateProjectionMat()
 {
     projectionMat = glm::perspective(glm::radians(fov), ratio, 0.1f, 100.0f);
+    projectionMatChanged = false;
 }

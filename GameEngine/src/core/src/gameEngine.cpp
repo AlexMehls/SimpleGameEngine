@@ -144,6 +144,21 @@ GameObject &GameEngine::createGameObject()
 
     return *rawPtr;
 }
+Camera &GameEngine::createCamera()
+{
+    uint64_t id = IdGenerator::getObjectId();
+    Camera *rawPtr = new Camera(id, &world, vertexbuffer, colorbuffer, mvpMatrixId);
+    std::unique_ptr<GameObject> objectPtr(rawPtr);
+
+    gameObjects.insert(std::make_pair(id, std::move(objectPtr)));
+
+    if (activeCamera == nullptr)
+    {
+        activeCamera = rawPtr;
+    }
+
+    return *rawPtr;
+}
 void GameEngine::destroyGameObject(GameObject &toDestroy)
 {
     // Adds Object to be destroyed to the destruction queue
@@ -173,6 +188,10 @@ void GameEngine::fixedUpdate(double deltaTime)
     }
     destroyQueuedObjects();
     return;
+}
+void GameEngine::render()
+{
+    // TODO: Implement
 }
 
 void GameEngine::destroyQueuedObjects()

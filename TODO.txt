@@ -9,6 +9,14 @@ timings not with doubles (int64 instead)
 more complex Transform variable access
 
 integrate RenderObject and Camera into new GameObject system
-global coordinates for Transform
-Transform.parent setter method?
+Transform.parent setter method? -> remove friend classes
 recursive object destruction?
+
+transform -> scale should affect position
+
+switch to game coordinates? swap y and z
+add rendering to engine
+better component construction architecture
+adjust transform when changing parent
+
+fix rotation (moving camera in circles shouldn't cause rolling) + roll should be visible

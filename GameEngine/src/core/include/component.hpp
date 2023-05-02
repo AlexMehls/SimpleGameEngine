@@ -7,11 +7,13 @@ class GameObject;
 class Component
 {
 public:
-    Component() = delete;
+    Component(GameObject *object);
 
-    virtual void update(double deltaTime);
-    virtual void fixedUpdate(double deltaTime);
+    virtual void update(double deltaTime) = 0;
+    virtual void fixedUpdate(double deltaTime) = 0;
 
-private:
+protected:
     GameObject *object;
+
+    friend class GameObject;
 };

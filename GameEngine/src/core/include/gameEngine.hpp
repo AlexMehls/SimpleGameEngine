@@ -2,6 +2,7 @@
 
 #include "gameObject.hpp"
 #include "idGenerator.hpp"
+#include "camera.hpp"
 
 #include <map>
 #include <memory>
@@ -15,6 +16,8 @@
 class GameEngine
 {
 public:
+    Camera *activeCamera;
+
     GLFWwindow *window;
 
     GLuint vertexArrayId;
@@ -29,10 +32,13 @@ public:
     void gameEngineTerminate();
 
     GameObject &createGameObject();
+    Camera &createCamera();
     void destroyGameObject(GameObject &toDestroy);
 
     void update(double deltaTime);
     void fixedUpdate(double deltaTime);
+
+    void render();
 
     GameEngine(GameEngine const &) = delete;
     void operator=(GameEngine const &) = delete;

@@ -1,10 +1,15 @@
 #include "transform.hpp"
 
-Transform::Transform()
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+
+#include <iostream>
+
+Transform::Transform() : parent(nullptr)
 {
     position = glm::vec3(0);
     rotation = glm::quat(1, 0, 0, 0);
-    scale = glm::vec3(0);
+    m_scale = glm::vec3(1);
 
     savePreviousState();
 
@@ -37,9 +42,9 @@ glm::vec3 Transform::getScale() const
 {
     if (parent == nullptr)
     {
-        return scale;
+        return m_scale;
     }
-    return scale * parent->getScale();
+    return m_scale * parent->getScale();
 }
 
 // LOCAL GETTERS
@@ -58,7 +63,7 @@ glm::vec3 Transform::getLocalEulerAngles() const
 }
 const glm::vec3 &Transform::getLocalScale() const
 {
-    return scale;
+    return m_scale;
 }
 
 // GLOBAL SETTERS
@@ -96,11 +101,11 @@ void Transform::setScale(const glm::vec3 &scale)
 {
     if (parent == nullptr)
     {
-        Transform::scale = scale;
+        m_scale = scale;
     }
     else
     {
-        Transform::position = scale / parent->getScale();
+        m_scale = scale / parent->getScale();
     }
     return;
 }
@@ -124,15 +129,49 @@ void Transform::setLocalEulerAngles(const glm::vec3 &angles)
 }
 void Transform::setLocalScale(const glm::vec3 &scale)
 {
-    Transform::scale = scale;
+    m_scale = scale;
+    return;
+}
+
+void Transform::move(const glm::vec3 &deltaPos)
+{
+    position += deltaPos;
+    return;
+}
+void Transform::rotate(const glm::vec3 &deltaAngles)
+{
+    rotation = glm::quat(deltaAngles) * rotation;
+    return;
+}
+void Transform::scale(const glm::vec3 &deltaScale)
+{
+    m_scale += deltaScale;
+    return;
+}
+void Transform::lookAt(const glm::vec3 &targetPos)
+{
+    setRot(glm::quatLookAt(glm::normalize(targetPos - getPos()), glm::vec3(0, 1, 0)));
     return;
 }
 
 void Transform::savePreviousState()
 {
-    prev_position = position;
-    prev_rotation = rotation;
-    prev_scale = scale;
+    prev_position = getPos();
+    prev_rotation = getRot();
+    prev_scale = getScale();
 
     return;
+}
+
+glm::mat4 Transform::getModelMat(float interpolation) const
+{
+    glm::vec3 interpolatedPos = interpolation * getPos() + (1 - interpolation) * prev_position;
+    glm::quat interpolatedRot = glm::mix(prev_rotation, getRot(), interpolation);
+    glm::vec3 interpolatedScale = interpolation * getScale() + (1 - interpolation) * prev_scale;
+
+    glm::mat4 positionMat = glm::translate(glm::mat4(1.0f), interpolatedPos);
+    glm::mat4 rotationMat = glm::mat4_cast(interpolatedRot);
+    glm::mat4 scaleMat = glm::scale(interpolatedScale);
+
+    return positionMat * rotationMat * scaleMat; // correct order?
 }
