@@ -21,12 +21,21 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 void cursor_position_callback(GLFWwindow *window, double xPos, double yPos)
 {
     // std::cout << "Cursor Pos: " << xPos << ", " << yPos << std::endl;
-
     UserInput &input = UserInput::getInstance();
 
     // Should this be done differently?
-    input.mouseDeltaX += xPos - input.mouseX;
-    input.mouseDeltaY += yPos - input.mouseY;
+    double deltaX = xPos - input.mouseX;
+    double deltaY = yPos - input.mouseY;
+
+    // Detect and ignore jumps
+    if (deltaX > 100 || deltaY > 100)
+    {
+        deltaX = 0;
+        deltaY = 0;
+    }
+
+    input.mouseDeltaX += deltaX;
+    input.mouseDeltaY += deltaY;
     input.mouseX = xPos;
     input.mouseY = yPos;
     // glfwSetCursorPos(window, 0, 0);
