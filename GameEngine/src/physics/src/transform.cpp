@@ -1,5 +1,7 @@
 #include "transform.hpp"
 
+#include "coordinateTransform.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
@@ -150,7 +152,8 @@ void Transform::scale(const glm::vec3 &deltaScale)
 }
 void Transform::lookAt(const glm::vec3 &targetPos)
 {
-    setRot(glm::quatLookAt(glm::normalize(targetPos - getPos()), glm::vec3(0, 1, 0)));
+    // transforms positions to OpenGl coordinates
+    setRot(glm::quatLookAt(glm::normalize(CoordinateTransform::toOpenGlPos(targetPos - getPos())), glm::vec3(0, 1, 0)));
     return;
 }
 
@@ -168,6 +171,10 @@ glm::mat4 Transform::getModelMat(float interpolation) const
     glm::vec3 interpolatedPos = interpolation * getPos() + (1 - interpolation) * prev_position;
     glm::quat interpolatedRot = glm::mix(prev_rotation, getRot(), interpolation);
     glm::vec3 interpolatedScale = interpolation * getScale() + (1 - interpolation) * prev_scale;
+
+    // coordinate transformation
+    interpolatedPos = CoordinateTransform::toOpenGlPos(interpolatedPos);
+    interpolatedScale = CoordinateTransform::toOpenGlScale(interpolatedScale);
 
     glm::mat4 positionMat = glm::translate(glm::mat4(1.0f), interpolatedPos);
     glm::mat4 rotationMat = glm::mat4_cast(interpolatedRot);

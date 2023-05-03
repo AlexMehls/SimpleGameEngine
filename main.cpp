@@ -46,15 +46,16 @@ int main(int argc, char *argv[])
 
     GameObject &cubeObject = engine.createGameObject();
     Cube cube(&cubeObject);
-    cubeObject.transform.setPos(glm::vec3(0, 0, -1));
-    cubeObject.transform.setScale(glm::vec3(0.5));
+    cubeObject.transform.setPos(glm::vec3(0, 1, 0));
+    cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
 
     GameObject &planeObject = engine.createGameObject();
     Plane plane(&planeObject);
-    planeObject.transform.setPos(glm::vec3(0, -1.5f, 1));
+    planeObject.transform.setPos(glm::vec3(0, 1, -1.5f));
+    planeObject.transform.setScale(glm::vec3(3));
 
     Camera &camera = engine.createCamera();
-    camera.transform.setPos(glm::vec3(0, 2, 5));
+    camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
     float ratio;

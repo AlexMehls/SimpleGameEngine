@@ -1,6 +1,7 @@
 #include "camera.hpp"
 
 #include "gameEngine.hpp"
+#include "coordinateTransform.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -93,7 +94,8 @@ void Camera::updateViewMat()
     // adjustedAngles.x += glm::pi<double>();
     // adjustedAngles.z -= glm::pi<double>();
     // glm::quat adjustedRot = glm::quat(adjustedAngles);
-    viewMat = glm::lookAt(transform.getPos(), transform.getPos() + transform.getRot() * glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+    glm::vec3 cameraPos = CoordinateTransform::toOpenGlPos(transform.getPos());
+    viewMat = glm::lookAt(cameraPos, cameraPos + transform.getRot() * glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 
     // glm::vec3 angles = glm::eulerAngles(glm::quat_cast(viewMat));
     // std::cout << "Correct: Pitch: " << angles.x << ", Yaw: " << angles.y << ", Roll: " << angles.z << std::endl;
