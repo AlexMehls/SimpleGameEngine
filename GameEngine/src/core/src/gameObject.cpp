@@ -33,6 +33,10 @@ std::list<GameObject *> &GameObject::getChildren()
 {
     return children;
 }
+std::list<std::unique_ptr<Component>> &GameObject::getComponents()
+{
+    return components;
+}
 
 void GameObject::setParent(GameObject &newParent)
 {

@@ -58,8 +58,6 @@ int main(int argc, char *argv[])
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
-    float ratio;
-    int width, height;
     UserInput &input = UserInput::getInstance();
 
     double prevTime = glfwGetTime();
@@ -84,20 +82,6 @@ int main(int argc, char *argv[])
         gameFps = 1 / deltaTime;
         // std::cout << realFps << std::endl;
 
-        glfwGetFramebufferSize(engine.window, &width, &height);
-        ratio = width / (float)height;
-
-        glViewport(0, 0, width, height);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Setting a fixed resolution causes stretching if window shape changes
-        // Updating causes lags and crashes when switching to desktop
-        // camera.setRatio(ratio);
-
-        /*
-        glm::vec3 cameraRot = camera.transform.getEulerAngles();
-        std::cout << "Pitch: " << cameraRot.x << ", Yaw: " << cameraRot.y << ", Roll: " << cameraRot.z << std::endl;
-        */
         cameraMouseControl(camera, input);
         // cameraMoveDemo(camera, deltaTime);
 
@@ -106,11 +90,8 @@ int main(int argc, char *argv[])
         engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
         engine.update(deltaTime);
 
-        camera.draw(cube);
-        camera.draw(triangle);
-        camera.draw(plane);
+        engine.render();
 
-        glfwSwapBuffers(engine.window);
         input.step();
         glfwPollEvents();
     }

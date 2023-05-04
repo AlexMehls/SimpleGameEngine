@@ -13,7 +13,6 @@ recursive object destruction?
 
 transform -> scale should affect position
 
-add rendering to engine
 better component construction architecture
 adjust transform when changing parent
 

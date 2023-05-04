@@ -19,6 +19,7 @@ public:
 
     GameObject &getParent();
     std::list<GameObject *> &getChildren();
+    std::list<std::unique_ptr<Component>> &getComponents();
 
     void setParent(GameObject &parent);
 

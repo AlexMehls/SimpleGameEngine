@@ -17,14 +17,7 @@ class GameEngine
 {
 public:
     Camera *activeCamera;
-
     GLFWwindow *window;
-
-    GLuint vertexArrayId;
-    GLuint vertexbuffer;
-    GLuint colorbuffer;
-    GLuint programId;
-    GLuint mvpMatrixId;
 
     static GameEngine &getInstance();
 
@@ -44,10 +37,11 @@ public:
     void operator=(GameEngine const &) = delete;
 
 private:
-    GameEngine();
-    ~GameEngine();
-
-    void destroyQueuedObjects();
+    GLuint vertexArrayId;
+    GLuint vertexbuffer;
+    GLuint colorbuffer;
+    GLuint programId;
+    GLuint mvpMatrixId;
 
     bool isInitialized;
 
@@ -55,4 +49,9 @@ private:
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
 
     std::queue<uint64_t> destructionQueue;
+
+    GameEngine();
+    ~GameEngine();
+
+    void destroyQueuedObjects();
 };

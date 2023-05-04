@@ -191,7 +191,35 @@ void GameEngine::fixedUpdate(double deltaTime)
 }
 void GameEngine::render()
 {
-    // TODO: Implement
+    float ratio;
+    int width, height;
+
+    glfwGetFramebufferSize(window, &width, &height);
+    ratio = width / (float)height;
+
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Setting a fixed resolution causes stretching if window shape changes
+    // Updating causes lags and crashes when switching to desktop
+    // camera.setRatio(ratio);
+
+    // TODO: Improve performance
+    if (activeCamera != nullptr)
+    {
+        for (auto &gameObject : gameObjects)
+        {
+            for (auto &component : gameObject.second->getComponents())
+            {
+                if (component->type() == "RenderObject")
+                {
+                    RenderObject &toDraw = dynamic_cast<RenderObject &>(*component);
+                    activeCamera->draw(toDraw);
+                }
+            }
+        }
+    }
+    glfwSwapBuffers(window);
 }
 
 void GameEngine::destroyQueuedObjects()
