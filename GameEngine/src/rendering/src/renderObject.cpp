@@ -44,5 +44,10 @@ int RenderObject::getColorBufferSize() const
     return colorBufferSize;
 }
 
+std::string RenderObject::type() const
+{
+    return "RenderObject";
+}
+
 void RenderObject::update(double deltaTime) {}
 void RenderObject::fixedUpdate(double deltaTime) {}

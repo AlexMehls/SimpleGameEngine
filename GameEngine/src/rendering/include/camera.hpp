@@ -23,8 +23,6 @@ public:
     virtual void fixedUpdate(double deltaTime);
 
 private:
-    glm::vec3 direction;
-    glm::vec3 up;
     float fov;
     float ratio;
 

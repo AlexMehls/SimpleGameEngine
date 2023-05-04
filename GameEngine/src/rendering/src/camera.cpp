@@ -24,30 +24,6 @@ Camera::~Camera()
     GameObject::~GameObject();
 }
 
-/*
-void Camera::setRot(float newHorizontal, float newVertical)
-{
-    horizontalAngle = newHorizontal;
-    verticalAngle = newVertical;
-
-    float hAngle = -horizontalAngle + glm::pi<float>();
-    float vAngle = -verticalAngle;
-    direction = glm::vec3(
-        cos(vAngle) * sin(hAngle),
-        sin(vAngle),
-        cos(vAngle) * cos(hAngle));
-
-    glm::vec3 right = glm::vec3(
-        sin(hAngle - glm::pi<float>() / 2.0f),
-        0,
-        cos(hAngle - glm::pi<float>() / 2.0f));
-
-    up = glm::cross(right, direction);
-
-    updateViewMat();
-}
-*/
-
 void Camera::setFov(float newFov)
 {
     fov = newFov;
@@ -89,19 +65,9 @@ void Camera::fixedUpdate(double deltaTime)
 
 void Camera::updateViewMat()
 {
-    // not ideal:
-    // glm::vec3 adjustedAngles = transform.getEulerAngles();
-    // adjustedAngles.x += glm::pi<double>();
-    // adjustedAngles.z -= glm::pi<double>();
-    // glm::quat adjustedRot = glm::quat(adjustedAngles);
+    // transform coordinates to OpenGl coordinates
     glm::vec3 cameraPos = CoordinateTransform::toOpenGlPos(transform.getPos());
     viewMat = glm::lookAt(cameraPos, cameraPos + transform.getRot() * glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-
-    // glm::vec3 angles = glm::eulerAngles(glm::quat_cast(viewMat));
-    // std::cout << "Correct: Pitch: " << angles.x << ", Yaw: " << angles.y << ", Roll: " << angles.z << std::endl;
-    // viewMat = transform.getModelMat(1);
-    // angles = glm::eulerAngles(glm::quat_cast(viewMat));
-    // std::cout << "Incorrect: Pitch: " << angles.x << ", Yaw: " << angles.y << ", Roll: " << angles.z << std::endl;
 }
 
 void Camera::updateProjectionMat()

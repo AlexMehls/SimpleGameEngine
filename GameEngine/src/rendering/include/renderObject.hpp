@@ -18,6 +18,8 @@ public:
     const GLfloat *getColorBufferData() const;
     int getColorBufferSize() const;
 
+    virtual std::string type() const override;
+
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
 
