@@ -4,6 +4,7 @@ Model Loading
 switch to GameEngine (more)
 
 performance issues with v-sync (? could just be setting the aspect ratio every frame)
+better rendering (direct access to RenderObjects)
 proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access
