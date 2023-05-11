@@ -18,3 +18,6 @@ better component construction architecture
 adjust transform when changing parent
 
 fix rotation (moving camera in circles shouldn't cause rolling) + roll should be visible -> rotation with locked axis?
+
+assimp as shared lib? / static lib? / fetch content?
+fix rendering

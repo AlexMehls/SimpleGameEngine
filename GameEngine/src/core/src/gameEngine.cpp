@@ -2,6 +2,7 @@
 
 #include "shader.hpp"
 #include "glfwCallbacks.hpp"
+#include "mesh.hpp"
 
 #include <iostream>
 #include <filesystem>
@@ -215,6 +216,11 @@ void GameEngine::render()
                 {
                     RenderObject &toDraw = dynamic_cast<RenderObject &>(*component);
                     activeCamera->draw(toDraw);
+                }
+                else if (component->type() == "Mesh")
+                {
+                    Mesh &toDraw = dynamic_cast<Mesh &>(*component);
+                    toDraw.render();
                 }
             }
         }

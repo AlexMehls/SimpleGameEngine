@@ -2,6 +2,7 @@
 #include "camera.hpp"
 #include "userInput.hpp"
 #include "gameEngine.hpp"
+#include "mesh.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -39,6 +40,13 @@ int main(int argc, char *argv[])
 {
     GameEngine &engine = GameEngine::getInstance();
     engine.gameEngineInit();
+
+    /*
+    GameObject &testCube = engine.createGameObject();
+    Mesh testCubeMesh(&testCube, "./TestAssets/testCube2/test_cube.stl");
+    testCubeMesh.loadMesh();
+    testCube.transform.setPos(glm::vec3(-3, 0, 0));
+    */
 
     GameObject &triangleObject = engine.createGameObject();
     Triangle triangle(&triangleObject);

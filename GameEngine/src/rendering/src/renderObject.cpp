@@ -5,10 +5,6 @@
 
 RenderObject::RenderObject(GameObject *parent, const GLfloat vertexBufferData[], int vertexBufferSize, const GLfloat colorBufferData[], int colorBufferSize) : Component(parent)
 {
-    assert(parent != nullptr);
-
-    parent->addComponent(this);
-
     // TODO: Change if Transform getts a setter method
     transform.parent = &(object->transform);
 
