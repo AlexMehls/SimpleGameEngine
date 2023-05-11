@@ -37,11 +37,7 @@ void Camera::setRatio(float newRatio)
 
 void Camera::draw(const RenderObject &toDraw)
 {
-    if (projectionMatChanged)
-    {
-        updateProjectionMat();
-    }
-    glm::mat4 mvp = projectionMat * viewMat * toDraw.transform.getModelMat(1);
+    glm::mat4 mvp = getProjViewMat() * toDraw.transform.getModelMat(1);
 
     glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
@@ -53,9 +49,25 @@ void Camera::draw(const RenderObject &toDraw)
     glDrawArrays(GL_TRIANGLES, 0, vertices);
 }
 
+void Camera::draw(const Mesh &toDraw)
+{
+    glm::mat4 mvp = getProjViewMat() * toDraw.transform.getModelMat(1);
+    glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
+}
+
+glm::mat4 Camera::getProjViewMat()
+{
+    if (projectionMatChanged)
+    {
+        updateProjectionMat();
+    }
+    return projectionMat * viewMat;
+}
+
 void Camera::update(double deltaTime)
 {
     GameObject::update(deltaTime);
+    updateViewMat();
 }
 void Camera::fixedUpdate(double deltaTime)
 {

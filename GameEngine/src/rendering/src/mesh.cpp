@@ -1,4 +1,5 @@
 #include "mesh.hpp"
+#include "gameEngine.hpp"
 
 #include <iostream>
 #include <filesystem>
@@ -45,6 +46,8 @@ void Mesh::MeshEntry::Init(const std::vector<Vertex> &Vertices,
 Mesh::Mesh(GameObject *parent, const std::string &fileName) : Component(parent)
 {
     Mesh::fileName = fileName;
+    // TODO: Change if Transform getts a setter method
+    transform.parent = &(object->transform);
 }
 Mesh::~Mesh()
 {
@@ -81,6 +84,7 @@ bool Mesh::loadMesh()
                                                  aiProcess_SortByPType);
     if (scene == nullptr)
     {
+        std::cerr << "Couldn't open scene file " << fileName << std::endl;
         return false;
     }
     meshEntries.resize(scene->mNumMeshes);
@@ -167,7 +171,8 @@ bool Mesh::loadMesh()
         if (!textures[i])
         {
             std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-            std::filesystem::path defaultTexture = projectFolder / "TestAssets/missing_texture.png";
+            std::filesystem::path assetFolder = projectFolder / "GameEngine/src/rendering/TestAssets";
+            std::filesystem::path defaultTexture = assetFolder / "missing_texture2.png";
             textures[i] = new Texture(GL_TEXTURE_2D, defaultTexture.string());
 
             ret = textures[i]->Load();
@@ -178,6 +183,11 @@ bool Mesh::loadMesh()
 
 void Mesh::render()
 {
+    GameEngine &engine = GameEngine::getInstance();
+    glm::mat4 mvp = engine.activeCamera->getProjViewMat() * transform.getModelMat(1);
+
+    glUniformMatrix4fv(engine.mvpMatrixId, 1, GL_FALSE, &mvp[0][0]);
+
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
@@ -186,8 +196,8 @@ void Mesh::render()
     {
         glBindBuffer(GL_ARRAY_BUFFER, meshEntries[i].VB);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)12);
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)20);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)(3 * sizeof(GLfloat)));
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *)((3 + 2) * sizeof(GLfloat)));
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshEntries[i].IB);
 

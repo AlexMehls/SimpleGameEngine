@@ -72,8 +72,10 @@ int GameEngine::gameEngineInit()
 
     std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     std::filesystem::path shaderFolder = projectFolder / "GameEngine/src/rendering/shaders";
-    std::string vertexShaderPath = shaderFolder.string() + "/SimpleVertexShader.vertexshader";
-    std::string fragmentShaderPath = shaderFolder.string() + "/SimpleFragmentShader.fragmentshader";
+    std::string vertexShaderPath = shaderFolder.string() + "/TextureVertexShader.vertexshader";
+    std::string fragmentShaderPath = shaderFolder.string() + "/TextureFragmentShader.fragmentshader";
+    // std::string vertexShaderPath = shaderFolder.string() + "/SimpleVertexShader.vertexshader";
+    // std::string fragmentShaderPath = shaderFolder.string() + "/SimpleFragmentShader.fragmentshader";
 
     programId = LoadShaders(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
     mvpMatrixId = glGetUniformLocation(programId, "MVP");
@@ -82,8 +84,10 @@ int GameEngine::gameEngineInit()
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
 
-    glClearColor(0.5f, 0.5f, 0.5f, 0.0f); // Background Color
+    // glClearColor(0.5f, 0.5f, 0.5f, 0.0f); // Background Color
+    glClearColor(0.1f, 0.1f, 0.1f, 0.0f); // Background Color
 
+    /*
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(
@@ -106,6 +110,7 @@ int GameEngine::gameEngineInit()
         0,        // stride
         (void *)0 // array buffer offset
     );
+    */
 
     glUseProgram(programId);
 
@@ -120,8 +125,10 @@ void GameEngine::gameEngineTerminate()
         return;
     }
 
+    /*
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+    */
 
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &colorbuffer);

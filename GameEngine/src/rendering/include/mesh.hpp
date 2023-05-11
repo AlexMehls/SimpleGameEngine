@@ -9,25 +9,33 @@
 
 struct Vertex
 {
-    glm::vec3 m_pos;
-    glm::vec2 m_tex;
-    glm::vec3 m_normal;
+    float pos_x;
+    float pos_y;
+    float pos_z;
+
+    float tex_u;
+    float tex_v;
+
+    float normal_x;
+    float normal_y;
+    float normal_z;
 
     Vertex() {}
 
     Vertex(const glm::vec3 &pos, const glm::vec2 &tex, const glm::vec3 &normal)
     {
-        m_pos = pos;
-        m_tex = tex;
-        m_normal = normal;
-    }
+        pos_x = pos.x;
+        pos_y = pos.y;
+        pos_z = pos.z;
 
-    Vertex(const glm::vec3 &pos, const glm::vec2 &tex)
-    {
-        m_pos = pos;
-        m_tex = tex;
-        m_normal = glm::vec3(0.0f, 0.0f, 0.0f);
+        tex_u = tex.x;
+        tex_v = tex.y;
+
+        normal_x = normal.x;
+        normal_y = normal.y;
+        normal_z = normal.z;
     }
+    Vertex(const glm::vec3 &pos, const glm::vec2 &tex) : Vertex(pos, tex, glm::vec3(0.0f, 0.0f, 0.0f)) {}
 };
 
 class Mesh : public Component

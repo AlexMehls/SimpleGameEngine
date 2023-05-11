@@ -2,6 +2,7 @@
 
 #include "renderObject.hpp"
 #include "gameObject.hpp"
+#include "mesh.hpp"
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -18,6 +19,9 @@ public:
     void setRatio(float ratio);
 
     void draw(const RenderObject &toDraw);
+    void draw(const Mesh &toDraw);
+
+    glm::mat4 getProjViewMat();
 
     virtual void update(double deltaTime);
     virtual void fixedUpdate(double deltaTime);

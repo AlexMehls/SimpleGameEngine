@@ -36,12 +36,13 @@ public:
     GameEngine(GameEngine const &) = delete;
     void operator=(GameEngine const &) = delete;
 
+    GLuint mvpMatrixId;
+
 private:
     GLuint vertexArrayId;
     GLuint vertexbuffer;
     GLuint colorbuffer;
     GLuint programId;
-    GLuint mvpMatrixId;
 
     bool isInitialized;
 

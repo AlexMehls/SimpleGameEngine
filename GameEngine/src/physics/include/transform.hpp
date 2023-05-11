@@ -76,4 +76,5 @@ private:
 
     friend class GameObject;
     friend class RenderObject;
+    friend class Mesh;
 };
