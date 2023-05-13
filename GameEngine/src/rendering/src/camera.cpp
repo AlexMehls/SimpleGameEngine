@@ -35,6 +35,7 @@ void Camera::setRatio(float newRatio)
     projectionMatChanged = true;
 }
 
+/*
 void Camera::draw(const RenderObject &toDraw)
 {
     glm::mat4 mvp = getProjViewMat() * toDraw.transform.getModelMat(1);
@@ -48,12 +49,7 @@ void Camera::draw(const RenderObject &toDraw)
     int vertices = toDraw.getVertexBufferSize() / sizeof(GLfloat);
     glDrawArrays(GL_TRIANGLES, 0, vertices);
 }
-
-void Camera::draw(const Mesh &toDraw)
-{
-    glm::mat4 mvp = getProjViewMat() * toDraw.transform.getModelMat(1);
-    glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
-}
+*/
 
 glm::mat4 Camera::getProjViewMat()
 {

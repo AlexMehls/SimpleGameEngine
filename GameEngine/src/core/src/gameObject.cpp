@@ -4,8 +4,7 @@ GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
 {
     if (parent != nullptr)
     {
-        // TODO: Change if Transform getts a setter method
-        transform.parent = &(parent->transform);
+        transform.setParent(parent->transform);
     }
 
     return;
@@ -49,8 +48,7 @@ void GameObject::setParent(GameObject &newParent)
     parent = &newParent;
     newParent.children.push_back(this);
 
-    // TODO: Change if Transform getts a setter method
-    transform.parent = &(newParent.transform);
+    transform.setParent(newParent.transform);
 
     return;
 }

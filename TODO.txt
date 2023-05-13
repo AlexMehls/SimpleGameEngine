@@ -1,6 +1,3 @@
-Textures
-Model Loading
-
 switch to GameEngine (more)
 
 performance issues with v-sync (? could just be setting the aspect ratio every frame)
@@ -9,16 +6,19 @@ proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access
 
-Transform.parent setter method? -> remove friend classes
 recursive object destruction?
 
 transform -> scale should affect position
 
 better component construction architecture
-adjust transform when changing parent
 
 fix rotation (moving camera in circles shouldn't cause rolling) + roll should be visible -> rotation with locked axis?
 
 assimp as shared lib? / static lib? / fetch content?
 cleanup rendering
 migrate? renderObjects
+
+support more file types
+cleanup mehs + texture
+color only textures
+skybox / background color

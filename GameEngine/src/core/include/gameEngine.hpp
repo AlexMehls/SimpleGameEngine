@@ -7,6 +7,7 @@
 #include <map>
 #include <memory>
 #include <queue>
+#include <filesystem>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -28,6 +29,8 @@ public:
     Camera &createCamera();
     void destroyGameObject(GameObject &toDestroy);
 
+    const std::filesystem::path &defaultAssetFolder() const;
+
     void update(double deltaTime);
     void fixedUpdate(double deltaTime);
 
@@ -48,6 +51,8 @@ private:
 
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
+
+    std::filesystem::path defaultAssetPath;
 
     std::queue<uint64_t> destructionQueue;
 

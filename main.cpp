@@ -1,4 +1,3 @@
-#include "primitiveObjects.hpp"
 #include "camera.hpp"
 #include "userInput.hpp"
 #include "gameEngine.hpp"
@@ -42,29 +41,22 @@ int main(int argc, char *argv[])
     GameEngine &engine = GameEngine::getInstance();
     engine.gameEngineInit();
 
-    std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-    std::filesystem::path assetFolder = projectFolder / "GameEngine/src/rendering/TestAssets";
-
     GameObject &testCube = engine.createGameObject();
-    Mesh testCubeMesh(&testCube, assetFolder.string() + "/testCube3/test_cube.obj");
+    Mesh testCubeMesh(&testCube, engine.defaultAssetFolder().string() + "/testCube3/test_cube.obj");
     testCubeMesh.loadMesh();
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
-    /*
-    GameObject &triangleObject = engine.createGameObject();
-    Triangle triangle(&triangleObject);
-    triangleObject.transform.setPos(glm::vec3(2, 0, 0));
-
     GameObject &cubeObject = engine.createGameObject();
-    Cube cube(&cubeObject);
-    cubeObject.transform.setPos(glm::vec3(0, 1, 0));
+    Mesh cubeMesh(&cubeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/cube/cube.obj");
+    cubeMesh.loadMesh();
+    cubeObject.transform.setPos(glm::vec3(3, 1, 0));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
 
     GameObject &planeObject = engine.createGameObject();
-    Plane plane(&planeObject);
+    Mesh planeMesh(&planeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/plane/plane.obj");
+    planeMesh.loadMesh();
     planeObject.transform.setPos(glm::vec3(0, 1, -1.5f));
     planeObject.transform.setScale(glm::vec3(3));
-    */
 
     Camera &camera = engine.createCamera();
     camera.transform.setPos(glm::vec3(0, -5, 2));
@@ -97,7 +89,7 @@ int main(int argc, char *argv[])
         // cameraMouseControl(camera, input);
         cameraMoveDemo(camera, deltaTime);
 
-        // cubeObject.transform.rotate(glm::vec3(0, 1 * deltaTime, 0));
+        cubeObject.transform.rotate(glm::vec3(0, 1 * deltaTime, 0));
 
         engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
         engine.update(deltaTime);

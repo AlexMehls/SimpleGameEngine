@@ -13,6 +13,14 @@ Texture::Texture(GLenum TextureTarget)
     m_textureTarget = TextureTarget;
 }
 
+Texture::~Texture()
+{
+    if (m_textureObj != GL_INVALID_VALUE)
+    {
+        glDeleteTextures(1, &m_textureObj);
+    }
+}
+
 void Texture::Load(unsigned int BufferSize, void *pData)
 {
     void *image_data = stbi_load_from_memory((const stbi_uc *)pData, BufferSize, &m_imageWidth, &m_imageHeight, &m_imageBPP, 0);

@@ -5,10 +5,11 @@
 #include "mesh.hpp"
 
 #include <iostream>
-#include <filesystem>
 
 GameEngine::GameEngine() : world(IdGenerator::getObjectId(), nullptr)
 {
+    std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    defaultAssetPath = projectFolder / "GameEngine/src/rendering/defaultAssets";
 }
 GameEngine::~GameEngine()
 {
@@ -175,6 +176,11 @@ void GameEngine::destroyGameObject(GameObject &toDestroy)
     return;
 }
 
+const std::filesystem::path &GameEngine::defaultAssetFolder() const
+{
+    return defaultAssetPath;
+}
+
 void GameEngine::update(double deltaTime)
 {
     for (auto &gameObject : gameObjects)
@@ -219,15 +225,10 @@ void GameEngine::render()
         {
             for (auto &component : gameObject.second->getComponents())
             {
-                if (component->type() == "RenderObject")
-                {
-                    RenderObject &toDraw = dynamic_cast<RenderObject &>(*component);
-                    activeCamera->draw(toDraw);
-                }
-                else if (component->type() == "Mesh")
+                if (component->type() == "Mesh")
                 {
                     Mesh &toDraw = dynamic_cast<Mesh &>(*component);
-                    toDraw.render();
+                    toDraw.render(*activeCamera);
                 }
             }
         }

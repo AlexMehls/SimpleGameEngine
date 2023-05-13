@@ -46,8 +46,7 @@ void Mesh::MeshEntry::Init(const std::vector<Vertex> &Vertices,
 Mesh::Mesh(GameObject *parent, const std::string &fileName) : Component(parent)
 {
     Mesh::fileName = fileName;
-    // TODO: Change if Transform getts a setter method
-    transform.parent = &(object->transform);
+    transform.setParent(object->transform);
 }
 Mesh::~Mesh()
 {
@@ -89,6 +88,7 @@ bool Mesh::loadMesh()
     }
     meshEntries.resize(scene->mNumMeshes);
     textures.resize(scene->mNumMaterials);
+    std::cout << "Found " << meshEntries.size() << " sub-mesh(es)" << std::endl;
     for (int i = 0; i < meshEntries.size(); i++)
     {
         const aiMesh *mesh = scene->mMeshes[i];
@@ -170,9 +170,7 @@ bool Mesh::loadMesh()
         // Load a white texture in case the model does not include its own texture
         if (!textures[i])
         {
-            std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-            std::filesystem::path assetFolder = projectFolder / "GameEngine/src/rendering/TestAssets";
-            std::filesystem::path defaultTexture = assetFolder / "missing_texture2.png";
+            std::filesystem::path defaultTexture = GameEngine::getInstance().defaultAssetFolder() / "missing_texture2.png";
             textures[i] = new Texture(GL_TEXTURE_2D, defaultTexture.string());
 
             ret = textures[i]->Load();
@@ -181,11 +179,11 @@ bool Mesh::loadMesh()
     return ret;
 }
 
-void Mesh::render()
+void Mesh::render(Camera &camera)
 {
-    GameEngine &engine = GameEngine::getInstance();
-    glm::mat4 mvp = engine.activeCamera->getProjViewMat() * transform.getModelMat(1);
+    glm::mat4 mvp = camera.getProjViewMat() * transform.getModelMat(1);
 
+    GameEngine &engine = GameEngine::getInstance();
     glUniformMatrix4fv(engine.mvpMatrixId, 1, GL_FALSE, &mvp[0][0]);
 
     glEnableVertexAttribArray(0);

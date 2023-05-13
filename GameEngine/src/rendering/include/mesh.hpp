@@ -2,6 +2,7 @@
 
 #include "component.hpp"
 #include "texture.hpp"
+#include "camera.hpp"
 
 #include <glad/gl.h>
 #include <glm/glm.hpp>
@@ -54,7 +55,7 @@ public:
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
 
-    void render();
+    void render(Camera &camera);
 
 private:
 #define INVALID_MATERIAL 0xFFFFFFFF

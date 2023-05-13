@@ -10,6 +10,8 @@ public:
 
     Texture(GLenum TextureTarget);
 
+    ~Texture();
+
     // Should be called once to load the texture
     bool Load();
 

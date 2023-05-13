@@ -56,6 +56,9 @@ public:
     // Updates the previous values with the current values
     void savePreviousState();
 
+    // Sets a new parent while keeping global values the same
+    void setParent(const Transform &other);
+
     // Model matrix with interpolation for rendering (1 = only current values)
     glm::mat4 getModelMat(float interpolation) const;
 
@@ -72,9 +75,5 @@ private:
     glm::quat prev_rotation;
     glm::vec3 prev_scale;
 
-    Transform *parent; // couple to gameObject / component parent?
-
-    friend class GameObject;
-    friend class RenderObject;
-    friend class Mesh;
+    const Transform *parent; // couple to gameObject / component parent?
 };

@@ -166,6 +166,20 @@ void Transform::savePreviousState()
     return;
 }
 
+void Transform::setParent(const Transform &other)
+{
+    glm::vec3 worldPos = getPos();
+    glm::quat worldRot = getRot();
+    glm::vec3 worldScale = getScale();
+
+    parent = &other;
+
+    setPos(worldPos);
+    setRot(worldRot);
+    setScale(worldScale);
+    return;
+}
+
 glm::mat4 Transform::getModelMat(float interpolation) const
 {
     glm::vec3 interpolatedPos = interpolation * getPos() + (1 - interpolation) * prev_position;
