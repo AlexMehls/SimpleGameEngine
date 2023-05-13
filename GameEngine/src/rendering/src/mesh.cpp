@@ -159,18 +159,31 @@ bool Mesh::loadMesh()
                     std::cerr << "Error loading texture " << fullPath << std::endl;
                     delete textures[i];
                     textures[i] = nullptr;
-                    ret = false;
+
+                    // Load "missing texture" texture in place off failed texture
+                    std::filesystem::path defaultTexture = GameEngine::getInstance().defaultAssetFolder() / "missing_texture2.png";
+                    textures[i] = new Texture(GL_TEXTURE_2D, defaultTexture.string());
+
+                    ret = textures[i]->Load();
                 }
                 else
                 {
                     std::cout << "Loaded texture " << fullPath << std::endl;
                 }
             }
+            else
+            {
+                // Load "missing texture" texture in place off failed texture
+                std::filesystem::path defaultTexture = GameEngine::getInstance().defaultAssetFolder() / "missing_texture2.png";
+                textures[i] = new Texture(GL_TEXTURE_2D, defaultTexture.string());
+
+                ret = textures[i]->Load();
+            }
         }
         // Load a white texture in case the model does not include its own texture
         if (!textures[i])
         {
-            std::filesystem::path defaultTexture = GameEngine::getInstance().defaultAssetFolder() / "missing_texture2.png";
+            std::filesystem::path defaultTexture = GameEngine::getInstance().defaultAssetFolder() / "default_texture.png";
             textures[i] = new Texture(GL_TEXTURE_2D, defaultTexture.string());
 
             ret = textures[i]->Load();

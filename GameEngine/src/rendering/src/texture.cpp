@@ -39,7 +39,7 @@ bool Texture::Load()
     if (!image_data)
     {
         printf("Can't load texture from '%s' - %s\n", m_fileName.c_str(), stbi_failure_reason());
-        exit(0);
+        return false;
     }
 
     printf("Width %d, height %d, bpp %d\n", m_imageWidth, m_imageHeight, m_imageBPP);
