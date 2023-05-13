@@ -22,3 +22,6 @@ support more file types
 cleanup mehs + texture
 color only textures
 skybox / background color
+
+
+COMPONENTS NEED TO BE CREATED WITH NEW
