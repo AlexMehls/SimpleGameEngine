@@ -68,8 +68,10 @@ int GameEngine::gameEngineInit()
     glGenVertexArrays(1, &vertexArrayId);
     glBindVertexArray(vertexArrayId);
 
+    /*
     glGenBuffers(1, &vertexbuffer);
     glGenBuffers(1, &colorbuffer);
+    */
 
     std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     std::filesystem::path shaderFolder = projectFolder / "GameEngine/src/rendering/shaders";
@@ -130,10 +132,11 @@ void GameEngine::gameEngineTerminate()
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     */
-
+    glDeleteProgram(programId);
+    /*
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &colorbuffer);
-    glDeleteProgram(programId);
+    */
     glDeleteVertexArrays(1, &vertexArrayId);
 
     glfwDestroyWindow(window);
@@ -156,7 +159,8 @@ GameObject &GameEngine::createGameObject()
 Camera &GameEngine::createCamera()
 {
     uint64_t id = IdGenerator::getObjectId();
-    Camera *rawPtr = new Camera(id, &world, vertexbuffer, colorbuffer, mvpMatrixId);
+    // Camera *rawPtr = new Camera(id, &world, vertexbuffer, colorbuffer, mvpMatrixId);
+    Camera *rawPtr = new Camera(id, &world);
     std::unique_ptr<GameObject> objectPtr(rawPtr);
 
     gameObjects.insert(std::make_pair(id, std::move(objectPtr)));

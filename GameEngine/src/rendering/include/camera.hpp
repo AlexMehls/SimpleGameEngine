@@ -10,7 +10,7 @@
 class Camera : public GameObject
 {
 public:
-    Camera(uint64_t id, GameObject *parent, GLuint vertexBufferId, GLuint colorBufferId, GLuint mvpMatId);
+    Camera(uint64_t id, GameObject *parent);
     virtual ~Camera();
 
     void setFov(float fov);
@@ -24,10 +24,6 @@ public:
 private:
     float fov;
     float ratio;
-
-    GLuint vertexBufferId;
-    GLuint colorBufferId;
-    GLuint mvpMatId;
 
     glm::mat4 viewMat;
     glm::mat4 projectionMat;

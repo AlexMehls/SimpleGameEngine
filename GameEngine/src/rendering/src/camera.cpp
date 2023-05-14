@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-Camera::Camera(uint64_t id, GameObject *parent, GLuint vertexBufferId, GLuint colorBufferId, GLuint mvpMatId)
-    : vertexBufferId(vertexBufferId), colorBufferId(colorBufferId), mvpMatId(mvpMatId), GameObject(id, parent)
+Camera::Camera(uint64_t id, GameObject *parent)
+    : GameObject(id, parent)
 {
     fov = 45;
     ratio = 4 / (float)3;

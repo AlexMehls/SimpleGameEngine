@@ -43,8 +43,10 @@ public:
 
 private:
     GLuint vertexArrayId;
+    /*
     GLuint vertexbuffer;
     GLuint colorbuffer;
+    */
     GLuint programId;
 
     bool isInitialized;

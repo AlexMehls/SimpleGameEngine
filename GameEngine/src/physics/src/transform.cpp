@@ -26,6 +26,7 @@ glm::vec3 Transform::getPos() const
     {
         return position;
     }
+    // TODO: rot and scale should affect position
     return position + parent->getPos();
 }
 glm::quat Transform::getRot() const
@@ -78,6 +79,7 @@ void Transform::setPos(const glm::vec3 &pos)
     }
     else
     {
+        // TODO: rot and scale should affect position (maybe solved by getPos())
         position = pos - parent->getPos();
     }
     return;

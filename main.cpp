@@ -25,11 +25,16 @@ int main(int argc, char *argv[])
     testCubeMesh.loadMesh();
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
+    GameObject &cubeContainer = engine.createGameObject();
+    Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
+    cubeCBehavior.setFixedUpdateMethod(spinObject);
+
     GameObject &cubeObject = engine.createGameObject();
+    cubeObject.setParent(cubeContainer);
     Mesh &cubeMesh = *(new Mesh(&cubeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/cube/cube.obj"));
     cubeMesh.loadMesh();
-    Behavior &cubeBehavior = *(new Behavior(&cubeObject));
-    cubeBehavior.setFixedUpdateMethod(spinObject);
+    // Behavior &cubeBehavior = *(new Behavior(&cubeObject));
+    // cubeBehavior.setFixedUpdateMethod(spinObject);
     cubeObject.transform.setPos(glm::vec3(3, 1, 0));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
 
@@ -58,6 +63,8 @@ int main(int argc, char *argv[])
     double realFps;
     double gameFps;
 
+    double secAkkum = 0;
+
     while (!glfwWindowShouldClose(engine.window))
     {
         curTime = glfwGetTime();
@@ -66,13 +73,20 @@ int main(int argc, char *argv[])
 
         realFps = 1 / deltaTime;
 
+        /*
+        secAkkum += deltaTime;
+        if (secAkkum > 1)
+        {
+            secAkkum -= 1;
+            std::cout << realFps << std::endl;
+        }
+        */
+
         if (deltaTime > (double)1 / 30)
         {
             deltaTime = 1 / 30;
         }
-
         gameFps = 1 / deltaTime;
-        // std::cout << realFps << std::endl;
 
         engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
         engine.update(deltaTime);

@@ -1,4 +1,5 @@
 switch to GameEngine (more)
+gameEngine settings (v-sync, ...)
 
 performance issues with v-sync (? could just be setting the aspect ratio every frame)
 better rendering (direct access to RenderObjects)
@@ -8,7 +9,7 @@ more complex Transform variable access
 
 recursive object destruction?
 
-transform -> scale should affect position
+fix global values in transform -> rotation /scale should affect position of child objects
 
 better component construction architecture
 
