@@ -4,6 +4,7 @@
 #include "mesh.hpp"
 #include "behavior.hpp"
 #include "testBehaviors.hpp"
+#include "debugOutput.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -26,17 +27,20 @@ int main(int argc, char *argv[])
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
     GameObject &cubeContainer = engine.createGameObject();
-    Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
-    cubeCBehavior.setFixedUpdateMethod(spinObject);
+    // Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
+    // cubeCBehavior.setFixedUpdateMethod(spinObject);
+    cubeContainer.transform.setPos(glm::vec3(0, 10, 0));
+    cubeContainer.transform.setScale(glm::vec3(0.5f));
 
     GameObject &cubeObject = engine.createGameObject();
     cubeObject.setParent(cubeContainer);
     Mesh &cubeMesh = *(new Mesh(&cubeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/cube/cube.obj"));
     cubeMesh.loadMesh();
-    // Behavior &cubeBehavior = *(new Behavior(&cubeObject));
-    // cubeBehavior.setFixedUpdateMethod(spinObject);
-    cubeObject.transform.setPos(glm::vec3(3, 1, 0));
+    // cubeObject.transform.setLocalPos(glm::vec3(2, 0, 0));
+    cubeObject.transform.setPos(glm::vec3(1, 2, 3));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
+
+    DebugOutput::printVec(cubeObject.transform.getPos());
 
     GameObject &planeObject = engine.createGameObject();
     Mesh &planeMesh = *(new Mesh(&planeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/plane/plane.obj"));

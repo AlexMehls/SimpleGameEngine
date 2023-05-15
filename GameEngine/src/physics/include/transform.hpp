@@ -56,8 +56,8 @@ public:
     // Updates the previous values with the current values
     void savePreviousState();
 
-    // Sets a new parent while keeping global values the same
-    void setParent(const Transform &other);
+    // Sets a new parent while keeping global values (or local values) the same
+    void setParent(const Transform &other, bool keepLocals = false);
 
     // Model matrix with interpolation for rendering (1 = only current values)
     glm::mat4 getModelMat(float interpolation) const;

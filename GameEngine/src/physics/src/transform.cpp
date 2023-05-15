@@ -26,8 +26,14 @@ glm::vec3 Transform::getPos() const
     {
         return position;
     }
-    // TODO: rot and scale should affect position
-    return position + parent->getPos();
+    // apply roation and scale of parent object(s)
+    glm::mat4 positionMat = glm::translate(glm::mat4(1.0f), CoordinateTransform::toOpenGlPos(parent->getPos()));
+    glm::mat4 rotationMat = glm::mat4_cast(parent->getRot());
+    glm::mat4 scaleMat = glm::scale(CoordinateTransform::toOpenGlScale(parent->getScale()));
+
+    glm::vec3 glPos = CoordinateTransform::toOpenGlPos(position);
+
+    return CoordinateTransform::toGamePos(positionMat * rotationMat * scaleMat * glm::vec4(glPos.x, glPos.y, glPos.z, 1));
 }
 glm::quat Transform::getRot() const
 {
@@ -79,8 +85,15 @@ void Transform::setPos(const glm::vec3 &pos)
     }
     else
     {
-        // TODO: rot and scale should affect position (maybe solved by getPos())
-        position = pos - parent->getPos();
+        // compensates for roation and scale of parent object(s)
+        // inverse of transformation in getPos()
+        glm::mat4 positionMat = glm::translate(glm::mat4(1.0f), CoordinateTransform::toOpenGlPos(-parent->getPos()));
+        glm::mat4 rotationMat = glm::mat4_cast(glm::conjugate(parent->getRot()));
+        glm::mat4 scaleMat = glm::scale(CoordinateTransform::toOpenGlScale(glm::vec3(1) / parent->getScale()));
+
+        glm::vec3 glPos = CoordinateTransform::toOpenGlPos(pos);
+
+        position = CoordinateTransform::toGamePos(scaleMat * positionMat * rotationMat * glm::vec4(glPos.x, glPos.y, glPos.z, 1));
     }
     return;
 }
@@ -144,6 +157,7 @@ void Transform::move(const glm::vec3 &deltaPos)
 }
 void Transform::rotate(const glm::vec3 &deltaAngles)
 {
+    // TODO: fixed angles
     rotation = glm::quat(deltaAngles) * rotation;
     return;
 }
@@ -168,8 +182,13 @@ void Transform::savePreviousState()
     return;
 }
 
-void Transform::setParent(const Transform &other)
+void Transform::setParent(const Transform &other, bool keepLocals)
 {
+    if (keepLocals)
+    {
+        parent = &other;
+        return;
+    }
     glm::vec3 worldPos = getPos();
     glm::quat worldRot = getRot();
     glm::vec3 worldScale = getScale();
@@ -196,5 +215,5 @@ glm::mat4 Transform::getModelMat(float interpolation) const
     glm::mat4 rotationMat = glm::mat4_cast(interpolatedRot);
     glm::mat4 scaleMat = glm::scale(interpolatedScale);
 
-    return positionMat * rotationMat * scaleMat; // correct order?
+    return positionMat * rotationMat * scaleMat;
 }

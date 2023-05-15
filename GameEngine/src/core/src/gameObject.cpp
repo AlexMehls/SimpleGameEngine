@@ -4,7 +4,7 @@ GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
 {
     if (parent != nullptr)
     {
-        transform.setParent(parent->transform);
+        transform.setParent(parent->transform, true);
     }
 
     return;
@@ -48,7 +48,7 @@ void GameObject::setParent(GameObject &newParent)
     parent = &newParent;
     newParent.children.push_back(this);
 
-    transform.setParent(newParent.transform);
+    transform.setParent(newParent.transform, true);
 
     return;
 }

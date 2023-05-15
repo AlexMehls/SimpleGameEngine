@@ -46,7 +46,7 @@ void Mesh::MeshEntry::Init(const std::vector<Vertex> &Vertices,
 Mesh::Mesh(GameObject *parent, const std::string &fileName) : Component(parent)
 {
     Mesh::fileName = fileName;
-    transform.setParent(object->transform);
+    transform.setParent(object->transform, true);
 }
 Mesh::~Mesh()
 {
