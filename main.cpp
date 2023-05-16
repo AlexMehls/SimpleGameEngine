@@ -5,6 +5,7 @@
 #include "behavior.hpp"
 #include "testBehaviors.hpp"
 #include "debugOutput.hpp"
+#include "rotationHelpers.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -93,8 +94,6 @@ int main(int argc, char *argv[])
             deltaTime = 1 / 30;
         }
         gameFps = 1 / deltaTime;
-
-        DebugOutput::printVec(camera.transform.getEulerAngles());
 
         engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
         engine.update(deltaTime);

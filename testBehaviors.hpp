@@ -26,9 +26,20 @@ void cameraMouseControl(double deltaTime, GameObject &cameraObject)
 
     const float mouseSpeed = 0.0005f;
 
-    cameraObject.transform.rotate(glm::vec3(-mouseSpeed * input.mouseDeltaY,
-                                            -mouseSpeed * input.mouseDeltaX,
-                                            0));
+    static float pitch = 0;
+    static float yaw = 0;
+
+    pitch -= mouseSpeed * input.mouseDeltaY;
+    if (pitch < -glm::half_pi<float>() || pitch > glm::half_pi<float>())
+    {
+        yaw += mouseSpeed * input.mouseDeltaX;
+    }
+    else
+    {
+        yaw -= mouseSpeed * input.mouseDeltaX;
+    }
+
+    cameraObject.transform.setLocalEulerAngles(glm::vec3(pitch, yaw, 0));
     return;
 }
 
