@@ -48,7 +48,7 @@ void GameObject::setParent(GameObject &newParent)
     parent = &newParent;
     newParent.children.push_back(this);
 
-    transform.setParent(newParent.transform, true);
+    transform.setParent(newParent.transform);
 
     return;
 }

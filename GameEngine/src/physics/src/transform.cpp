@@ -157,8 +157,7 @@ void Transform::move(const glm::vec3 &deltaPos)
 }
 void Transform::rotate(const glm::vec3 &deltaAngles)
 {
-    // TODO: fixed angles
-    rotation = glm::quat(deltaAngles) * rotation;
+    rotation = glm::normalize(rotation * glm::quat(deltaAngles));
     return;
 }
 void Transform::scale(const glm::vec3 &deltaScale)

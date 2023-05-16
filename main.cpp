@@ -27,20 +27,21 @@ int main(int argc, char *argv[])
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
     GameObject &cubeContainer = engine.createGameObject();
-    // Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
-    // cubeCBehavior.setFixedUpdateMethod(spinObject);
-    cubeContainer.transform.setPos(glm::vec3(0, 10, 0));
+    Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
+    cubeCBehavior.setFixedUpdateMethod(spinObject);
+    cubeContainer.transform.setPos(glm::vec3(0, 5, 0));
     cubeContainer.transform.setScale(glm::vec3(0.5f));
 
     GameObject &cubeObject = engine.createGameObject();
     cubeObject.setParent(cubeContainer);
     Mesh &cubeMesh = *(new Mesh(&cubeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/cube/cube.obj"));
     cubeMesh.loadMesh();
-    // cubeObject.transform.setLocalPos(glm::vec3(2, 0, 0));
-    cubeObject.transform.setPos(glm::vec3(1, 2, 3));
+    cubeObject.transform.setLocalPos(glm::vec3(2, 0, 0));
+    // cubeObject.transform.setPos(glm::vec3(1, 2, 3));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
 
-    DebugOutput::printVec(cubeObject.transform.getPos());
+    // DebugOutput::printVec(cubeObject.transform.getEulerAngles());
+    // DebugOutput::printVec(cubeObject.transform.getPos());
 
     GameObject &planeObject = engine.createGameObject();
     Mesh &planeMesh = *(new Mesh(&planeObject, engine.defaultAssetFolder().string() + "/primitiveObjects/plane/plane.obj"));
@@ -55,7 +56,8 @@ int main(int argc, char *argv[])
 
     Camera &camera = engine.createCamera();
     Behavior &cameraBehavior = *(new Behavior(&camera));
-    cameraBehavior.setUpdateMethod(cameraMoveDemo);
+    // cameraBehavior.setUpdateMethod(cameraMoveDemo);
+    cameraBehavior.setUpdateMethod(cameraMouseControl);
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
@@ -91,6 +93,8 @@ int main(int argc, char *argv[])
             deltaTime = 1 / 30;
         }
         gameFps = 1 / deltaTime;
+
+        DebugOutput::printVec(camera.transform.getEulerAngles());
 
         engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
         engine.update(deltaTime);

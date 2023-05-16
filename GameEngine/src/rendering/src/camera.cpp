@@ -75,7 +75,8 @@ void Camera::updateViewMat()
 {
     // transform coordinates to OpenGl coordinates
     glm::vec3 cameraPos = CoordinateTransform::toOpenGlPos(transform.getPos());
-    viewMat = glm::lookAt(cameraPos, cameraPos + transform.getRot() * glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+    glm::quat cameraRot = transform.getRot();
+    viewMat = glm::lookAt(cameraPos, cameraPos + cameraRot * glm::vec3(0, 0, -1), cameraRot * glm::vec3(0, 1, 0));
 }
 
 void Camera::updateProjectionMat()
