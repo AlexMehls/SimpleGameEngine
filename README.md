@@ -7,6 +7,7 @@ A simple game engine based on OpenGL
 - GLM
 - Assimp
 - stb_image
+- imgui
 
 ## Supported (and tested) asset file formats:
 ### Meshes:
