@@ -62,6 +62,10 @@ int main(int argc, char *argv[])
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
+    Camera &camera2 = engine.createCamera();
+    camera2.transform.setPos(glm::vec3(0, 10, 2));
+    camera2.transform.lookAt(glm::vec3(0));
+
     UserInput &input = UserInput::getInstance();
 
     double prevTime = glfwGetTime();
@@ -86,8 +90,18 @@ int main(int argc, char *argv[])
         {
             secAkkum -= 1;
             std::cout << realFps << std::endl;
+
+            if (engine.activeCamera == &camera)
+            {
+                engine.activeCamera = &camera2;
+            }
+            else
+            {
+                engine.activeCamera = &camera;
+            }
         }
         */
+        // DebugOutput::printVec(glm::degrees(RotationHelpers::eulerAnglesAlternateWrapping(camera.transform.getEulerAngles())));
 
         if (deltaTime > (double)1 / 30)
         {

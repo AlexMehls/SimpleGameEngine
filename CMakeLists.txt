@@ -8,6 +8,6 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 
 # target_include_directories(${PROJECT_NAME} PRIVATE ${LIBS_PATH}/include include)
 
-add_subdirectory(GameEngine)
+add_subdirectory(Editor)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE GameEngine)
+target_link_libraries(${PROJECT_NAME} PRIVATE Editor)

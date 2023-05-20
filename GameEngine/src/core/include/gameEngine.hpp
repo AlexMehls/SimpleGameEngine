@@ -53,7 +53,6 @@ private:
 
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
-
     std::filesystem::path defaultAssetPath;
 
     std::queue<uint64_t> destructionQueue;
