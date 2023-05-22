@@ -8,6 +8,7 @@ A simple game engine based on OpenGL
 - Assimp
 - stb_image
 - imgui
+- nlohmann/json
 
 ## Supported (and tested) asset file formats:
 ### Meshes:
