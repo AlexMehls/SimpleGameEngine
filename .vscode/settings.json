@@ -98,7 +98,8 @@
         "set": "cpp",
         "stack": "cpp",
         "unordered_set": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "valarray": "cpp"
     },
     "cmake.configureOnOpen": true,
     "files.autoSave": "onFocusChange"

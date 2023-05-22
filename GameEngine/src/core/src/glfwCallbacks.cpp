@@ -12,43 +12,49 @@ void error_callback(int error, const char *description)
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+    UserInput &input = UserInput::getInstance();
+
+    if (action == GLFW_PRESS)
+    {
+        input.keyPressed(scancode);
+        // std::cout << scancode << std::endl;
+    }
+    else if (action == GLFW_RELEASE)
+    {
+        input.keyReleased(scancode);
+    }
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
+    return;
 }
 
 void cursor_position_callback(GLFWwindow *window, double xPos, double yPos)
 {
     // std::cout << "Cursor Pos: " << xPos << ", " << yPos << std::endl;
-    UserInput &input = UserInput::getInstance();
-
-    // Should this be done differently?
-    double deltaX = xPos - input.mouseX;
-    double deltaY = yPos - input.mouseY;
-
-    // Detect and ignore jumps
-    if (deltaX > 100 || deltaY > 100)
-    {
-        deltaX = 0;
-        deltaY = 0;
-    }
-
-    input.mouseDeltaX += deltaX;
-    input.mouseDeltaY += deltaY;
-    input.mouseX = xPos;
-    input.mouseY = yPos;
     // glfwSetCursorPos(window, 0, 0);
 }
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    UserInput &input = UserInput::getInstance();
+
+    if (action == GLFW_PRESS)
     {
-        std::cout << "Pressed Left Mouse Button!" << std::endl;
+        input.mousePressed(button);
+        // std::cout << button << std::endl;
     }
+    else if (action == GLFW_RELEASE)
+    {
+        input.mouseReleased(button);
+    }
+    return;
 }
 
-void scroll_callback(GLFWwindow *window, double xOffset, double yOffset)
+void scroll_callback(GLFWwindow *window, double deltaX, double deltaY)
 {
+    UserInput &input = UserInput::getInstance();
+    input.mouseScrolled(deltaX, deltaY);
+    return;
 }

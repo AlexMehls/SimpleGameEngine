@@ -56,9 +56,11 @@ int main(int argc, char *argv[])
     grassObj.transform.setPos(glm::vec3(0, 0, -2.0f));
 
     Camera &camera = engine.createCamera();
-    Behavior &cameraBehavior = *(new Behavior(&camera));
+    Behavior &cControlB = *(new Behavior(&camera));
     // cameraBehavior.setUpdateMethod(cameraMoveDemo);
-    cameraBehavior.setUpdateMethod(cameraMouseControl);
+    cControlB.setUpdateMethod(cameraMouseControl);
+    Behavior &cMoveB = *(new Behavior(&camera));
+    cMoveB.setUpdateMethod(cameraKeyMove);
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 

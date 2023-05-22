@@ -9,20 +9,17 @@ more complex Transform variable access
 
 recursive object destruction?
 
-fix global values in transform -> rotation /scale should affect position of child objects
-
 better component construction architecture
-
-fix rotation (moving camera in circles shouldn't cause rolling) + roll should be visible -> rotation with locked axis?
 
 assimp as shared lib? / static lib? / fetch content?
 cleanup rendering
-migrate? renderObjects
 
 support more file types
-cleanup mehs + texture
+cleanup mesh + texture
 color only textures
 skybox / background color
 
+input config loading
+performance issues when moving mouse
 
 COMPONENTS NEED TO BE CREATED WITH NEW

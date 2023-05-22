@@ -2,6 +2,8 @@
 
 #include "gameObject.hpp"
 #include "userInput.hpp"
+#include "debugOutput.hpp"
+#include "coordinateTransform.hpp"
 
 void cameraMoveDemo(double deltaTime, GameObject &cameraObject)
 {
@@ -29,17 +31,45 @@ void cameraMouseControl(double deltaTime, GameObject &cameraObject)
     static float pitch = 0;
     static float yaw = 0;
 
-    pitch -= mouseSpeed * input.mouseDeltaY;
+    glm::vec2 mouseInput = input.getDualAxis("mouse");
+
+    pitch -= mouseSpeed * mouseInput.y;
     if (pitch < -glm::half_pi<float>() || pitch > glm::half_pi<float>())
     {
-        yaw += mouseSpeed * input.mouseDeltaX;
+        yaw += mouseSpeed * mouseInput.x;
     }
     else
     {
-        yaw -= mouseSpeed * input.mouseDeltaX;
+        yaw -= mouseSpeed * mouseInput.x;
     }
 
     cameraObject.transform.setLocalEulerAngles(glm::vec3(pitch, yaw, 0));
+    return;
+}
+void cameraKeyMove(double deltaTime, GameObject &cameraObject)
+{
+    UserInput &input = UserInput::getInstance();
+
+    float speed = 0.1f;
+    if (input.getButton("shift"))
+    {
+        speed *= 2;
+    }
+
+    glm::vec3 moveInput = glm::vec3(0);
+    moveInput.y += input.getButton("w");
+    moveInput.y -= input.getButton("s");
+    moveInput.x += input.getButton("d");
+    moveInput.x -= input.getButton("a");
+    moveInput.z += input.getButton("space");
+    moveInput.z -= input.getButton("ctrl");
+
+    moveInput = CoordinateTransform::toGamePos(cameraObject.transform.getRot() * CoordinateTransform::toOpenGlPos(moveInput));
+    glm::normalize(moveInput);
+    moveInput *= speed;
+
+    cameraObject.transform.move(moveInput);
+
     return;
 }
 
