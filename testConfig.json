@@ -1,0 +1,35 @@
+{
+    "axes": {
+        "look_x": "mouse_x",
+        "look_y": "mouse_y",
+        "move_x": [
+            "right",
+            "left"
+        ],
+        "move_y": [
+            "forward",
+            "backward"
+        ],
+        "move_z": [
+            "up",
+            "down"
+        ]
+    },
+    "buttons": {
+        "backward": "s",
+        "down": "ctrl",
+        "forward": "w",
+        "jump": "space",
+        "left": "a",
+        "right": "d",
+        "sprint": "shift",
+        "up": "space"
+    },
+    "dualAxes": {
+        "look": "mouse",
+        "move": [
+            "move_x",
+            "move_y"
+        ]
+    }
+}

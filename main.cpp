@@ -6,6 +6,7 @@
 #include "testBehaviors.hpp"
 #include "debugOutput.hpp"
 #include "rotationHelpers.hpp"
+#include "inputConfig.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,6 +15,34 @@
 #include <chrono>
 #include <filesystem>
 
+void createTestConfig(const std::string &path)
+{
+    InputConfig config;
+    config.setButton("forward", "w");
+    config.setButton("backward", "s");
+    config.setButton("left", "a");
+    config.setButton("right", "d");
+    config.setButton("up", "space");
+    config.setButton("down", "ctrl");
+
+    config.setButton("jump", "space");
+    config.setButton("sprint", "shift");
+
+    config.setAxis("look_x", "mouse_x");
+    config.setAxis("look_y", "mouse_y");
+
+    config.setAxis("move_x", "right", "left");
+    config.setAxis("move_y", "forward", "backward");
+    config.setAxis("move_z", "up", "down");
+
+    config.setDualAxis("move", "move_x", "move_y");
+    config.setDualAxis("look", "mouse");
+
+    config.save(path);
+
+    return;
+}
+
 int main(int argc, char *argv[])
 {
     GameEngine &engine = GameEngine::getInstance();
@@ -21,6 +50,9 @@ int main(int argc, char *argv[])
 
     std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     std::filesystem::path testAssetPath = projectFolder / "testAssets";
+
+    std::string testConfigPath = projectFolder.string() + "/testConfig.json";
+    // createTestConfig(testConfigPath);
 
     GameObject &testCube = engine.createGameObject();
     Mesh &testCubeMesh = *(new Mesh(&testCube, engine.defaultAssetFolder().string() + "/testCube3/test_cube.obj"));
@@ -69,6 +101,10 @@ int main(int argc, char *argv[])
     camera2.transform.lookAt(glm::vec3(0));
 
     UserInput &input = UserInput::getInstance();
+    if (input.loadConfig(testConfigPath))
+    {
+        std::cout << "Button mapping loaded successfully" << std::endl;
+    }
 
     double prevTime = glfwGetTime();
     double curTime;

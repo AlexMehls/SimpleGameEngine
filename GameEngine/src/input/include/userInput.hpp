@@ -44,7 +44,12 @@ public:
     void operator=(UserInput const &) = delete;
 
 private:
-    std::map<std::string, std::string> actionToButtonMap;
+    // For action -> button / axis / dualAxis
+    std::map<std::string, std::string> actionMap;
+    // For action -> 2 buttons / 2 axes
+    std::map<std::string, std::pair<std::string, std::string>> axisMap;
+    // For action -> 4 buttons
+    std::map<std::string, std::tuple<std::string, std::string, std::string, std::string>> dualAxisMap;
 
     // Buttons
     std::set<int> pressedKeys;

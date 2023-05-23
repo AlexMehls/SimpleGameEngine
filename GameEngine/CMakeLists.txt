@@ -7,7 +7,7 @@ find_library(glfwlib glfw NAME GLFW glfw3 PATHS ${LIBS_PATH}/lib)
 message(STATUS "GLFW found as ${glfwlib}")
 
 add_library(${PROJECT_NAME})
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 target_include_directories(${PROJECT_NAME} PUBLIC ${LIBS_PATH}/include)
 
 add_subdirectory(external/glad)

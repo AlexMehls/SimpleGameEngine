@@ -2,7 +2,6 @@ switch to GameEngine (more)
 gameEngine settings (v-sync, ...)
 
 performance issues with v-sync (? could just be setting the aspect ratio every frame)
-better rendering (direct access to RenderObjects)
 proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access
@@ -10,16 +9,17 @@ more complex Transform variable access
 recursive object destruction?
 
 better component construction architecture
+COMPONENTS NEED TO BE CREATED WITH NEW
+
+cleanup rendering
+better rendering (direct access to RenderObjects)
 
 assimp as shared lib? / static lib? / fetch content?
-cleanup rendering
-
 support more file types
 cleanup mesh + texture
 color only textures
 skybox / background color
 
-input config loading
+input / config allow mixed dualAxis (true Axis + Buttons)
+input support more named keys
 performance issues when moving mouse
-
-COMPONENTS NEED TO BE CREATED WITH NEW
