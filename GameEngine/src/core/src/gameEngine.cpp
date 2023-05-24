@@ -237,8 +237,8 @@ void GameEngine::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Setting a fixed resolution causes stretching if window shape changes
-    // Updating causes lags and crashes when switching to desktop
-    // camera.setRatio(ratio);
+    // Updating causes lags? and crashes when switching to desktop (if ratio weird)
+    activeCamera->setRatio(ratio);
 
     // TODO: Improve performance
     if (activeCamera != nullptr)

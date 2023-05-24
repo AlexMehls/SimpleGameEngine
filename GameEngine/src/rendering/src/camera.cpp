@@ -26,13 +26,21 @@ Camera::~Camera()
 
 void Camera::setFov(float newFov)
 {
-    fov = newFov;
-    projectionMatChanged = true;
+    if (newFov != fov)
+    {
+        fov = newFov;
+        projectionMatChanged = true;
+    }
+    return;
 }
 void Camera::setRatio(float newRatio)
 {
-    ratio = newRatio;
-    projectionMatChanged = true;
+    if (newRatio != ratio && newRatio >= 0.01 && newRatio <= 100)
+    {
+        ratio = newRatio;
+        projectionMatChanged = true;
+    }
+    return;
 }
 
 /*
