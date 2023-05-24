@@ -45,6 +45,10 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
     {
         input.mousePressed(button);
         // std::cout << button << std::endl;
+        if (GameEngine::getInstance().cursorLocked())
+        {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
     }
     else if (action == GLFW_RELEASE)
     {
@@ -62,11 +66,7 @@ void scroll_callback(GLFWwindow *window, double deltaX, double deltaY)
 
 void window_focus_callback(GLFWwindow *window, int focused)
 {
-    if (focused && GameEngine::getInstance().cursorLocked())
-    {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-    else
+    if (!focused)
     {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
