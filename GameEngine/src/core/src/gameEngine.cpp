@@ -22,6 +22,24 @@ GameEngine &GameEngine::getInstance()
     return gameEngine;
 }
 
+void GameEngine::setCursorLock(bool locked)
+{
+    if (locked)
+    {
+        m_cursorLocked = true;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    else
+    {
+        m_cursorLocked = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+}
+bool GameEngine::cursorLocked()
+{
+    return m_cursorLocked;
+}
+
 int GameEngine::gameEngineInit()
 {
     if (isInitialized)
@@ -55,12 +73,12 @@ int GameEngine::gameEngineInit()
 
     glfwSetInputMode(window, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     if (glfwRawMouseMotionSupported())
     {
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
     }
-    glfwSetCursorPosCallback(window, cursor_position_callback);
+    // glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetWindowFocusCallback(window, window_focus_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetKeyCallback(window, key_callback);

@@ -22,6 +22,9 @@ public:
 
     static GameEngine &getInstance();
 
+    void setCursorLock(bool locked);
+    bool cursorLocked();
+
     int gameEngineInit();
     void gameEngineTerminate();
 
@@ -50,6 +53,7 @@ private:
     GLuint programId;
 
     bool isInitialized;
+    bool m_cursorLocked = false;
 
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?

@@ -114,6 +114,8 @@ int main(int argc, char *argv[])
 
     double secAkkum = 0;
 
+    engine.setCursorLock(true);
+
     while (!glfwWindowShouldClose(engine.window))
     {
         curTime = glfwGetTime();

@@ -1,6 +1,7 @@
 #include "glfwCallbacks.hpp"
 
 #include "userInput.hpp"
+#include "gameEngine.hpp"
 
 #include <iostream>
 
@@ -57,4 +58,16 @@ void scroll_callback(GLFWwindow *window, double deltaX, double deltaY)
     UserInput &input = UserInput::getInstance();
     input.mouseScrolled(deltaX, deltaY);
     return;
+}
+
+void window_focus_callback(GLFWwindow *window, int focused)
+{
+    if (focused && GameEngine::getInstance().cursorLocked())
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    else
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 }
