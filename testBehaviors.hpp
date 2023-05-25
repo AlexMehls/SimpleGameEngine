@@ -50,10 +50,10 @@ void cameraKeyMove(double deltaTime, GameObject &cameraObject)
 {
     UserInput &input = UserInput::getInstance();
 
-    float speed = 0.1f;
+    float speed = 5;
     if (input.getAction("sprint"))
     {
-        speed *= 2;
+        speed *= 4;
     }
 
     glm::vec2 moveHorizontal = input.getActionDualAxis("move");
@@ -62,7 +62,7 @@ void cameraKeyMove(double deltaTime, GameObject &cameraObject)
 
     moveInput = CoordinateTransform::toGamePos(cameraObject.transform.getRot() * CoordinateTransform::toOpenGlPos(moveInput));
     glm::normalize(moveInput);
-    moveInput *= speed;
+    moveInput *= speed * deltaTime;
 
     cameraObject.transform.move(moveInput);
 

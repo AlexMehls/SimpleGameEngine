@@ -1,7 +1,7 @@
 switch to GameEngine (more)
 gameEngine settings (v-sync, ...)
 
-performance issues with v-sync (? could just be setting the aspect ratio every frame)
+performance issues with v-sync (in windowed mode)
 proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access

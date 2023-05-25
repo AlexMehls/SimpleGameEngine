@@ -118,6 +118,9 @@ int main(int argc, char *argv[])
 
     while (!glfwWindowShouldClose(engine.window))
     {
+        glfwPollEvents();
+        input.step();
+
         curTime = glfwGetTime();
         deltaTime = curTime - prevTime;
         prevTime = curTime;
@@ -153,9 +156,6 @@ int main(int argc, char *argv[])
         engine.update(deltaTime);
 
         engine.render();
-
-        input.step();
-        glfwPollEvents();
     }
 
     engine.gameEngineTerminate();

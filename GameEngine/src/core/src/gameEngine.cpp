@@ -40,6 +40,29 @@ bool GameEngine::cursorLocked()
     return m_cursorLocked;
 }
 
+void GameEngine::setFullscreen(bool fullscreen)
+{
+    if (fullscreen)
+    {
+        glfwGetWindowPos(window, &windowPosX, &windowPosY);
+        glfwGetWindowSize(window, &windowSizeX, &windowSizeY);
+
+        GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+
+        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+    }
+    else
+    {
+        glfwSetWindowMonitor(window, NULL, windowPosX, windowPosY, windowSizeX, windowSizeY, 0);
+    }
+    return;
+}
+bool GameEngine::fullScreen()
+{
+    return glfwGetWindowMonitor(window) != NULL;
+}
+
 int GameEngine::gameEngineInit()
 {
     if (isInitialized)
@@ -255,7 +278,9 @@ void GameEngine::render()
             }
         }
     }
+    // glFinish();
     glfwSwapBuffers(window);
+    // glFinish();
 }
 
 void GameEngine::destroyQueuedObjects()

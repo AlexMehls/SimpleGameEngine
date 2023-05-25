@@ -28,6 +28,11 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
+    if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+    {
+        GameEngine &engine = GameEngine::getInstance();
+        engine.setFullscreen(!engine.fullScreen());
+    }
     return;
 }
 

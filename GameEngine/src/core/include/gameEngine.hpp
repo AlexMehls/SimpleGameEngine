@@ -24,6 +24,8 @@ public:
 
     void setCursorLock(bool locked);
     bool cursorLocked();
+    void setFullscreen(bool fullscreen);
+    bool fullScreen();
 
     int gameEngineInit();
     void gameEngineTerminate();
@@ -54,6 +56,12 @@ private:
 
     bool isInitialized;
     bool m_cursorLocked = false;
+
+    // These are only used to store the values when switching to fullscreen
+    int windowPosX = 0;
+    int windowPosY = 0;
+    int windowSizeX = 0;
+    int windowSizeY = 0;
 
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
