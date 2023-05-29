@@ -32,6 +32,6 @@ public:
 private:
     std::list<std::unique_ptr<Component>> components;
 
-    GameObject *parent;
+    GameObject *parent = nullptr;
     std::list<GameObject *> children;
 };

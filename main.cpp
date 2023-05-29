@@ -3,10 +3,10 @@
 #include "gameEngine.hpp"
 #include "mesh.hpp"
 #include "behavior.hpp"
-#include "testBehaviors.hpp"
 #include "debugOutput.hpp"
 #include "rotationHelpers.hpp"
 #include "inputConfig.hpp"
+#include "behaviorLookup.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -60,8 +60,7 @@ int main(int argc, char *argv[])
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
     GameObject &cubeContainer = engine.createGameObject();
-    Behavior &cubeCBehavior = *(new Behavior(&cubeContainer));
-    cubeCBehavior.setFixedUpdateMethod(spinObject);
+    BehaviorLookup::createBehavior("SpinObject", cubeContainer);
     cubeContainer.transform.setPos(glm::vec3(0, 5, 0));
     cubeContainer.transform.setScale(glm::vec3(0.5f));
 
@@ -88,17 +87,17 @@ int main(int argc, char *argv[])
     grassObj.transform.setPos(glm::vec3(0, 0, -2.0f));
 
     Camera &camera = engine.createCamera();
-    Behavior &cControlB = *(new Behavior(&camera));
-    // cameraBehavior.setUpdateMethod(cameraMoveDemo);
-    cControlB.setUpdateMethod(cameraMouseControl);
-    Behavior &cMoveB = *(new Behavior(&camera));
-    cMoveB.setUpdateMethod(cameraKeyMove);
+    BehaviorLookup::createBehavior("CameraController", camera);
+    // BehaviorLookup::createBehavior("CameraMoveDemo", camera);
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
     Camera &camera2 = engine.createCamera();
     camera2.transform.setPos(glm::vec3(0, 10, 2));
     camera2.transform.lookAt(glm::vec3(0));
+
+    std::string testLevelPath = projectFolder.string() + "/testLevel.json";
+    engine.saveLevel(testLevelPath);
 
     UserInput &input = UserInput::getInstance();
     if (input.loadConfig(testConfigPath))

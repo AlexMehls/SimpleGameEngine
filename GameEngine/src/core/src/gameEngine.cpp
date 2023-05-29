@@ -3,6 +3,7 @@
 #include "shader.hpp"
 #include "glfwCallbacks.hpp"
 #include "mesh.hpp"
+#include "saveFile.hpp"
 
 #include <iostream>
 
@@ -20,6 +21,15 @@ GameEngine &GameEngine::getInstance()
 {
     static GameEngine gameEngine;
     return gameEngine;
+}
+
+bool GameEngine::loadLevel(const std::string &path)
+{
+    return SaveFile::load(path, world, gameObjects);
+}
+bool GameEngine::saveLevel(const std::string &path)
+{
+    return SaveFile::save(path, world);
 }
 
 void GameEngine::setCursorLock(bool locked)

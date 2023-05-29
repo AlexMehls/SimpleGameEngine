@@ -22,6 +22,11 @@ public:
 
     static GameEngine &getInstance();
 
+    // Loads a level form a file
+    bool loadLevel(const std::string &path);
+    // Saves the GameObjects into a save file
+    bool saveLevel(const std::string &path);
+
     void setCursorLock(bool locked);
     bool cursorLocked();
     void setFullscreen(bool fullscreen);

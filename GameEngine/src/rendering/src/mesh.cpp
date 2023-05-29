@@ -1,5 +1,7 @@
 #include "mesh.hpp"
+
 #include "gameEngine.hpp"
+#include "saveFile.hpp"
 
 #include <iostream>
 #include <filesystem>
@@ -66,6 +68,22 @@ void Mesh::clear()
 std::string Mesh::type() const
 {
     return "Mesh";
+}
+
+json Mesh::getLevelParams() const
+{
+    json params;
+    params["file"] = fileName;
+    SaveFile::addTransform(params, transform);
+
+    return params;
+}
+
+void Mesh::loadParams(const json &params)
+{
+    fileName = params["file"];
+    transform = SaveFile::loadTransform(params);
+    return;
 }
 
 void Mesh::update(double deltaTime) {}

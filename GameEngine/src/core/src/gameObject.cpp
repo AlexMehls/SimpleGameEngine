@@ -1,10 +1,10 @@
 #include "gameObject.hpp"
 
-GameObject::GameObject(uint64_t id, GameObject *parent) : id(id), parent(parent)
+GameObject::GameObject(uint64_t id, GameObject *parent) : id(id)
 {
     if (parent != nullptr)
     {
-        transform.setParent(parent->transform, true);
+        setParent(*parent);
     }
 
     return;

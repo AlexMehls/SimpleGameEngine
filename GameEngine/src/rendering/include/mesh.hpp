@@ -51,6 +51,8 @@ public:
     bool loadMesh();
 
     virtual std::string type() const override;
+    virtual json getLevelParams() const override;
+    virtual void loadParams(const json &params) override;
 
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;

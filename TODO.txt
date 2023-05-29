@@ -10,6 +10,7 @@ recursive object destruction?
 
 better component construction architecture
 COMPONENTS NEED TO BE CREATED WITH NEW
+code generation for behaviors
 
 cleanup rendering
 better rendering (direct access to RenderObjects)
