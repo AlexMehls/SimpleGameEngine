@@ -8,6 +8,8 @@ class SpinObject : public Behavior
 public:
     SpinObject(GameObject *parent) : Behavior(parent) {}
 
+    virtual std::string type() const override { return "SpinObject"; }
+
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
 };

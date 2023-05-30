@@ -21,8 +21,9 @@ Camera::~Camera()
     {
         engine.activeCamera = nullptr;
     }
-    GameObject::~GameObject();
 }
+
+std::string Camera::type() const { return "Camera"; }
 
 void Camera::setFov(float newFov)
 {

@@ -8,7 +8,8 @@
                     },
                     "type": "Mesh"
                 }
-            ]
+            ],
+            "type": "GameObject"
         },
         {
             "components": [
@@ -16,7 +17,7 @@
                     "parameters": {
                         "defaultParameters": null
                     },
-                    "type": "Behavior"
+                    "type": "SpinObject"
                 }
             ],
             "gameObjects": [
@@ -40,7 +41,8 @@
                             1.0,
                             2.0
                         ]
-                    }
+                    },
+                    "type": "GameObject"
                 }
             ],
             "transform": {
@@ -54,7 +56,8 @@
                     0.5,
                     0.5
                 ]
-            }
+            },
+            "type": "GameObject"
         },
         {
             "components": [
@@ -76,7 +79,8 @@
                     3.0,
                     3.0
                 ]
-            }
+            },
+            "type": "GameObject"
         },
         {
             "components": [
@@ -93,7 +97,8 @@
                     -0.0,
                     -2.0
                 ]
-            }
+            },
+            "type": "GameObject"
         },
         {
             "components": [
@@ -101,9 +106,10 @@
                     "parameters": {
                         "defaultParameters": null
                     },
-                    "type": "Behavior"
+                    "type": "CameraController"
                 }
             ],
+            "isActive": true,
             "transform": {
                 "pos": [
                     0.0,
@@ -116,7 +122,8 @@
                     0.0,
                     0.0
                 ]
-            }
+            },
+            "type": "Camera"
         },
         {
             "transform": {
@@ -131,7 +138,9 @@
                     0.9951333403587341,
                     0.0985376164317131
                 ]
-            }
+            },
+            "type": "Camera"
         }
-    ]
+    ],
+    "type": "GameObject"
 }

@@ -44,6 +44,7 @@ class Mesh : public Component
 public:
     Transform transform;
 
+    Mesh(GameObject *parent);
     Mesh(GameObject *parent, const std::string &fileName);
     ~Mesh();
 

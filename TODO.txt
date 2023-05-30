@@ -6,11 +6,8 @@ proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access
 
-recursive object destruction?
-
-better component construction architecture
-COMPONENTS NEED TO BE CREATED WITH NEW
 code generation for behaviors
+default parameters for behaviors
 
 cleanup rendering
 better rendering (direct access to RenderObjects)
@@ -23,4 +20,4 @@ skybox / background color
 
 input / config allow mixed dualAxis (true Axis + Buttons)
 input support more named keys
-performance issues when moving mouse
+performance issues when moving mouse -> only in windowed mode

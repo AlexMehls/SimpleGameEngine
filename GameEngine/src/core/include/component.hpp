@@ -13,6 +13,7 @@ class Component
 {
 public:
     Component(GameObject *object);
+    virtual ~Component();
 
     virtual std::string type() const = 0;
     virtual json getLevelParams() const = 0;

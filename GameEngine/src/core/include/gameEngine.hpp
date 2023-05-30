@@ -37,7 +37,7 @@ public:
 
     GameObject &createGameObject();
     Camera &createCamera();
-    void destroyGameObject(GameObject &toDestroy);
+    void addToDestroyQueue(GameObject &toDestroy);
 
     const std::filesystem::path &defaultAssetFolder() const;
 

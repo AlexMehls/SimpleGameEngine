@@ -1,6 +1,7 @@
 #include "behavior.hpp"
 
 Behavior::Behavior(GameObject *parent) : Component(parent) {}
+Behavior::~Behavior() {}
 
 std::string Behavior::type() const
 {

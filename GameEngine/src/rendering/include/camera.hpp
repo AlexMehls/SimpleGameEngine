@@ -13,6 +13,7 @@ public:
     Camera(uint64_t id, GameObject *parent);
     virtual ~Camera();
 
+    virtual std::string type() const override;
     void setFov(float fov);
     void setRatio(float ratio);
 

@@ -8,6 +8,8 @@ class CameraController : public Behavior
 public:
     CameraController(GameObject *parent) : Behavior(parent) {}
 
+    virtual std::string type() const override { return "CameraController"; }
+
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
 };

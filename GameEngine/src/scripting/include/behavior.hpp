@@ -6,6 +6,7 @@ class Behavior : public Component
 {
 public:
     Behavior(GameObject *parent);
+    virtual ~Behavior();
 
     virtual std::string type() const override;
     virtual json getLevelParams() const override;

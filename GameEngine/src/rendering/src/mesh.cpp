@@ -45,10 +45,16 @@ void Mesh::MeshEntry::Init(const std::vector<Vertex> &Vertices,
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * NumIndices, &Indices[0], GL_STATIC_DRAW);
 }
 
+Mesh::Mesh(GameObject *parent) : Component(parent)
+{
+    transform.setParent(object->transform, true);
+}
 Mesh::Mesh(GameObject *parent, const std::string &fileName) : Component(parent)
 {
     Mesh::fileName = fileName;
     transform.setParent(object->transform, true);
+
+    loadMesh();
 }
 Mesh::~Mesh()
 {
@@ -82,7 +88,9 @@ json Mesh::getLevelParams() const
 void Mesh::loadParams(const json &params)
 {
     fileName = params["file"];
-    transform = SaveFile::loadTransform(params);
+    transform = SaveFile::loadTransform(params, &(object->transform));
+
+    loadMesh();
     return;
 }
 

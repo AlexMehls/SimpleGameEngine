@@ -4,12 +4,14 @@
 #include "glfwCallbacks.hpp"
 #include "mesh.hpp"
 #include "saveFile.hpp"
+#include "factory.hpp"
 
 #include <iostream>
 
 GameEngine::GameEngine() : world(IdGenerator::getObjectId(), nullptr)
 {
-    std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
     defaultAssetPath = projectFolder / "GameEngine/src/rendering/defaultAssets";
 }
 GameEngine::~GameEngine()
@@ -25,11 +27,11 @@ GameEngine &GameEngine::getInstance()
 
 bool GameEngine::loadLevel(const std::string &path)
 {
-    return SaveFile::load(path, world, gameObjects);
+    return SaveFile::load(path, world, gameObjects, activeCamera);
 }
 bool GameEngine::saveLevel(const std::string &path)
 {
-    return SaveFile::save(path, world);
+    return SaveFile::save(path, world, activeCamera);
 }
 
 void GameEngine::setCursorLock(bool locked)
@@ -124,7 +126,8 @@ int GameEngine::gameEngineInit()
     glGenBuffers(1, &colorbuffer);
     */
 
-    std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
     std::filesystem::path shaderFolder = projectFolder / "GameEngine/src/rendering/shaders";
     std::string vertexShaderPath = shaderFolder.string() + "/TextureVertexShader.vertexshader";
     std::string fragmentShaderPath = shaderFolder.string() + "/TextureFragmentShader.fragmentshader";
@@ -199,31 +202,20 @@ void GameEngine::gameEngineTerminate()
 
 GameObject &GameEngine::createGameObject()
 {
-    uint64_t id = IdGenerator::getObjectId();
-    std::unique_ptr<GameObject> objectPrt = std::make_unique<GameObject>(id, &world);
-    GameObject *rawPtr = objectPrt.get();
-
-    gameObjects.insert(std::make_pair(id, std::move(objectPrt)));
-
-    return *rawPtr;
+    return Factory::createGameObject(&world, gameObjects);
 }
 Camera &GameEngine::createCamera()
 {
-    uint64_t id = IdGenerator::getObjectId();
-    // Camera *rawPtr = new Camera(id, &world, vertexbuffer, colorbuffer, mvpMatrixId);
-    Camera *rawPtr = new Camera(id, &world);
-    std::unique_ptr<GameObject> objectPtr(rawPtr);
-
-    gameObjects.insert(std::make_pair(id, std::move(objectPtr)));
+    Camera &camera = Factory::createCamera(&world, gameObjects);
 
     if (activeCamera == nullptr)
     {
-        activeCamera = rawPtr;
+        activeCamera = &camera;
     }
 
-    return *rawPtr;
+    return camera;
 }
-void GameEngine::destroyGameObject(GameObject &toDestroy)
+void GameEngine::addToDestroyQueue(GameObject &toDestroy)
 {
     // Adds Object to be destroyed to the destruction queue
     // All queued objects are deleted at the end of the next update / fixedUpdate
