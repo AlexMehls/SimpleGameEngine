@@ -16,5 +16,5 @@ public:
     virtual void fixedUpdate(double deltaTime) override = 0;
 
 protected:
-    json defaultParameters;
+    json defaultValues;
 };

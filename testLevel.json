@@ -15,7 +15,7 @@
             "components": [
                 {
                     "parameters": {
-                        "defaultParameters": null
+                        "defaultValues": null
                     },
                     "type": "SpinObject"
                 }
@@ -104,7 +104,7 @@
             "components": [
                 {
                     "parameters": {
-                        "defaultParameters": null
+                        "defaultValues": null
                     },
                     "type": "CameraController"
                 }

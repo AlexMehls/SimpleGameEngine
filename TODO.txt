@@ -6,8 +6,8 @@ proper game loop (fixed/variable)
 timings not with doubles (int64 instead)
 more complex Transform variable access
 
-code generation for behaviors
 default parameters for behaviors
+behaviors as (shared) library
 
 cleanup rendering
 better rendering (direct access to RenderObjects)

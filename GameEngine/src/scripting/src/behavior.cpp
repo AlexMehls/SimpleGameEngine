@@ -11,13 +11,13 @@ std::string Behavior::type() const
 json Behavior::getLevelParams() const
 {
     json params;
-    params["defaultParameters"] = defaultParameters;
+    params["defaultValues"] = defaultValues;
 
     return params;
 }
 
 void Behavior::loadParams(const json &params)
 {
-    defaultParameters = params["defaultParameters"];
+    defaultValues = params["defaultValues"];
     return;
 }
