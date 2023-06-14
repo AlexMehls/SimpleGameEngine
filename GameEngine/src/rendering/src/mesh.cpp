@@ -207,7 +207,7 @@ bool Mesh::loadTextures(const aiScene *scene)
 
             if (material->GetTexture(aiTextureType_DIFFUSE, 0, &path, NULL, NULL, NULL, NULL, NULL) == aiReturn_SUCCESS)
             {
-                std::string fullPath = directory + "/" + path.data;
+                std::string fullPath = directory + path.data;
                 textures[i] = new Texture(GL_TEXTURE_2D, fullPath);
 
                 if (!textures[i]->load())

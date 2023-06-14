@@ -26,7 +26,6 @@ namespace SaveFile
 
     void clearLevel(GameObject &world, std::map<uint64_t, std::unique_ptr<GameObject>> &gameObjects, Camera *&activeCamera)
     {
-        std::cout << "clearing level" << std::endl;
         world.getChildren().clear();
         world.getComponents().clear();
         world.transform = Transform();
@@ -34,7 +33,6 @@ namespace SaveFile
         gameObjects.clear();
 
         activeCamera = nullptr;
-        std::cout << "cleared level" << std::endl;
         return;
     }
 
