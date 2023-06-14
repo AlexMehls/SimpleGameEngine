@@ -5,6 +5,7 @@
 #include "mesh.hpp"
 #include "saveFile.hpp"
 #include "factory.hpp"
+#include "userInput.hpp"
 
 #include <iostream>
 
@@ -121,11 +122,6 @@ int GameEngine::gameEngineInit()
     glGenVertexArrays(1, &vertexArrayId);
     glBindVertexArray(vertexArrayId);
 
-    /*
-    glGenBuffers(1, &vertexbuffer);
-    glGenBuffers(1, &colorbuffer);
-    */
-
     // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
     std::filesystem::path shaderFolder = projectFolder / "GameEngine/src/rendering/shaders";
@@ -144,31 +140,6 @@ int GameEngine::gameEngineInit()
     // glClearColor(0.5f, 0.5f, 0.5f, 0.0f); // Background Color
     glClearColor(0.1f, 0.1f, 0.1f, 0.0f); // Background Color
 
-    /*
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glVertexAttribPointer(
-        0,        // attribute 0. No particular reason for 0, but must match the layout in the shader.
-        3,        // size
-        GL_FLOAT, // type
-        GL_FALSE, // normalized?
-        0,        // stride
-        (void *)0 // array buffer offset
-    );
-
-    // 2nd attribute buffer : colors
-    glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-    glVertexAttribPointer(
-        1,        // attribute. No particular reason for 1, but must match the layout in the shader.
-        3,        // size
-        GL_FLOAT, // type
-        GL_FALSE, // normalized?
-        0,        // stride
-        (void *)0 // array buffer offset
-    );
-    */
-
     glUseProgram(programId);
 
     isInitialized = true;
@@ -182,15 +153,7 @@ void GameEngine::gameEngineTerminate()
         return;
     }
 
-    /*
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
-    */
     glDeleteProgram(programId);
-    /*
-    glDeleteBuffers(1, &vertexbuffer);
-    glDeleteBuffers(1, &colorbuffer);
-    */
     glDeleteVertexArrays(1, &vertexArrayId);
 
     glfwDestroyWindow(window);
@@ -198,6 +161,62 @@ void GameEngine::gameEngineTerminate()
     glfwTerminate();
 
     isInitialized = false;
+}
+
+void GameEngine::runGameLoop()
+{
+    UserInput &input = UserInput::getInstance();
+
+    double prevTime = glfwGetTime();
+    double curTime;
+    double deltaTime;
+    double realFps;
+    double gameFps;
+
+    double secAkkum = 0;
+
+    while (!glfwWindowShouldClose(window))
+    {
+        glfwPollEvents();
+        input.step();
+
+        curTime = glfwGetTime();
+        deltaTime = curTime - prevTime;
+        prevTime = curTime;
+
+        realFps = 1 / deltaTime;
+
+        /*
+        secAkkum += deltaTime;
+        if (secAkkum > 1)
+        {
+            secAkkum -= 1;
+            std::cout << realFps << std::endl;
+
+            if (engine.activeCamera == &camera)
+            {
+                engine.activeCamera = &camera2;
+            }
+            else
+            {
+                engine.activeCamera = &camera;
+            }
+        }
+        */
+        // DebugOutput::printVec(glm::degrees(RotationHelpers::eulerAnglesAlternateWrapping(camera.transform.getEulerAngles())));
+
+        if (deltaTime > (double)1 / 30)
+        {
+            deltaTime = 1 / 30;
+        }
+        gameFps = 1 / deltaTime;
+
+        fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
+        update(deltaTime);
+
+        render();
+    }
+    return;
 }
 
 GameObject &GameEngine::createGameObject()

@@ -34,6 +34,7 @@ public:
 
     int gameEngineInit();
     void gameEngineTerminate();
+    void runGameLoop();
 
     GameObject &createGameObject();
     Camera &createCamera();

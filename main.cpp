@@ -116,58 +116,9 @@ int main(int argc, char *argv[])
     {
         std::cout << "Level loaded successfully" << std::endl;
     }
-
-    double prevTime = glfwGetTime();
-    double curTime;
-    double deltaTime;
-    double realFps;
-    double gameFps;
-
-    double secAkkum = 0;
-
     engine.setCursorLock(true);
 
-    while (!glfwWindowShouldClose(engine.window))
-    {
-        glfwPollEvents();
-        input.step();
-
-        curTime = glfwGetTime();
-        deltaTime = curTime - prevTime;
-        prevTime = curTime;
-
-        realFps = 1 / deltaTime;
-
-        /*
-        secAkkum += deltaTime;
-        if (secAkkum > 1)
-        {
-            secAkkum -= 1;
-            std::cout << realFps << std::endl;
-
-            if (engine.activeCamera == &camera)
-            {
-                engine.activeCamera = &camera2;
-            }
-            else
-            {
-                engine.activeCamera = &camera;
-            }
-        }
-        */
-        // DebugOutput::printVec(glm::degrees(RotationHelpers::eulerAnglesAlternateWrapping(camera.transform.getEulerAngles())));
-
-        if (deltaTime > (double)1 / 30)
-        {
-            deltaTime = 1 / 30;
-        }
-        gameFps = 1 / deltaTime;
-
-        engine.fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
-        engine.update(deltaTime);
-
-        engine.render();
-    }
+    engine.runGameLoop();
 
     engine.gameEngineTerminate();
     return 0;

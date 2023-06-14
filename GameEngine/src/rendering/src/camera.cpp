@@ -44,22 +44,6 @@ void Camera::setRatio(float newRatio)
     return;
 }
 
-/*
-void Camera::draw(const RenderObject &toDraw)
-{
-    glm::mat4 mvp = getProjViewMat() * toDraw.transform.getModelMat(1);
-
-    glUniformMatrix4fv(mvpMatId, 1, GL_FALSE, &mvp[0][0]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
-    glBufferData(GL_ARRAY_BUFFER, toDraw.getVertexBufferSize(), toDraw.getVertexBufferData(), GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, colorBufferId);
-    glBufferData(GL_ARRAY_BUFFER, toDraw.getColorBufferSize(), toDraw.getColorBufferData(), GL_STATIC_DRAW);
-
-    int vertices = toDraw.getVertexBufferSize() / sizeof(GLfloat);
-    glDrawArrays(GL_TRIANGLES, 0, vertices);
-}
-*/
-
 glm::mat4 Camera::getProjViewMat()
 {
     if (projectionMatChanged)
@@ -90,6 +74,6 @@ void Camera::updateViewMat()
 
 void Camera::updateProjectionMat()
 {
-    projectionMat = glm::perspective(glm::radians(fov), ratio, 0.1f, 100.0f);
+    projectionMat = glm::perspective(glm::radians(fov), ratio, 0.1f, 1000.0f);
     projectionMatChanged = false;
 }
