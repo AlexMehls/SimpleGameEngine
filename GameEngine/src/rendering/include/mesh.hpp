@@ -7,7 +7,9 @@
 #include <glad/gl.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <assimp/scene.h>
 
+// Used for organizing the data for the OpenGL buffer
 struct Vertex
 {
     float pos_x;
@@ -67,14 +69,17 @@ private:
         MeshEntry();
         ~MeshEntry();
 
-        void Init(const std::vector<Vertex> &Vertices,
-                  const std::vector<unsigned int> &Indices);
+        void init(const std::vector<Vertex> &vertices,
+                  const std::vector<unsigned int> &indices);
 
-        GLuint VB;
-        GLuint IB;
-        unsigned int NumIndices;
-        unsigned int MaterialIndex;
+        GLuint vertexBuffer;
+        GLuint indexBuffer;
+        unsigned int nIndices;
+        unsigned int materialIndex;
     };
+
+    void loadMeshes(const aiScene *scene);
+    bool loadTextures(const aiScene *scene);
 
     std::string fileName;
 
