@@ -167,54 +167,34 @@ void GameEngine::runGameLoop()
 {
     UserInput &input = UserInput::getInstance();
 
-    double prevTime = glfwGetTime();
-    double curTime;
-    double deltaTime;
-    double realFps;
-    double gameFps;
+    const double fixedDeltaTime = 0.01;
+    const double maxFrameTime = 0.25;
 
-    double secAkkum = 0;
+    double currentTime = glfwGetTime();
+    double accumulator = 0;
 
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
         input.step();
 
-        curTime = glfwGetTime();
-        deltaTime = curTime - prevTime;
-        prevTime = curTime;
+        double newTime = glfwGetTime();
+        double frameTime = newTime - currentTime;
+        frameTime = std::min(frameTime, maxFrameTime);
+        currentTime = newTime;
 
-        realFps = 1 / deltaTime;
+        accumulator += frameTime;
 
-        /*
-        secAkkum += deltaTime;
-        if (secAkkum > 1)
+        while (accumulator >= fixedDeltaTime)
         {
-            secAkkum -= 1;
-            std::cout << realFps << std::endl;
-
-            if (engine.activeCamera == &camera)
-            {
-                engine.activeCamera = &camera2;
-            }
-            else
-            {
-                engine.activeCamera = &camera;
-            }
+            fixedUpdate(fixedDeltaTime);
+            accumulator -= fixedDeltaTime;
         }
-        */
-        // DebugOutput::printVec(glm::degrees(RotationHelpers::eulerAnglesAlternateWrapping(camera.transform.getEulerAngles())));
 
-        if (deltaTime > (double)1 / 30)
-        {
-            deltaTime = 1 / 30;
-        }
-        gameFps = 1 / deltaTime;
+        const double alpha = accumulator / fixedDeltaTime;
 
-        fixedUpdate(deltaTime); // TODO: proper fixedUpdate handling
-        update(deltaTime);
-
-        render();
+        update(frameTime);
+        render(alpha);
     }
     return;
 }
@@ -260,7 +240,7 @@ void GameEngine::fixedUpdate(double deltaTime)
 {
     for (auto &gameObject : gameObjects)
     {
-        gameObject.second->transform.savePreviousState();
+        gameObject.second->saveState();
     }
     for (auto &gameObject : gameObjects)
     {
@@ -269,7 +249,7 @@ void GameEngine::fixedUpdate(double deltaTime)
     destroyQueuedObjects();
     return;
 }
-void GameEngine::render()
+void GameEngine::render(double interpolation)
 {
     float ratio;
     int width, height;
@@ -294,7 +274,7 @@ void GameEngine::render()
                 if (component->type() == "Mesh")
                 {
                     Mesh &toDraw = dynamic_cast<Mesh &>(*component);
-                    toDraw.render(*activeCamera);
+                    toDraw.render(*activeCamera, interpolation);
                 }
             }
         }

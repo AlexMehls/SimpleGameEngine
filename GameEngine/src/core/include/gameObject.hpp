@@ -30,6 +30,7 @@ public:
     // Adds component to this object and takes ownership of pointer
     void addComponent(Component *component);
 
+    void saveState();
     virtual void update(double deltaTime);
     virtual void fixedUpdate(double deltaTime);
 

@@ -19,6 +19,7 @@ public:
     virtual json getLevelParams() const = 0;
     virtual void loadParams(const json &params) = 0;
 
+    virtual void saveState();
     virtual void update(double deltaTime) = 0;
     virtual void fixedUpdate(double deltaTime) = 0;
 

@@ -88,6 +88,16 @@ void GameObject::addComponent(Component *component)
     return;
 }
 
+void GameObject::saveState()
+{
+    transform.savePreviousState();
+    for (auto &component : components)
+    {
+        component->saveState();
+    }
+    return;
+}
+
 void GameObject::update(double deltaTime)
 {
     for (auto &component : components)

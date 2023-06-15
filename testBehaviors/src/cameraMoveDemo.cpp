@@ -1,6 +1,8 @@
 #include "cameraMoveDemo.hpp"
 
-void CameraMoveDemo::update(double deltaTime)
+void CameraMoveDemo::update(double deltaTime) {}
+
+void CameraMoveDemo::fixedUpdate(double deltaTime)
 {
     static int cameraMoveDirection = 1;
     const float cameraMoveSpeed = 1;
@@ -17,5 +19,3 @@ void CameraMoveDemo::update(double deltaTime)
     object->transform.lookAt(glm::vec3(0));
     return;
 }
-
-void CameraMoveDemo::fixedUpdate(double deltaTime) {}

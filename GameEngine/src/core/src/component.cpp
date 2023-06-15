@@ -7,3 +7,5 @@ Component::Component(GameObject *object) : object(object)
 }
 
 Component::~Component() {}
+
+void Component::saveState() {}

@@ -92,6 +92,10 @@ void Mesh::loadParams(const json &params)
     return;
 }
 
+void Mesh::saveState()
+{
+    transform.savePreviousState();
+}
 void Mesh::update(double deltaTime) {}
 void Mesh::fixedUpdate(double deltaTime) {}
 
@@ -117,9 +121,9 @@ bool Mesh::loadMesh()
     return loadTextures(scene);
 }
 
-void Mesh::render(Camera &camera)
+void Mesh::render(Camera &camera, double interpolation)
 {
-    glm::mat4 mvp = camera.getProjViewMat() * transform.getModelMat(1);
+    glm::mat4 mvp = camera.getProjViewMat() * transform.getModelMat(interpolation);
 
     GameEngine &engine = GameEngine::getInstance();
     glUniformMatrix4fv(engine.mvpMatrixId, 1, GL_FALSE, &mvp[0][0]);

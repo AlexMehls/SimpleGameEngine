@@ -45,7 +45,7 @@ public:
     void update(double deltaTime);
     void fixedUpdate(double deltaTime);
 
-    void render();
+    void render(double interpolation);
 
     GameEngine(GameEngine const &) = delete;
     void operator=(GameEngine const &) = delete;

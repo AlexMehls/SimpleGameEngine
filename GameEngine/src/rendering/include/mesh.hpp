@@ -57,10 +57,11 @@ public:
     virtual json getLevelParams() const override;
     virtual void loadParams(const json &params) override;
 
+    virtual void saveState() override;
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
 
-    void render(Camera &camera);
+    void render(Camera &camera, double interpolation);
 
 private:
 #define INVALID_MATERIAL 0xFFFFFFFF
