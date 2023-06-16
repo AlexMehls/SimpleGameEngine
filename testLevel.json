@@ -4,7 +4,8 @@
             "components": [
                 {
                     "parameters": {
-                        "file": "F:\\Development\\SimpleGameEngine\\GameEngine/src/rendering/defaultAssets/testCube3/test_cube.obj"
+                        "file": "testCube3/test_cube.obj",
+                        "folder": "DEFAULT_ASSETS"
                     },
                     "type": "Mesh"
                 }
@@ -25,7 +26,8 @@
                     "components": [
                         {
                             "parameters": {
-                                "file": "F:\\Development\\SimpleGameEngine\\GameEngine/src/rendering/defaultAssets/primitiveObjects/cube/cube.obj"
+                                "file": "primitiveObjects/cube/cube.obj",
+                                "folder": "DEFAULT_ASSETS"
                             },
                             "type": "Mesh"
                         }
@@ -63,7 +65,8 @@
             "components": [
                 {
                     "parameters": {
-                        "file": "F:\\Development\\SimpleGameEngine\\GameEngine/src/rendering/defaultAssets/primitiveObjects/plane/plane.obj"
+                        "file": "primitiveObjects/plane/plane.obj",
+                        "folder": "DEFAULT_ASSETS"
                     },
                     "type": "Mesh"
                 }
@@ -86,7 +89,8 @@
             "components": [
                 {
                     "parameters": {
-                        "file": "F:\\Development\\SimpleGameEngine\\testAssets/GrassPlane/grassPlane.obj"
+                        "file": "GrassPlane/grassPlane.obj",
+                        "folder": "PROJECT_ASSETS"
                     },
                     "type": "Mesh"
                 }

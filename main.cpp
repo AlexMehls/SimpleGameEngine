@@ -51,7 +51,7 @@ void createTestLevel(const std::string &path)
 
     GameObject &testCube = engine.createGameObject();
     Mesh &testCubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", testCube));
-    testCubeMesh.loadParams({{"file", engine.defaultAssetFolder().string() + "/testCube3/test_cube.obj"}});
+    testCubeMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "testCube3/test_cube.obj"}});
     testCube.transform.setPos(glm::vec3(0, 0, 0));
 
     GameObject &cubeContainer = engine.createGameObject();
@@ -62,7 +62,7 @@ void createTestLevel(const std::string &path)
     GameObject &cubeObject = engine.createGameObject();
     cubeObject.setParent(cubeContainer);
     Mesh &cubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", cubeObject));
-    cubeMesh.loadParams({{"file", engine.defaultAssetFolder().string() + "/primitiveObjects/cube/cube.obj"}});
+    cubeMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/cube/cube.obj"}});
     cubeObject.transform.setLocalPos(glm::vec3(2, 0, 0));
     // cubeObject.transform.setPos(glm::vec3(1, 2, 3));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
@@ -72,13 +72,13 @@ void createTestLevel(const std::string &path)
 
     GameObject &planeObject = engine.createGameObject();
     Mesh &planeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", planeObject));
-    planeMesh.loadParams({{"file", engine.defaultAssetFolder().string() + "/primitiveObjects/plane/plane.obj"}});
+    planeMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/plane/plane.obj"}});
     planeObject.transform.setPos(glm::vec3(0, 1, -1.5f));
     planeObject.transform.setScale(glm::vec3(3));
 
     GameObject &grassObj = engine.createGameObject();
     Mesh &grassMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", grassObj));
-    grassMesh.loadParams({{"file", testAssetPath.string() + "/GrassPlane/grassPlane.obj"}});
+    grassMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "GrassPlane/grassPlane.obj"}});
     grassObj.transform.setPos(glm::vec3(0, 0, -2.0f));
 
     Camera &camera = engine.createCamera();
@@ -99,7 +99,6 @@ int main(int argc, char *argv[])
     GameEngine &engine = GameEngine::getInstance();
     engine.gameEngineInit();
 
-    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path();
     std::string testConfigPath = projectFolder.string() + "/testConfig.json";
     std::string testLevelPath = projectFolder.string() + "/testLevel.json";

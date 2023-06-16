@@ -2,6 +2,7 @@
 
 #include "gameEngine.hpp"
 #include "saveFile.hpp"
+#include "fileSystemHelpers.hpp"
 
 #include <iostream>
 #include <filesystem>
@@ -78,6 +79,7 @@ json Mesh::getLevelParams() const
 {
     json params;
     params["file"] = fileName;
+    params["folder"] = folder;
     SaveFile::addTransform(params, transform);
 
     return params;
@@ -86,6 +88,7 @@ json Mesh::getLevelParams() const
 void Mesh::loadParams(const json &params)
 {
     fileName = params["file"];
+    folder = params["folder"];
     transform = SaveFile::loadTransform(params, &(object->transform));
 
     loadMesh();
@@ -103,15 +106,18 @@ bool Mesh::loadMesh()
 {
     clear();
 
+    std::string folderPath = FileSystemHelpers::folderNameToPath(folder);
+    std::string fullPath = folderPath + "/" + fileName;
+
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(fileName,
+    const aiScene *scene = importer.ReadFile(fullPath,
                                              aiProcess_CalcTangentSpace |
                                                  aiProcess_Triangulate |
                                                  aiProcess_JoinIdenticalVertices |
                                                  aiProcess_SortByPType);
     if (scene == nullptr)
     {
-        std::cerr << "Couldn't open scene file " << fileName << std::endl;
+        std::cerr << "Couldn't open scene file " << fullPath << std::endl;
         return false;
     }
     meshEntries.resize(scene->mNumMeshes);
@@ -197,7 +203,9 @@ void Mesh::loadMeshes(const aiScene *scene)
 
 bool Mesh::loadTextures(const aiScene *scene)
 {
-    std::string directory = std::filesystem::path(fileName).remove_filename().string();
+    std::string folderPath = FileSystemHelpers::folderNameToPath(folder);
+    std::string fullPath = folderPath + "/" + fileName;
+    std::string directory = std::filesystem::path(fullPath).remove_filename().string();
 
     bool ret = true;
     for (unsigned int i = 0; i < scene->mNumMaterials; ++i)

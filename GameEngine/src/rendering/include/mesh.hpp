@@ -83,6 +83,7 @@ private:
     bool loadTextures(const aiScene *scene);
 
     std::string fileName;
+    std::string folder;
 
     std::vector<MeshEntry> meshEntries;
     std::vector<Texture *> textures;

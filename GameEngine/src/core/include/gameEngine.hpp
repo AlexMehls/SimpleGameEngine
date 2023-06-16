@@ -40,7 +40,8 @@ public:
     Camera &createCamera();
     void addToDestroyQueue(GameObject &toDestroy);
 
-    const std::filesystem::path &defaultAssetFolder() const;
+    std::filesystem::path defaultAssetFolder() const;
+    std::filesystem::path projectAssetFolder() const;
 
     void update(double deltaTime);
     void fixedUpdate(double deltaTime);
@@ -71,7 +72,7 @@ private:
 
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
-    std::filesystem::path defaultAssetPath;
+    std::filesystem::path projectRootPath;
 
     std::queue<uint64_t> destructionQueue;
 

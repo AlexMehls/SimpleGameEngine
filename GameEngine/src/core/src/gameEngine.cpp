@@ -12,8 +12,7 @@
 GameEngine::GameEngine() : world(IdGenerator::getObjectId(), nullptr)
 {
     // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
-    defaultAssetPath = projectFolder / "GameEngine/src/rendering/defaultAssets";
+    projectRootPath = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
 }
 GameEngine::~GameEngine()
 {
@@ -222,9 +221,13 @@ void GameEngine::addToDestroyQueue(GameObject &toDestroy)
     return;
 }
 
-const std::filesystem::path &GameEngine::defaultAssetFolder() const
+std::filesystem::path GameEngine::defaultAssetFolder() const
 {
-    return defaultAssetPath;
+    return projectRootPath / "GameEngine/src/rendering/defaultAssets";
+}
+std::filesystem::path GameEngine::projectAssetFolder() const
+{
+    return projectRootPath / "testAssets";
 }
 
 void GameEngine::update(double deltaTime)
