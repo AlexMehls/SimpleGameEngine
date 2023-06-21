@@ -1,6 +1,8 @@
 #include "component.hpp"
 
-Component::Component(GameObject *object) : object(object)
+#include "idGenerator.hpp"
+
+Component::Component(GameObject *object) : id(IdGenerator::getObjectId()), object(object)
 {
     assert(object != nullptr);
     object->addComponent(this);

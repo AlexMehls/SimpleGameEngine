@@ -221,6 +221,23 @@ void GameEngine::addToDestroyQueue(GameObject &toDestroy)
     return;
 }
 
+void GameEngine::registerCollider(Collider &collider)
+{
+    colliders.insert(std::make_pair(collider.id, &collider));
+}
+void GameEngine::removeCollider(Collider &collider)
+{
+    colliders.erase(collider.id);
+}
+std::vector<Collider::CollisionInfo> GameEngine::getCollisions(const GameObject &gameObject) const
+{
+    // TODO
+}
+std::vector<Collider::CollisionInfo> GameEngine::getCollisions(const Collider &collider) const
+{
+    // TODO
+}
+
 std::filesystem::path GameEngine::defaultAssetFolder() const
 {
     return projectRootPath / "GameEngine/src/rendering/defaultAssets";
@@ -285,6 +302,18 @@ void GameEngine::render(double interpolation)
     // glFinish();
     glfwSwapBuffers(window);
     // glFinish();
+}
+
+void GameEngine::processCollisions()
+{
+    collisions.clear();
+    collisions.reserve(colliders.size());
+
+    for (auto &entry : colliders)
+    {
+        Collider &collider = *entry.second;
+        // TODO
+    }
 }
 
 void GameEngine::destroyQueuedObjects()

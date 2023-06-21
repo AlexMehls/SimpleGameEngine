@@ -12,6 +12,8 @@ class GameObject;
 class Component
 {
 public:
+    const uint64_t id;
+
     Component(GameObject *object);
     virtual ~Component();
 

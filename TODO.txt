@@ -19,3 +19,6 @@ input / config allow mixed dualAxis (true Axis + Buttons)
 input support more named keys
 
 move "project" to folder
+
+finish colliders
+components stored in map
