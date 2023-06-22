@@ -1,6 +1,7 @@
 #include "collider.hpp"
 
 #include "gameEngine.hpp"
+#include "saveFile.hpp"
 
 Collider::Collider(GameObject *parent) : Component(parent)
 {
@@ -20,10 +21,12 @@ std::string Collider::type() const
 json Collider::getLevelParams() const
 {
     json params;
+    SaveFile::addTransform(params, transform);
     return params;
 }
 void Collider::loadParams(const json &params)
 {
+    transform = SaveFile::loadTransform(params, &(object->transform));
     return;
 }
 

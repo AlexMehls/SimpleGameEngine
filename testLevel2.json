@@ -1,0 +1,80 @@
+{
+    "gameObjects": [
+        {
+            "components": [
+                {
+                    "parameters": {
+                        "file": "testCube3/test_cube.obj",
+                        "folder": "DEFAULT_ASSETS"
+                    },
+                    "type": "Mesh"
+                }
+            ],
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
+                        "file": "GrassPlane/grassPlane.obj",
+                        "folder": "PROJECT_ASSETS"
+                    },
+                    "type": "Mesh"
+                }
+            ],
+            "transform": {
+                "pos": [
+                    0.0,
+                    -0.0,
+                    -2.0
+                ]
+            },
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
+                        "file": "primitiveObjects/sphere/sphere.obj",
+                        "folder": "DEFAULT_ASSETS"
+                    },
+                    "type": "Mesh"
+                }
+            ],
+            "transform": {
+                "pos": [
+                    3.0,
+                    -0.0,
+                    0.0
+                ]
+            },
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
+                        "defaultValues": null
+                    },
+                    "type": "CameraController"
+                }
+            ],
+            "isActive": true,
+            "transform": {
+                "pos": [
+                    0.0,
+                    -5.0,
+                    2.0
+                ],
+                "rot": [
+                    0.9819563627243042,
+                    -0.1891075074672699,
+                    0.0,
+                    0.0
+                ]
+            },
+            "type": "Camera"
+        }
+    ],
+    "type": "GameObject"
+}

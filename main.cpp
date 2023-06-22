@@ -46,8 +46,8 @@ void createTestLevel(const std::string &path)
 {
     GameEngine &engine = GameEngine::getInstance();
 
-    std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-    std::filesystem::path testAssetPath = projectFolder / "testAssets";
+    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
+    // std::filesystem::path testAssetPath = projectFolder / "testAssets";
 
     GameObject &testCube = engine.createGameObject();
     Mesh &testCubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", testCube));
@@ -94,6 +94,33 @@ void createTestLevel(const std::string &path)
     engine.saveLevel(path);
 }
 
+void createTestLevel2(const std::string &path)
+{
+    GameEngine &engine = GameEngine::getInstance();
+
+    GameObject &testCube = engine.createGameObject();
+    Mesh &testCubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", testCube));
+    testCubeMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "testCube3/test_cube.obj"}});
+
+    GameObject &grassObj = engine.createGameObject();
+    Mesh &grassMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", grassObj));
+    grassMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "GrassPlane/grassPlane.obj"}});
+    grassObj.transform.setPos(glm::vec3(0, 0, -2.0f));
+
+    GameObject &sphere = engine.createGameObject();
+    Mesh &sphereMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", sphere));
+    sphereMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    sphere.transform.setPos({3, 0, 0});
+
+    Camera &camera = engine.createCamera();
+    Factory::createBehavior("CameraController", camera);
+    // Factory::createBehavior("CameraMoveDemo", camera);
+    camera.transform.setPos(glm::vec3(0, -5, 2));
+    camera.transform.lookAt(glm::vec3(0));
+
+    engine.saveLevel(path);
+}
+
 int main(int argc, char *argv[])
 {
     GameEngine &engine = GameEngine::getInstance();
@@ -102,16 +129,18 @@ int main(int argc, char *argv[])
     std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path();
     std::string testConfigPath = projectFolder.string() + "/testConfig.json";
     std::string testLevelPath = projectFolder.string() + "/testLevel.json";
+    std::string testLevel2Path = projectFolder.string() + "/testLevel2.json";
 
     // createTestConfig(testConfigPath);
     // createTestLevel(testLevelPath);
+    createTestLevel2(testLevel2Path);
 
     UserInput &input = UserInput::getInstance();
     if (input.loadConfig(testConfigPath))
     {
         std::cout << "Button mapping loaded successfully" << std::endl;
     }
-    if (engine.loadLevel(testLevelPath))
+    if (engine.loadLevel(testLevel2Path))
     {
         std::cout << "Level loaded successfully" << std::endl;
     }

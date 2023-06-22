@@ -10,9 +10,9 @@ class Collider : public Component
 public:
     struct CollisionInfo
     {
-        CollisionInfo(Collider &other) : otherCollider(other) {}
+        CollisionInfo(Collider *other) : otherCollider(other) {}
 
-        Collider &otherCollider;
+        Collider *otherCollider;
         glm::vec3 collisionPoint;
     };
 

@@ -44,7 +44,7 @@ public:
 
     void registerCollider(Collider &collider);
     void removeCollider(Collider &collider);
-    std::vector<Collider::CollisionInfo> getCollisions(const GameObject &gameObject) const;
+    std::vector<Collider::CollisionInfo> getCollisions(GameObject &gameObject) const;
     std::vector<Collider::CollisionInfo> getCollisions(const Collider &collider) const;
 
     std::filesystem::path defaultAssetFolder() const;
@@ -80,7 +80,7 @@ private:
     GameObject world;
     std::map<uint64_t, std::unique_ptr<GameObject>> gameObjects; // switch to unordered_map ?
     std::unordered_map<uint64_t, Collider *> colliders;
-    std::vector<std::vector<Collider *, Collider *>> collisions;
+    std::unordered_map<uint64_t, std::vector<Collider::CollisionInfo>> collisions;
     std::filesystem::path projectRootPath;
 
     std::queue<uint64_t> destructionQueue;

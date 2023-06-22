@@ -6,6 +6,7 @@
 #include "saveFile.hpp"
 #include "factory.hpp"
 #include "userInput.hpp"
+#include "collisionDetection.hpp"
 
 #include <iostream>
 
@@ -224,18 +225,36 @@ void GameEngine::addToDestroyQueue(GameObject &toDestroy)
 void GameEngine::registerCollider(Collider &collider)
 {
     colliders.insert(std::make_pair(collider.id, &collider));
+    return;
 }
 void GameEngine::removeCollider(Collider &collider)
 {
     colliders.erase(collider.id);
+    return;
 }
-std::vector<Collider::CollisionInfo> GameEngine::getCollisions(const GameObject &gameObject) const
+std::vector<Collider::CollisionInfo> GameEngine::getCollisions(GameObject &gameObject) const
 {
-    // TODO
+    std::vector<Collider::CollisionInfo> result;
+    for (auto &component : gameObject.getComponents())
+    {
+        if (component->type() != "Collider")
+        {
+            continue;
+        }
+        Collider &collider = dynamic_cast<Collider &>(*component);
+        auto tmp = getCollisions(collider);
+        result.insert(result.end(), std::make_move_iterator(tmp.begin()), std::make_move_iterator(tmp.end()));
+    }
+    return result;
 }
 std::vector<Collider::CollisionInfo> GameEngine::getCollisions(const Collider &collider) const
 {
-    // TODO
+    std::vector<Collider::CollisionInfo> result;
+    if (collisions.contains(collider.id))
+    {
+        result = collisions.at(collider.id);
+    }
+    return result;
 }
 
 std::filesystem::path GameEngine::defaultAssetFolder() const
@@ -309,11 +328,26 @@ void GameEngine::processCollisions()
     collisions.clear();
     collisions.reserve(colliders.size());
 
+    // Could be optimized:
+    // Collisions between pairs are calculated twice
     for (auto &entry : colliders)
     {
         Collider &collider = *entry.second;
-        // TODO
+        std::vector<Collider::CollisionInfo> tmpCollisions;
+
+        for (auto &entryOther : colliders)
+        {
+            Collider &colliderOther = *entryOther.second;
+            Collider::CollisionInfo info(&colliderOther);
+            // All colliders are assumed to be spheres / spheroids
+            if (CollisionDetection::collisionSpheroids(collider, colliderOther, info))
+            {
+                tmpCollisions.push_back(std::move(info));
+            }
+        }
+        collisions.insert(std::make_pair(collider.id, std::move(tmpCollisions)));
     }
+    return;
 }
 
 void GameEngine::destroyQueuedObjects()
