@@ -84,6 +84,7 @@ private:
     std::filesystem::path projectRootPath;
 
     std::queue<uint64_t> destructionQueue;
+    std::string queuedLoadLevel;
 
     GameEngine();
     ~GameEngine();

@@ -122,6 +122,13 @@ void createTestLevel2(const std::string &path)
     Collider &sphere2Collider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", sphere2));
     Factory::createBehavior("MoveDummy", sphere2);
 
+    GameObject &portal = engine.createGameObject();
+    Mesh &portalMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal));
+    portalMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    portal.transform.setPos({0, 10, 0});
+    Factory::createComponent("Collider", portal);
+    Factory::createBehavior("ContactLevelLoader", portal);
+
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);
     // Factory::createBehavior("CameraMoveDemo", camera);

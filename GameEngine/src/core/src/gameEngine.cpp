@@ -28,7 +28,9 @@ GameEngine &GameEngine::getInstance()
 
 bool GameEngine::loadLevel(const std::string &path)
 {
-    return SaveFile::load(path, world, gameObjects, activeCamera);
+    queuedLoadLevel = path;
+    // return SaveFile::load(path, world, gameObjects, activeCamera);
+    return true;
 }
 bool GameEngine::saveLevel(const std::string &path)
 {
@@ -175,6 +177,12 @@ void GameEngine::runGameLoop()
 
     while (!glfwWindowShouldClose(window))
     {
+        if (queuedLoadLevel != "")
+        {
+            SaveFile::load(queuedLoadLevel, world, gameObjects, activeCamera);
+            queuedLoadLevel = "";
+        }
+
         glfwPollEvents();
         input.step();
 
