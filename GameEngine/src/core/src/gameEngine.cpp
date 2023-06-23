@@ -277,6 +277,7 @@ void GameEngine::update(double deltaTime)
 }
 void GameEngine::fixedUpdate(double deltaTime)
 {
+    processCollisions();
     for (auto &gameObject : gameObjects)
     {
         gameObject.second->saveState();
@@ -338,9 +339,15 @@ void GameEngine::processCollisions()
         for (auto &entryOther : colliders)
         {
             Collider &colliderOther = *entryOther.second;
+
+            if (collider.parent()->id == colliderOther.parent()->id)
+            {
+                continue;
+            }
+
             Collider::CollisionInfo info(&colliderOther);
-            // All colliders are assumed to be spheres / spheroids
-            if (CollisionDetection::collisionSpheroids(collider, colliderOther, info))
+            // All colliders are assumed to be spheres
+            if (CollisionDetection::collisionSpheres(collider, colliderOther, info))
             {
                 tmpCollisions.push_back(std::move(info));
             }

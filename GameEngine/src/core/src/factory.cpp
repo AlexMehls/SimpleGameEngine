@@ -3,6 +3,7 @@
 #include "idGenerator.hpp"
 #include "behaviorLookup.hpp"
 #include "mesh.hpp"
+#include "collider.hpp"
 
 namespace Factory
 {
@@ -32,6 +33,10 @@ namespace Factory
         if (type == "Mesh")
         {
             return new Mesh(&object);
+        }
+        if (type == "Collider")
+        {
+            return new Collider(&object);
         }
         return createBehavior(type, object);
     }

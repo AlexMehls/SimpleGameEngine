@@ -6,6 +6,7 @@
 #include "rotationHelpers.hpp"
 #include "inputConfig.hpp"
 #include "factory.hpp"
+#include "collider.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -111,6 +112,15 @@ void createTestLevel2(const std::string &path)
     Mesh &sphereMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", sphere));
     sphereMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
     sphere.transform.setPos({3, 0, 0});
+    Collider &sphereCollider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", sphere));
+    Factory::createBehavior("CollisionTest", sphere);
+
+    GameObject &sphere2 = engine.createGameObject();
+    Mesh &sphere2Mesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", sphere2));
+    sphere2Mesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    sphere2.transform.setPos({6, 0, 0});
+    Collider &sphere2Collider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", sphere2));
+    Factory::createBehavior("MoveDummy", sphere2);
 
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);
@@ -133,7 +143,7 @@ int main(int argc, char *argv[])
 
     // createTestConfig(testConfigPath);
     // createTestLevel(testLevelPath);
-    createTestLevel2(testLevel2Path);
+    // createTestLevel2(testLevel2Path);
 
     UserInput &input = UserInput::getInstance();
     if (input.loadConfig(testConfigPath))

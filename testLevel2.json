@@ -39,11 +39,50 @@
                         "folder": "DEFAULT_ASSETS"
                     },
                     "type": "Mesh"
+                },
+                {
+                    "parameters": null,
+                    "type": "Collider"
+                },
+                {
+                    "parameters": {
+                        "defaultValues": null
+                    },
+                    "type": "CollisionTest"
                 }
             ],
             "transform": {
                 "pos": [
                     3.0,
+                    -0.0,
+                    0.0
+                ]
+            },
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
+                        "file": "primitiveObjects/sphere/sphere.obj",
+                        "folder": "DEFAULT_ASSETS"
+                    },
+                    "type": "Mesh"
+                },
+                {
+                    "parameters": null,
+                    "type": "Collider"
+                },
+                {
+                    "parameters": {
+                        "defaultValues": null
+                    },
+                    "type": "MoveDummy"
+                }
+            ],
+            "transform": {
+                "pos": [
+                    6.0,
                     -0.0,
                     0.0
                 ]

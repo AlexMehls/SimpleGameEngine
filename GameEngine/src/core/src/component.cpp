@@ -10,4 +10,9 @@ Component::Component(GameObject *object) : id(IdGenerator::getObjectId()), objec
 
 Component::~Component() {}
 
+GameObject *Component::parent()
+{
+    return object;
+}
+
 void Component::saveState() {}

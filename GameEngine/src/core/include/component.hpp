@@ -17,6 +17,7 @@ public:
     Component(GameObject *object);
     virtual ~Component();
 
+    GameObject *parent();
     virtual std::string type() const = 0;
     virtual json getLevelParams() const = 0;
     virtual void loadParams(const json &params) = 0;

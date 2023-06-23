@@ -22,3 +22,6 @@ move "project" to folder
 
 finish colliders
 components stored in map
+mouse speed instead of delta
+behavior parameters
+fix spheroids
