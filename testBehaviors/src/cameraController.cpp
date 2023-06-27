@@ -5,20 +5,14 @@
 
 void CameraController::loadDefaultValues()
 {
+    mouseSpeed = defaultValue("mouseSpeed", 0.0005f);
+    speed = defaultValue("speed", 5);
+    sprintMultiplier = defaultValue("sprint", 4);
 }
 
 void CameraController::update(double deltaTime)
 {
     UserInput &input = UserInput::getInstance();
-
-    const float mouseSpeed = 0.0005f;
-    float speed = 5;
-    float sprintMultiplier = 4;
-
-    // Mouse movement
-    static float pitch = 0;
-    static float yaw = 0;
-
     glm::vec2 mouseInput = input.getActionDualAxis("look");
 
     pitch -= mouseSpeed * mouseInput.y;
@@ -34,9 +28,10 @@ void CameraController::update(double deltaTime)
     object->transform.setLocalEulerAngles(glm::vec3(pitch, yaw, 0));
 
     // Key movement
+    float effectiveSpeed = speed;
     if (input.getAction("sprint"))
     {
-        speed *= sprintMultiplier;
+        effectiveSpeed *= sprintMultiplier;
     }
 
     glm::vec2 moveHorizontal = input.getActionDualAxis("move");
@@ -45,7 +40,7 @@ void CameraController::update(double deltaTime)
 
     moveInput = CoordinateTransform::toGamePos(object->transform.getRot() * CoordinateTransform::toOpenGlPos(moveInput));
     glm::normalize(moveInput);
-    moveInput *= speed * deltaTime;
+    moveInput *= effectiveSpeed * deltaTime;
 
     object->transform.move(moveInput);
     return;

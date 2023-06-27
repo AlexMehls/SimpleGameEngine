@@ -4,13 +4,12 @@
 
 void MoveDummy::loadDefaultValues()
 {
+    speed = defaultValue("speed", 1);
 }
 
 void MoveDummy::update(double deltaTime) {}
 void MoveDummy::fixedUpdate(double deltaTime)
 {
-    const float speed = 1;
-
     UserInput &input = UserInput::getInstance();
     float dx = (int)input.getButton("k") - (int)input.getButton("h");
     float dy = (int)input.getButton("u") - (int)input.getButton("j");

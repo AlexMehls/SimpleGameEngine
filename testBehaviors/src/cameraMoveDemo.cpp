@@ -2,14 +2,12 @@
 
 void CameraMoveDemo::loadDefaultValues()
 {
+    cameraMoveSpeed = defaultValue("speed", 1);
 }
 
 void CameraMoveDemo::update(double deltaTime) {}
 void CameraMoveDemo::fixedUpdate(double deltaTime)
 {
-    static int cameraMoveDirection = 1;
-    const float cameraMoveSpeed = 1;
-
     object->transform.move(glm::vec3(deltaTime * cameraMoveSpeed * cameraMoveDirection, 0, 0));
     if (object->transform.getPos().x >= 5)
     {

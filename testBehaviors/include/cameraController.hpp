@@ -13,6 +13,14 @@ public:
 
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
+
+private:
+    float mouseSpeed;
+    float speed;
+    float sprintMultiplier;
+
+    float pitch = 0;
+    float yaw = 0;
 };
 
 static BehaviorLookup::MappingSetter mappingSetter("CameraController", [](GameObject &object)

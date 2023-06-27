@@ -13,6 +13,9 @@ public:
 
     virtual void update(double deltaTime) override;
     virtual void fixedUpdate(double deltaTime) override;
+
+private:
+    bool colliding = false;
 };
 
 static BehaviorLookup::MappingSetter mappingSetter("CollisionTest", [](GameObject &object)

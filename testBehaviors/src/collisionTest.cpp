@@ -12,7 +12,6 @@ void CollisionTest::update(double deltaTime) {}
 void CollisionTest::fixedUpdate(double deltaTime)
 {
     GameEngine &engine = GameEngine::getInstance();
-    static bool colliding = false;
 
     auto collisions = engine.getCollisions(*object);
     if (collisions.size() > 0 && !colliding)

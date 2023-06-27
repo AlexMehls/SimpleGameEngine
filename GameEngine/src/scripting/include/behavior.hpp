@@ -15,7 +15,7 @@ public:
     {
         if (!defaultValues.contains(valueName))
         {
-            std::cerr << "Unknown default value with name: " << valueName << ", using fallback value" << std::endl;
+            std::cout << "No value for parameter: " << valueName << ", using fallback value" << std::endl;
             return fallback;
         }
         return defaultValues[valueName];
