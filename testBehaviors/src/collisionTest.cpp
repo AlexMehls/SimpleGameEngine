@@ -4,6 +4,10 @@
 #include "debugOutput.hpp"
 #include <iostream>
 
+void CollisionTest::loadDefaultValues()
+{
+}
+
 void CollisionTest::update(double deltaTime) {}
 void CollisionTest::fixedUpdate(double deltaTime)
 {

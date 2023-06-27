@@ -104,7 +104,9 @@
                 },
                 {
                     "parameters": {
-                        "defaultValues": null
+                        "defaultValues": {
+                            "level": "testLevel.json"
+                        }
                     },
                     "type": "ContactLevelLoader"
                 }

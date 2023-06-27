@@ -2,6 +2,10 @@
 
 #include "userInput.hpp"
 
+void MoveDummy::loadDefaultValues()
+{
+}
+
 void MoveDummy::update(double deltaTime) {}
 void MoveDummy::fixedUpdate(double deltaTime)
 {

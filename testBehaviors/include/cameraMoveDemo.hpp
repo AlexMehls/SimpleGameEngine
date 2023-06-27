@@ -8,6 +8,7 @@ class CameraMoveDemo : public Behavior
 public:
     CameraMoveDemo(GameObject *parent) : Behavior(parent) {}
 
+    virtual void loadDefaultValues();
     virtual std::string type() const override { return "CameraMoveDemo"; }
 
     virtual void update(double deltaTime) override;

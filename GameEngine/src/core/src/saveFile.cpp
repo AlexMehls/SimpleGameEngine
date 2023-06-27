@@ -9,7 +9,7 @@ namespace SaveFile
 {
     bool load(const std::string &path, GameObject &world, std::map<uint64_t, std::unique_ptr<GameObject>> &gameObjects, Camera *&activeCamera)
     {
-        if (!std::filesystem::exists(path))
+        if (!std::filesystem::exists(path) || std::filesystem::is_directory(path))
         {
             std::cerr << "Unable to load level: " << path << std::endl;
             return false;

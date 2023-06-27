@@ -82,8 +82,18 @@ void createTestLevel(const std::string &path)
     grassMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "GrassPlane/grassPlane.obj"}});
     grassObj.transform.setPos(glm::vec3(0, 0, -2.0f));
 
+    GameObject &portal = engine.createGameObject();
+    Mesh &portalMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal));
+    portalMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    portal.transform.setPos({0, 10, 0});
+    Factory::createComponent("Collider", portal);
+    Behavior &levelLoader = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal));
+    levelLoader.loadParams({{"defaultValues", {{"level", "testLevel2.json"}}}});
+
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);
+    Collider &cameraCollider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", camera));
+    cameraCollider.transform.setScale(glm::vec3(0.1));
     // Factory::createBehavior("CameraMoveDemo", camera);
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
@@ -127,7 +137,8 @@ void createTestLevel2(const std::string &path)
     portalMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
     portal.transform.setPos({0, 10, 0});
     Factory::createComponent("Collider", portal);
-    Factory::createBehavior("ContactLevelLoader", portal);
+    Behavior &levelLoader = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal));
+    levelLoader.loadParams({{"defaultValues", {{"level", "testLevel.json"}}}});
 
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);

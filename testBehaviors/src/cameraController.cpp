@@ -3,6 +3,10 @@
 #include "userInput.hpp"
 #include "coordinateTransform.hpp"
 
+void CameraController::loadDefaultValues()
+{
+}
+
 void CameraController::update(double deltaTime)
 {
     UserInput &input = UserInput::getInstance();

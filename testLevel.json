@@ -108,9 +108,52 @@
             "components": [
                 {
                     "parameters": {
+                        "file": "primitiveObjects/sphere/sphere.obj",
+                        "folder": "DEFAULT_ASSETS"
+                    },
+                    "type": "Mesh"
+                },
+                {
+                    "parameters": null,
+                    "type": "Collider"
+                },
+                {
+                    "parameters": {
+                        "defaultValues": {
+                            "level": "testLevel2.json"
+                        }
+                    },
+                    "type": "ContactLevelLoader"
+                }
+            ],
+            "transform": {
+                "pos": [
+                    0.0,
+                    10.0,
+                    0.0
+                ]
+            },
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
                         "defaultValues": null
                     },
                     "type": "CameraController"
+                },
+                {
+                    "parameters": {
+                        "transform": {
+                            "scale": [
+                                0.10000000149011612,
+                                0.10000000149011612,
+                                0.10000000149011612
+                            ]
+                        }
+                    },
+                    "type": "Collider"
                 }
             ],
             "isActive": true,

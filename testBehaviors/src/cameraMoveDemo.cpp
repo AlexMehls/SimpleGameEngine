@@ -1,7 +1,10 @@
 #include "cameraMoveDemo.hpp"
 
-void CameraMoveDemo::update(double deltaTime) {}
+void CameraMoveDemo::loadDefaultValues()
+{
+}
 
+void CameraMoveDemo::update(double deltaTime) {}
 void CameraMoveDemo::fixedUpdate(double deltaTime)
 {
     static int cameraMoveDirection = 1;

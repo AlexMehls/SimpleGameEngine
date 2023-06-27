@@ -8,6 +8,7 @@ class MoveDummy : public Behavior
 public:
     MoveDummy(GameObject *parent) : Behavior(parent) {}
 
+    virtual void loadDefaultValues();
     virtual std::string type() const override { return "MoveDummy"; }
 
     virtual void update(double deltaTime) override;

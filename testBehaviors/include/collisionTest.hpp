@@ -8,6 +8,7 @@ class CollisionTest : public Behavior
 public:
     CollisionTest(GameObject *parent) : Behavior(parent) {}
 
+    virtual void loadDefaultValues();
     virtual std::string type() const override { return "CollisionTest"; }
 
     virtual void update(double deltaTime) override;
