@@ -31,7 +31,7 @@ There are 3 main methods that need to be implemented:
 - fixedUpdate: This method is executed in small fixed time steps (usually multiple times per frame).
 
 Usefull classes / methods for scripting:
-- Input::getInstance: Get a reference to the "UserInput" object. Can be used to access pressed buttons, mouse inputs or actions (as defined in the config file).
+- UserInput::getInstance: Get a reference to the "UserInput" object. Can be used to access pressed buttons, mouse inputs or actions (as defined in the config file).
 - GameEngine::getInstance: Get a reference to the "GameEngine" object. Can be used to access most central functionalities (such as level loading, collision detection, object creation / destruction).
 - Transform: Part of every "GameObject" object and some components. Contains all coordinates (position, rotation, scaling). The methods in this class are well documented in the transform.hpp header file in the "physics" subdirectory of the game engine.
 - CoordinateTransform: This namespace contains functions for converting between the "normal" and OpenGL coordinate systems. Be careful with rotations: The quaternions of the glm library use the OpenGL coodinate system.
