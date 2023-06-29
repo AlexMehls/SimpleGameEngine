@@ -26,9 +26,18 @@ CMake is required for the build system. After installing CMake, run CMake using 
 New behavior components should inherit from the "Behavior" class. For examples how to implement a new custom behavior, take a look at the example project scripts. Provided that the script files are in the correct folders, they will be found and compiled automatically when running the build system.
 
 There are 3 main methods that need to be implemented:
-- loadDefaultValues(): Initializes membervariables (with default values that can be specified in the level file).
-- update(double deltaTime): This method is executed once per frame.
-- fixedUpdate(double deltaTime): This method is executed in small fixed time steps (usually multiple times per frame).
+- loadDefaultValues: Initializes membervariables (with default values that can be specified in the level file).
+- update: This method is executed once per frame.
+- fixedUpdate: This method is executed in small fixed time steps (usually multiple times per frame).
+
+Usefull classes / methods for scripting:
+- Input::getInstance: Get a reference to the "UserInput" object. Can be used to access pressed buttons, mouse inputs or actions (as defined in the config file).
+- GameEngine::getInstance: Get a reference to the "GameEngine" object. Can be used to access most central functionalities (such as level loading, collision detection, object creation / destruction).
+- Transform: Part of every "GameObject" object and some components. Contains all coordinates (position, rotation, scaling). The methods in this class are well documented in the transform.hpp header file in the "physics" subdirectory of the game engine.
+- CoordinateTransform: This namespace contains functions for converting between the "normal" and OpenGL coordinate systems. Be careful with rotations: The quaternions of the glm library use the OpenGL coodinate system.
+
+Additional note for scripting:
+Quaternion rotations can be unintuitive. Converting a quaternion to a set of angles may not give expected results (There are several sets of angles for the same rotation). The "RotationHelpers" namespace contains a function to convert the euler angle representation of a quaternion to a more intuitive version.
 
 ## Levels
 Levels are stored as JSON files. They can be created manually or programmatically. For examples take a look at the level files of the example project or the level creation functions in "main.cpp".
