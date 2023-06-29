@@ -18,7 +18,6 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
     if (action == GLFW_PRESS)
     {
         input.keyPressed(scancode);
-        // std::cout << scancode << std::endl;
     }
     else if (action == GLFW_RELEASE)
     {
@@ -36,11 +35,7 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
     return;
 }
 
-void cursor_position_callback(GLFWwindow *window, double xPos, double yPos)
-{
-    // std::cout << "Cursor Pos: " << xPos << ", " << yPos << std::endl;
-    // glfwSetCursorPos(window, 0, 0);
-}
+void cursor_position_callback(GLFWwindow *window, double xPos, double yPos) {}
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
@@ -49,7 +44,6 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
     if (action == GLFW_PRESS)
     {
         input.mousePressed(button);
-        // std::cout << button << std::endl;
         if (GameEngine::getInstance().cursorLocked())
         {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

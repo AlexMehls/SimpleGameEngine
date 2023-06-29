@@ -1,6 +1,5 @@
 support more file types
 color only textures
-skybox / background color
 input support more named keys
 
 components stored in map

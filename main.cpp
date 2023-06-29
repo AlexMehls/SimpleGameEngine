@@ -46,9 +46,9 @@ void createTestConfig(const std::string &path)
 void createTestLevel(const std::string &path)
 {
     GameEngine &engine = GameEngine::getInstance();
+    engine.clearObjects();
 
-    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-    // std::filesystem::path testAssetPath = projectFolder / "testAssets";
+    engine.setBackgroundColor(0.1, 0.1, 0.1);
 
     GameObject &testCube = engine.createGameObject();
     Mesh &testCubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", testCube));
@@ -65,11 +65,7 @@ void createTestLevel(const std::string &path)
     Mesh &cubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", cubeObject));
     cubeMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/cube/cube.obj"}});
     cubeObject.transform.setLocalPos(glm::vec3(2, 0, 0));
-    // cubeObject.transform.setPos(glm::vec3(1, 2, 3));
     cubeObject.transform.setScale(glm::vec3(0.5, 0.5, 1));
-
-    // DebugOutput::printVec(cubeObject.transform.getEulerAngles());
-    // DebugOutput::printVec(cubeObject.transform.getPos());
 
     GameObject &planeObject = engine.createGameObject();
     Mesh &planeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", planeObject));
@@ -108,6 +104,9 @@ void createTestLevel(const std::string &path)
 void createTestLevel2(const std::string &path)
 {
     GameEngine &engine = GameEngine::getInstance();
+    engine.clearObjects();
+
+    engine.setBackgroundColor(0.3, 0.3, 0.3);
 
     GameObject &testCube = engine.createGameObject();
     Mesh &testCubeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", testCube));
@@ -142,7 +141,6 @@ void createTestLevel2(const std::string &path)
 
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);
-    // Factory::createBehavior("CameraMoveDemo", camera);
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 

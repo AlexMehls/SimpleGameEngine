@@ -12,7 +12,6 @@
 
 GameEngine::GameEngine() : world(IdGenerator::getObjectId(), nullptr)
 {
-    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
     projectRootPath = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
 }
 GameEngine::~GameEngine()
@@ -29,7 +28,6 @@ GameEngine &GameEngine::getInstance()
 bool GameEngine::loadLevel(const std::string &path)
 {
     queuedLoadLevel = path;
-    // return SaveFile::load(path, world, gameObjects, activeCamera);
     return true;
 }
 bool GameEngine::saveLevel(const std::string &path)
@@ -50,7 +48,7 @@ void GameEngine::setCursorLock(bool locked)
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 }
-bool GameEngine::cursorLocked()
+bool GameEngine::cursorLocked() const
 {
     return m_cursorLocked;
 }
@@ -73,9 +71,20 @@ void GameEngine::setFullscreen(bool fullscreen)
     }
     return;
 }
-bool GameEngine::fullScreen()
+bool GameEngine::fullScreen() const
 {
     return glfwGetWindowMonitor(window) != NULL;
+}
+
+void GameEngine::setBackgroundColor(GLfloat red, GLfloat green, GLfloat blue)
+{
+    glClearColor(red, green, blue, 0.0f);
+}
+glm::vec3 GameEngine::backgroundColor() const
+{
+    GLfloat data[4];
+    glGetFloatv(GL_COLOR_CLEAR_VALUE, data);
+    return glm::vec3(data[0], data[1], data[2]);
 }
 
 int GameEngine::gameEngineInit()
@@ -115,7 +124,9 @@ int GameEngine::gameEngineInit()
     {
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
     }
+    // Currently unused:
     // glfwSetCursorPosCallback(window, cursor_position_callback);
+
     glfwSetWindowFocusCallback(window, window_focus_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetScrollCallback(window, scroll_callback);
@@ -124,11 +135,11 @@ int GameEngine::gameEngineInit()
     glGenVertexArrays(1, &vertexArrayId);
     glBindVertexArray(vertexArrayId);
 
-    // std::filesystem::path projectFolder = std::filesystem::current_path().parent_path().parent_path();
-    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path().parent_path().parent_path();
-    std::filesystem::path shaderFolder = projectFolder / "GameEngine/src/rendering/shaders";
+    std::filesystem::path shaderFolder = projectRootPath / "GameEngine/src/rendering/shaders";
     std::string vertexShaderPath = shaderFolder.string() + "/TextureVertexShader.vertexshader";
     std::string fragmentShaderPath = shaderFolder.string() + "/TextureFragmentShader.fragmentshader";
+
+    // Currently unused: (Color only shader)
     // std::string vertexShaderPath = shaderFolder.string() + "/SimpleVertexShader.vertexshader";
     // std::string fragmentShaderPath = shaderFolder.string() + "/SimpleFragmentShader.fragmentshader";
 
@@ -139,8 +150,7 @@ int GameEngine::gameEngineInit()
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
 
-    // glClearColor(0.5f, 0.5f, 0.5f, 0.0f); // Background Color
-    glClearColor(0.1f, 0.1f, 0.1f, 0.0f); // Background Color
+    setBackgroundColor(0.1, 0.1, 0.1);
 
     glUseProgram(programId);
 
@@ -227,6 +237,11 @@ void GameEngine::addToDestroyQueue(GameObject &toDestroy)
     // Adds Object to be destroyed to the destruction queue
     // All queued objects are deleted at the end of the next update / fixedUpdate
     destructionQueue.push(toDestroy.id);
+    return;
+}
+void GameEngine::clearObjects()
+{
+    SaveFile::clearLevel(world, gameObjects, activeCamera);
     return;
 }
 
@@ -316,11 +331,8 @@ void GameEngine::render(double interpolation)
     glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Setting a fixed resolution causes stretching if window shape changes
-    // Updating causes lags? and crashes when switching to desktop (if ratio weird)
     activeCamera->setRatio(ratio);
 
-    // TODO: Improve performance
     if (activeCamera != nullptr)
     {
         for (auto &gameObject : gameObjects)
@@ -335,9 +347,7 @@ void GameEngine::render(double interpolation)
             }
         }
     }
-    // glFinish();
     glfwSwapBuffers(window);
-    // glFinish();
 }
 
 void GameEngine::processCollisions()

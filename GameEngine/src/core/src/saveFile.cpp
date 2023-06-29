@@ -1,6 +1,7 @@
 #include "saveFile.hpp"
 
 #include "factory.hpp"
+#include "gameEngine.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -24,7 +25,16 @@ namespace SaveFile
             loadGameObjects(gameObject_json, world, gameObjects, activeCamera);
         }
         loadComponents(level, world);
-        world.transform = loadTransform(level["transform"]);
+        world.transform = loadTransform(level);
+
+        if (level.contains("BG"))
+        {
+            const json &param = level["BG"];
+            if (param.is_array() && param.size() == 3)
+            {
+                GameEngine::getInstance().setBackgroundColor(param[0], param[1], param[2]);
+            }
+        }
 
         return true;
     }
@@ -136,6 +146,8 @@ namespace SaveFile
         json level;
 
         addGameObjects(level, world, activeCamera);
+        glm::vec3 bgColor = GameEngine::getInstance().backgroundColor();
+        level["BG"] = {bgColor.r, bgColor.g, bgColor.b};
 
         std::ofstream f(path);
         f << std::setw(4) << level << std::endl;

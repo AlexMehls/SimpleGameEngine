@@ -30,9 +30,11 @@ public:
     bool saveLevel(const std::string &path);
 
     void setCursorLock(bool locked);
-    bool cursorLocked();
+    bool cursorLocked() const;
     void setFullscreen(bool fullscreen);
-    bool fullScreen();
+    bool fullScreen() const;
+    void setBackgroundColor(GLfloat red, GLfloat green, GLfloat blue);
+    glm::vec3 backgroundColor() const;
 
     int gameEngineInit();
     void gameEngineTerminate();
@@ -41,6 +43,7 @@ public:
     GameObject &createGameObject();
     Camera &createCamera();
     void addToDestroyQueue(GameObject &toDestroy);
+    void clearObjects();
 
     void registerCollider(Collider &collider);
     void removeCollider(Collider &collider);
