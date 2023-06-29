@@ -1,27 +1,7 @@
-gameEngine settings (v-sync, ...)
-
-performance issues with v-sync (in windowed mode)
-mouse controll in fixed updates
-timings not with doubles (int64 instead)
-more complex Transform variable access
-
-default parameters for behaviors
-behaviors as (shared) library
-
-better rendering (direct access to RenderObjects)
-
-assimp as shared lib? / static lib? / fetch content?
 support more file types
 color only textures
 skybox / background color
-
-input / config allow mixed dualAxis (true Axis + Buttons)
 input support more named keys
 
-move "project" to folder
-
-finish colliders
 components stored in map
-mouse speed instead of delta
-behavior parameters
-fix spheroids
+mouse speed instead of delta / mouse controll in fixed updates

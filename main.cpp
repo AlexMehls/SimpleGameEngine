@@ -154,10 +154,9 @@ int main(int argc, char *argv[])
     GameEngine &engine = GameEngine::getInstance();
     engine.gameEngineInit();
 
-    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path();
-    std::string testConfigPath = projectFolder.string() + "/testConfig.json";
-    std::string testLevelPath = projectFolder.string() + "/testLevel.json";
-    std::string testLevel2Path = projectFolder.string() + "/testLevel2.json";
+    std::string testConfigPath = engine.configFolder().string() + "/testConfig.json";
+    std::string testLevelPath = engine.levelFolder().string() + "/testLevel.json";
+    std::string testLevel2Path = engine.levelFolder().string() + "/testLevel2.json";
 
     // createTestConfig(testConfigPath);
     // createTestLevel(testLevelPath);

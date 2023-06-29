@@ -271,7 +271,15 @@ std::filesystem::path GameEngine::defaultAssetFolder() const
 }
 std::filesystem::path GameEngine::projectAssetFolder() const
 {
-    return projectRootPath / "testAssets";
+    return projectRootPath / "Project/assets";
+}
+std::filesystem::path GameEngine::configFolder() const
+{
+    return projectRootPath / "Project/configs";
+}
+std::filesystem::path GameEngine::levelFolder() const
+{
+    return projectRootPath / "Project/levels";
 }
 
 void GameEngine::update(double deltaTime)

@@ -4,9 +4,10 @@
 
 void ContactLevelLoader::loadDefaultValues()
 {
+    GameEngine &engine = GameEngine::getInstance();
+
     std::string level = defaultValue<std::string>("level", "");
-    std::filesystem::path projectFolder = std::filesystem::path(__FILE__).parent_path().parent_path().parent_path();
-    levelPath = projectFolder.string() + "/" + level;
+    levelPath = engine.levelFolder().string() + "/" + level;
 }
 
 void ContactLevelLoader::update(double deltaTime) {}

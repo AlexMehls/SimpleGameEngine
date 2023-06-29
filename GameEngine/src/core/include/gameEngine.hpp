@@ -49,6 +49,8 @@ public:
 
     std::filesystem::path defaultAssetFolder() const;
     std::filesystem::path projectAssetFolder() const;
+    std::filesystem::path configFolder() const;
+    std::filesystem::path levelFolder() const;
 
     void update(double deltaTime);
     void fixedUpdate(double deltaTime);
