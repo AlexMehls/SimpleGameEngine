@@ -8,6 +8,7 @@ void SpinObject::loadDefaultValues()
 void SpinObject::update(double deltaTime) {}
 void SpinObject::fixedUpdate(double deltaTime)
 {
-    object->transform.rotate(glm::vec3(0, speed * deltaTime, 0));
+    rot += speed * deltaTime;
+    object->transform.setLocalEulerAngles(glm::vec3(0, rot, 0));
     return;
 }

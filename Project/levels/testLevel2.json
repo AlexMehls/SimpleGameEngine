@@ -80,7 +80,9 @@
                 },
                 {
                     "parameters": {
-                        "defaultValues": null
+                        "defaultValues": {
+                            "speed": 2
+                        }
                     },
                     "type": "MoveDummy"
                 }

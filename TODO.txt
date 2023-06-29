@@ -3,4 +3,3 @@ color only textures
 input support more named keys
 
 components stored in map
-mouse speed instead of delta / mouse controll in fixed updates

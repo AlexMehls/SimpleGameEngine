@@ -31,8 +31,10 @@ void UserInput::step()
     prevMouseX = mouseX;
     prevMouseY = mouseY;
 
-    mouseScrollX = 0;
-    mouseScrollY = 0;
+    mouseScrollX = mouseScrollX_akkum;
+    mouseScrollY = mouseScrollY_akkum;
+    mouseScrollX_akkum = 0;
+    mouseScrollY_akkum = 0;
 
     return;
 }
@@ -73,8 +75,8 @@ void UserInput::mouseReleased(int button)
 }
 void UserInput::mouseScrolled(double deltaX, double deltaY)
 {
-    mouseScrollX += deltaX;
-    mouseScrollY += deltaY;
+    mouseScrollX_akkum += deltaX;
+    mouseScrollY_akkum += deltaY;
     return;
 }
 

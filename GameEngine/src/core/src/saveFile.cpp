@@ -113,6 +113,10 @@ namespace SaveFile
                 transform.setLocalPos(glm::vec3(param[0], param[1], param[2]));
             }
         }
+        else
+        {
+            transform.setLocalPos(glm::vec3(0));
+        }
         if (transformParams.contains("rot"))
         {
             const json &param = transformParams["rot"];
@@ -121,6 +125,10 @@ namespace SaveFile
                 transform.setLocalRot(glm::quat(param[0], param[1], param[2], param[3]));
             }
         }
+        else
+        {
+            transform.setLocalRot(glm::quat(1, 0, 0, 0));
+        }
         if (transformParams.contains("scale"))
         {
             const json &param = transformParams["scale"];
@@ -128,6 +136,10 @@ namespace SaveFile
             {
                 transform.setLocalScale(glm::vec3(param[0], param[1], param[2]));
             }
+        }
+        else
+        {
+            transform.setLocalScale(glm::vec3(1));
         }
         return transform;
     }

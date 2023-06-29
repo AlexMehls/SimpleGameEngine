@@ -16,6 +16,8 @@ public:
 
 private:
     float speed;
+
+    float rot = 0;
 };
 
 static BehaviorLookup::MappingSetter mappingSetter("SpinObject", [](GameObject &object)

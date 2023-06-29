@@ -94,9 +94,28 @@ void createTestLevel(const std::string &path)
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
 
-    Camera &camera2 = engine.createCamera();
-    camera2.transform.setPos(glm::vec3(0, 10, 2));
-    camera2.transform.lookAt(glm::vec3(0));
+    GameObject &rotator = engine.createGameObject();
+    Behavior &rotate = dynamic_cast<Behavior &>(*Factory::createBehavior("SpinObject", rotator));
+    rotate.loadParams({{"defaultValues", {{"speed", 1}}}});
+    Mesh &rotatorMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", rotator));
+    rotatorMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    rotatorMesh.transform.setScale(glm::vec3(1.5));
+    rotator.transform.setPos({0, 25, 0});
+
+    GameObject &rotator2 = engine.createGameObject();
+    rotator2.setParent(rotator);
+    Behavior &rotate2 = dynamic_cast<Behavior &>(*Factory::createBehavior("SpinObject", rotator2));
+    rotate2.loadParams({{"defaultValues", {{"speed", 2}}}});
+    Mesh &rotator2Mesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", rotator2));
+    rotator2Mesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    rotator2.transform.setLocalPos(glm::vec3(10, 0, 0));
+
+    GameObject &rotator3 = engine.createGameObject();
+    rotator3.setParent(rotator2);
+    Mesh &rotator3Mesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", rotator3));
+    rotator3Mesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    rotator3Mesh.transform.setScale(glm::vec3(0.5));
+    rotator3.transform.setLocalPos(glm::vec3(3, 0, 0));
 
     engine.saveLevel(path);
 }
@@ -129,7 +148,8 @@ void createTestLevel2(const std::string &path)
     sphere2Mesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
     sphere2.transform.setPos({6, 0, 0});
     Collider &sphere2Collider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", sphere2));
-    Factory::createBehavior("MoveDummy", sphere2);
+    Behavior &moveDummy = dynamic_cast<Behavior &>(*Factory::createBehavior("MoveDummy", sphere2));
+    moveDummy.loadParams({{"defaultValues", {{"speed", 2}}}});
 
     GameObject &portal = engine.createGameObject();
     Mesh &portalMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal));
@@ -156,8 +176,9 @@ int main(int argc, char *argv[])
     std::string testLevelPath = engine.levelFolder().string() + "/testLevel.json";
     std::string testLevel2Path = engine.levelFolder().string() + "/testLevel2.json";
 
+    // Uncomment to re-build config/level files
     // createTestConfig(testConfigPath);
-    // createTestLevel(testLevelPath);
+    createTestLevel(testLevelPath);
     // createTestLevel2(testLevel2Path);
 
     UserInput &input = UserInput::getInstance();

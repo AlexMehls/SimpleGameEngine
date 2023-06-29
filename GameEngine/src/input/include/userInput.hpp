@@ -59,6 +59,8 @@ private:
     double mouseDeltaY = 0;
     double mouseScrollX = 0;
     double mouseScrollY = 0;
+    double mouseScrollX_akkum = 0;
+    double mouseScrollY_akkum = 0;
 
     double prevMouseX = 0;
     double prevMouseY = 0;

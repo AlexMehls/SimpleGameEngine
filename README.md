@@ -36,8 +36,9 @@ Usefull classes / methods for scripting:
 - Transform: Part of every "GameObject" object and some components. Contains all coordinates (position, rotation, scaling). The methods in this class are well documented in the transform.hpp header file in the "physics" subdirectory of the game engine.
 - CoordinateTransform: This namespace contains functions for converting between the "normal" and OpenGL coordinate systems. Be careful with rotations: The quaternions of the glm library use the OpenGL coodinate system.
 
-Additional note for scripting:
-Quaternion rotations can be unintuitive. Converting a quaternion to a set of angles may not give expected results (There are several sets of angles for the same rotation). The "RotationHelpers" namespace contains a function to convert the euler angle representation of a quaternion to a more intuitive version.
+Additional notes for scripting:
+- Quaternion rotations can be unintuitive. Converting a quaternion to a set of angles may not give expected results (There are several sets of angles for the same rotation). The "RotationHelpers" namespace contains a function to convert the euler angle representation of a quaternion to a more intuitive version.
+- Mouse position and scroll input should only be called in "update" methods (not "fixedUpdate"). These values are only updated once per frame.
 
 ## Levels
 Levels are stored as JSON files. They can be created manually or programmatically. For examples take a look at the level files of the example project or the level creation functions in "main.cpp".

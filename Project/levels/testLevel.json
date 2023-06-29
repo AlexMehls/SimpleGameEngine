@@ -178,20 +178,95 @@
             "type": "Camera"
         },
         {
+            "components": [
+                {
+                    "parameters": {
+                        "defaultValues": {
+                            "speed": 1
+                        }
+                    },
+                    "type": "SpinObject"
+                },
+                {
+                    "parameters": {
+                        "file": "primitiveObjects/sphere/sphere.obj",
+                        "folder": "DEFAULT_ASSETS",
+                        "transform": {
+                            "scale": [
+                                1.5,
+                                1.5,
+                                1.5
+                            ]
+                        }
+                    },
+                    "type": "Mesh"
+                }
+            ],
+            "gameObjects": [
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "defaultValues": {
+                                    "speed": 2
+                                }
+                            },
+                            "type": "SpinObject"
+                        },
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        }
+                    ],
+                    "gameObjects": [
+                        {
+                            "components": [
+                                {
+                                    "parameters": {
+                                        "file": "primitiveObjects/sphere/sphere.obj",
+                                        "folder": "DEFAULT_ASSETS",
+                                        "transform": {
+                                            "scale": [
+                                                0.5,
+                                                0.5,
+                                                0.5
+                                            ]
+                                        }
+                                    },
+                                    "type": "Mesh"
+                                }
+                            ],
+                            "transform": {
+                                "pos": [
+                                    3.0,
+                                    0.0,
+                                    0.0
+                                ]
+                            },
+                            "type": "GameObject"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ]
+                    },
+                    "type": "GameObject"
+                }
+            ],
             "transform": {
                 "pos": [
                     0.0,
-                    10.0,
-                    2.0
-                ],
-                "rot": [
-                    0.0,
-                    0.0,
-                    0.9951333403587341,
-                    0.0985376164317131
+                    25.0,
+                    0.0
                 ]
             },
-            "type": "Camera"
+            "type": "GameObject"
         }
     ],
     "type": "GameObject"
