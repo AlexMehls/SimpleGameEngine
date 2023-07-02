@@ -202,6 +202,12 @@ void createTestLevel3(const std::string &path)
     planeMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "Water/water.obj"}});
     planeObject.transform.setScale(glm::vec3(1));
 
+    GameObject &monkey = engine.createGameObject();
+    Mesh &monkeyMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", monkey));
+    monkeyMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "BlenderMonkey/monkey.obj"}});
+    monkey.transform.setPos({10, 0, 3});
+    monkey.transform.setEulerAngles({0, -90, 0});
+
     GameObject &portal = engine.createGameObject();
     Mesh &portalMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal));
     portalMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "Portal/sphere.obj"}});
@@ -227,7 +233,8 @@ void createTestLevel3(const std::string &path)
     cameraAnchorMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
     cameraAnchor.transform.setPos({0, 0, 3});
     Factory::createComponent("Collider", cameraAnchor);
-    Factory::createBehavior("CameraController", cameraAnchor);
+    // Factory::createBehavior("CameraController", cameraAnchor);
+    Factory::createBehavior("PlayerController", cameraAnchor);
 
     Camera &camera = engine.createCamera();
     camera.setParent(cameraAnchor);
@@ -250,7 +257,7 @@ int main(int argc, char *argv[])
     // createTestConfig(testConfigPath);
     // createTestLevel(testLevelPath);
     // createTestLevel2(testLevel2Path);
-    createTestLevel3(testLevel3Path);
+    // createTestLevel3(testLevel3Path);
 
     UserInput &input = UserInput::getInstance();
     if (input.loadConfig(testConfigPath))

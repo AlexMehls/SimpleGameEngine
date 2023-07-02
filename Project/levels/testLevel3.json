@@ -21,6 +21,31 @@
             "components": [
                 {
                     "parameters": {
+                        "file": "BlenderMonkey/monkey.obj",
+                        "folder": "PROJECT_ASSETS"
+                    },
+                    "type": "Mesh"
+                }
+            ],
+            "transform": {
+                "pos": [
+                    10.0,
+                    -0.0,
+                    3.0
+                ],
+                "rot": [
+                    0.5253219604492188,
+                    0.0,
+                    -0.8509035110473633,
+                    0.0
+                ]
+            },
+            "type": "GameObject"
+        },
+        {
+            "components": [
+                {
+                    "parameters": {
                         "file": "Portal/sphere.obj",
                         "folder": "PROJECT_ASSETS"
                     },
@@ -405,7 +430,7 @@
                     "parameters": {
                         "defaultValues": null
                     },
-                    "type": "CameraController"
+                    "type": "PlayerController"
                 }
             ],
             "gameObjects": [
