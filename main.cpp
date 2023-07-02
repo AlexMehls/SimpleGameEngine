@@ -159,10 +159,79 @@ void createTestLevel2(const std::string &path)
     Behavior &levelLoader = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal));
     levelLoader.loadParams({{"defaultValues", {{"level", "testLevel.json"}}}});
 
+    GameObject &portal2 = engine.createGameObject();
+    Mesh &portal2Mesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal2));
+    portal2Mesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    portal2.transform.setPos({-10, 0, 0});
+    Factory::createComponent("Collider", portal2);
+    Behavior &levelLoader2 = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal2));
+    levelLoader2.loadParams({{"defaultValues", {{"level", "testLevel3.json"}}}});
+
     Camera &camera = engine.createCamera();
     Factory::createBehavior("CameraController", camera);
+    Collider &cameraCollider = dynamic_cast<Collider &>(*Factory::createComponent("Collider", camera));
+    cameraCollider.transform.setScale(glm::vec3(0.1));
     camera.transform.setPos(glm::vec3(0, -5, 2));
     camera.transform.lookAt(glm::vec3(0));
+
+    engine.saveLevel(path);
+}
+
+void createDestructibleBall(const glm::vec3 &pos)
+{
+    GameEngine &engine = GameEngine::getInstance();
+    GameObject &sphere = engine.createGameObject();
+    Mesh &sphereMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", sphere));
+    sphereMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    sphere.transform.setScale(glm::vec3(0.3));
+    sphere.transform.setPos(pos);
+    Factory::createComponent("Collider", sphere);
+    Factory::createBehavior("ContactDestroyer", sphere);
+    return;
+}
+
+void createTestLevel3(const std::string &path)
+{
+    GameEngine &engine = GameEngine::getInstance();
+    engine.clearObjects();
+
+    engine.setBackgroundColor(0.2, 0.2, 0.2);
+
+    GameObject &planeObject = engine.createGameObject();
+    Mesh &planeMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", planeObject));
+    planeMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "Water/water.obj"}});
+    planeObject.transform.setScale(glm::vec3(1));
+
+    GameObject &portal = engine.createGameObject();
+    Mesh &portalMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", portal));
+    portalMesh.loadParams({{"folder", "PROJECT_ASSETS"}, {"file", "Portal/sphere.obj"}});
+    portal.transform.setPos({0, 10, 3});
+    Factory::createComponent("Collider", portal);
+    Behavior &levelLoader = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal));
+    levelLoader.loadParams({{"defaultValues", {{"level", "testLevel2.json"}}}});
+
+    createDestructibleBall({-10, -4, 3});
+    createDestructibleBall({-10, -2, 3});
+    createDestructibleBall({-10, 0, 3});
+    createDestructibleBall({-10, 2, 3});
+    createDestructibleBall({-10, 4, 3});
+
+    createDestructibleBall({-12, -4, 3});
+    createDestructibleBall({-12, -2, 3});
+    createDestructibleBall({-12, 0, 3});
+    createDestructibleBall({-12, 2, 3});
+    createDestructibleBall({-12, 4, 3});
+
+    GameObject &cameraAnchor = engine.createGameObject();
+    Mesh &cameraAnchorMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", cameraAnchor));
+    cameraAnchorMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
+    cameraAnchor.transform.setPos({0, 0, 3});
+    Factory::createComponent("Collider", cameraAnchor);
+    Factory::createBehavior("CameraController", cameraAnchor);
+
+    Camera &camera = engine.createCamera();
+    camera.setParent(cameraAnchor);
+    camera.transform.setLocalPos(glm::vec3(0, -7, 1));
 
     engine.saveLevel(path);
 }
@@ -175,11 +244,13 @@ int main(int argc, char *argv[])
     std::string testConfigPath = engine.configFolder().string() + "/testConfig.json";
     std::string testLevelPath = engine.levelFolder().string() + "/testLevel.json";
     std::string testLevel2Path = engine.levelFolder().string() + "/testLevel2.json";
+    std::string testLevel3Path = engine.levelFolder().string() + "/testLevel3.json";
 
     // Uncomment to re-build config/level files
     // createTestConfig(testConfigPath);
-    createTestLevel(testLevelPath);
+    // createTestLevel(testLevelPath);
     // createTestLevel2(testLevel2Path);
+    createTestLevel3(testLevel3Path);
 
     UserInput &input = UserInput::getInstance();
     if (input.loadConfig(testConfigPath))
