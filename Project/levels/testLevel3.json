@@ -77,338 +77,358 @@
             "components": [
                 {
                     "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
                         "defaultValues": null
                     },
-                    "type": "ContactDestroyer"
+                    "type": "Spawner"
+                }
+            ],
+            "gameObjects": [
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            5.0,
+                            -4.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            5.0,
+                            -2.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            5.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            5.0,
+                            2.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            5.0,
+                            4.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            3.0,
+                            -4.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            3.0,
+                            -2.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            3.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            3.0,
+                            2.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
+                },
+                {
+                    "components": [
+                        {
+                            "parameters": {
+                                "file": "primitiveObjects/sphere/sphere.obj",
+                                "folder": "DEFAULT_ASSETS"
+                            },
+                            "type": "Mesh"
+                        },
+                        {
+                            "parameters": null,
+                            "type": "Collider"
+                        },
+                        {
+                            "parameters": {
+                                "defaultValues": null
+                            },
+                            "type": "ContactDestroyer"
+                        }
+                    ],
+                    "transform": {
+                        "pos": [
+                            3.0,
+                            4.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    },
+                    "type": "GameObject"
                 }
             ],
             "transform": {
                 "pos": [
-                    -10.0,
-                    -4.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -10.0,
-                    -2.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -10.0,
+                    -15.0,
                     -0.0,
                     3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -10.0,
-                    2.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -10.0,
-                    4.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -12.0,
-                    -4.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -12.0,
-                    -2.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -12.0,
-                    -0.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -12.0,
-                    2.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
-                ]
-            },
-            "type": "GameObject"
-        },
-        {
-            "components": [
-                {
-                    "parameters": {
-                        "file": "primitiveObjects/sphere/sphere.obj",
-                        "folder": "DEFAULT_ASSETS"
-                    },
-                    "type": "Mesh"
-                },
-                {
-                    "parameters": null,
-                    "type": "Collider"
-                },
-                {
-                    "parameters": {
-                        "defaultValues": null
-                    },
-                    "type": "ContactDestroyer"
-                }
-            ],
-            "transform": {
-                "pos": [
-                    -12.0,
-                    4.0,
-                    3.0
-                ],
-                "scale": [
-                    0.30000001192092896,
-                    0.30000001192092896,
-                    0.30000001192092896
                 ]
             },
             "type": "GameObject"

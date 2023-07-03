@@ -7,6 +7,7 @@ Collider::Collider(GameObject *parent) : Component(parent)
 {
     GameEngine &engine = GameEngine::getInstance();
     engine.registerCollider(*this);
+    transform.setParent(object->transform, true);
 }
 Collider::~Collider()
 {

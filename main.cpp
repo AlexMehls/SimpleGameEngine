@@ -177,10 +177,11 @@ void createTestLevel2(const std::string &path)
     engine.saveLevel(path);
 }
 
-void createDestructibleBall(const glm::vec3 &pos)
+void createDestructibleBall(const glm::vec3 &pos, GameObject &parent)
 {
     GameEngine &engine = GameEngine::getInstance();
     GameObject &sphere = engine.createGameObject();
+    sphere.setParent(parent);
     Mesh &sphereMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", sphere));
     sphereMesh.loadParams({{"folder", "DEFAULT_ASSETS"}, {"file", "primitiveObjects/sphere/sphere.obj"}});
     sphere.transform.setScale(glm::vec3(0.3));
@@ -216,17 +217,21 @@ void createTestLevel3(const std::string &path)
     Behavior &levelLoader = dynamic_cast<Behavior &>(*Factory::createBehavior("ContactLevelLoader", portal));
     levelLoader.loadParams({{"defaultValues", {{"level", "testLevel2.json"}}}});
 
-    createDestructibleBall({-10, -4, 3});
-    createDestructibleBall({-10, -2, 3});
-    createDestructibleBall({-10, 0, 3});
-    createDestructibleBall({-10, 2, 3});
-    createDestructibleBall({-10, 4, 3});
+    GameObject &ballContainer = engine.createGameObject();
+    ballContainer.transform.setPos({-15, 0, 3});
+    Factory::createBehavior("Spawner", ballContainer);
 
-    createDestructibleBall({-12, -4, 3});
-    createDestructibleBall({-12, -2, 3});
-    createDestructibleBall({-12, 0, 3});
-    createDestructibleBall({-12, 2, 3});
-    createDestructibleBall({-12, 4, 3});
+    createDestructibleBall({-10, -4, 3}, ballContainer);
+    createDestructibleBall({-10, -2, 3}, ballContainer);
+    createDestructibleBall({-10, 0, 3}, ballContainer);
+    createDestructibleBall({-10, 2, 3}, ballContainer);
+    createDestructibleBall({-10, 4, 3}, ballContainer);
+
+    createDestructibleBall({-12, -4, 3}, ballContainer);
+    createDestructibleBall({-12, -2, 3}, ballContainer);
+    createDestructibleBall({-12, 0, 3}, ballContainer);
+    createDestructibleBall({-12, 2, 3}, ballContainer);
+    createDestructibleBall({-12, 4, 3}, ballContainer);
 
     GameObject &cameraAnchor = engine.createGameObject();
     Mesh &cameraAnchorMesh = dynamic_cast<Mesh &>(*Factory::createComponent("Mesh", cameraAnchor));
